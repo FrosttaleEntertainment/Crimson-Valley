@@ -184,7 +184,7 @@ public class SceneController : Singleton<SceneController>
         {
             case "Desert":
             case "Forest":
-            case "Test_Scene_01":
+            case "MilitaryBase":
                 return true;
 #if UNITY_EDITOR
             case "TestZombieKillMultyplayer":
