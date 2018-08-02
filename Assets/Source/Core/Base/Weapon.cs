@@ -50,9 +50,6 @@ namespace Base
         public bool InputPermission = true;
 
         [SyncVar]
-        public bool m_isShooting;
-
-        [SyncVar]
         private int m_currentAmmo;
 
         [SyncVar]
@@ -212,11 +209,7 @@ namespace Base
         {
             if (m_currentAmmo >= Stats.AmmoCost)
             {
-                if(m_isShooting == false) // Not with boolean, enum for animation state instead
-                {
-                    m_isShooting = true;
-                    RpcPlayAnimation();
-                }
+                m_player.SetShooting(true, Stats.TimeToCooldown);
 
                 //DoFireEffect(); // client call?
                 RpcInstantiateBullet();
@@ -231,15 +224,6 @@ namespace Base
 
             // the IFs failed, so this code is reached and we are indeed out of ammo.
             RpcNoAmmo();
-        }
-
-        [Server]
-        private void LateUpdate()
-        {
-            if (m_isShooting && !Attacking && !Attacking2)
-            {
-                RpcPlayAnimation();
-            }
         }
 
         [ClientRpc]
@@ -266,31 +250,6 @@ namespace Base
                 }
             }
 
-        }
-
-        [ClientRpc]
-        private void RpcPlayAnimation()
-        {
-            var animator = Owner.GetComponent<Animator>();
-
-            if (m_isShooting)
-            {
-                if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
-                {                  
-                    if (animator)
-                    {
-                        animator.SetLayerWeight((int)PlayerAnimatorLayers.ShootingIdleOverride, 1);
-                    }
-                }
-            }
-            else
-            {
-                if (animator)
-                {
-                    animator.SetLayerWeight((int)PlayerAnimatorLayers.ShootingIdleOverride, 0);
-                }
-            }
-            
         }
 
         [ClientRpc]
@@ -333,12 +292,7 @@ namespace Base
                 Stats.CurrentMagazines--;
                 m_currentAmmo = Stats.MagazineSize;
                 Owner.DoWeaponReload();
-
-                var animator = Owner.GetComponent<Animator>();
-                if(animator)
-                {
-                    animator.SetTrigger("isReloading");
-                }
+                m_player.ReloadWeapon();
 
                 if (Stats.ReloadSound != null)
                 {
