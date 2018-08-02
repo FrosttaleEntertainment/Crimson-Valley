@@ -7,6 +7,13 @@ using UnityEngine.Networking;
 
 namespace Base
 {
+    public enum AnimationState
+    {
+        AS_IDLE,
+        AS_RELOADING,
+        AS_SHOOTING
+    }
+
     public class Entity : NetworkBehaviour
     {
         public EntityStats Stats = new EntityStats();
@@ -14,6 +21,9 @@ namespace Base
 
         [SyncVar]
         public LobbyData LobbyData;
+
+        [SyncVar(hook = "OnAnimationState")]
+        public int AnimationState;
 
         public bool IsDead = false;
 
@@ -131,11 +141,11 @@ namespace Base
                     s_localPlayer = this;
                 }
 
-                if(GameController.Instance.IsSinglePlayer())
+                if (GameController.Instance.IsSinglePlayer())
                 {
                     CmdLoadInitialWeapons();
                 }
-                else if(GameController.Instance.IsMultyPlayer())
+                else if (GameController.Instance.IsMultyPlayer())
                 {
                     PlayersCreated++;
 
@@ -144,7 +154,7 @@ namespace Base
                         LobbyManager.s_Singleton.AddEntity(this);
                     }
 
-                    if(isLocalPlayer)
+                    if (isLocalPlayer)
                     {
                         // It is safe to init the chat controller now
                         ChatController.Instance.Init(this);
@@ -167,7 +177,7 @@ namespace Base
         {
             foreach (GameObject boomboom in WeaponListEditor)
             {
-            	CmdCreateNewWeapon(boomboom);
+                CmdCreateNewWeapon(boomboom);
             }
         }
 
@@ -193,6 +203,44 @@ namespace Base
             if (m_currentWeapon != -1)
             {
                 ChangeWeaponToSlotImpl(m_currentWeapon);
+            }
+        }
+
+        [Server]
+        public void SwitchAnimation(AnimationState state)
+        {
+            AnimationState = (int)state;
+        }
+
+        public void OnAnimationState(int state)
+        {
+            AnimationState oldState = (AnimationState)AnimationState;
+            AnimationState newState = (AnimationState)state;
+
+            if (oldState != newState)
+            {
+                switch (newState)
+                {
+                    case Base.AnimationState.AS_SHOOTING:
+                        {
+                            m_animator.SetLayerWeight((int)PlayerAnimatorLayers.ShootingIdleOverride, 1);
+                        }
+                        break;
+                    case Base.AnimationState.AS_IDLE:
+                        {
+                            m_animator.SetLayerWeight((int)PlayerAnimatorLayers.ShootingIdleOverride, 0);
+                        }
+                        break;
+                    case Base.AnimationState.AS_RELOADING:
+                        {
+                            m_animator.SetTrigger("isReloading");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                // finally, switch the animations
+                AnimationState = state;
             }
         }
 
@@ -230,7 +278,7 @@ namespace Base
                 if (!IsDead)
                 {
                     bool shouldThrowGrenade = controls.GetThrowGrenade;
-                    if(shouldThrowGrenade)
+                    if (shouldThrowGrenade)
                     {
                         for (int i = 0; i < WeaponListRuntime.Count; i++)
                         {
@@ -253,7 +301,7 @@ namespace Base
                 }
                 yield return null;
             }
-        
+
         }
 
         public int Armor
@@ -327,7 +375,7 @@ namespace Base
             if (OnAttacked != null) OnAttacked();
             if (OnAttackedAlert != null) OnAttackedAlert(dealer);
         }
-        
+
 
         /// <summary> 
         /// Begins the Subject's death. Subjects can be 'down-but-not-out' for a period of time, then completely die. 
@@ -555,7 +603,7 @@ namespace Base
             get
             {
                 return m_createdPlayers;
-            } 
+            }
             set
             {
                 m_createdPlayers = value;
@@ -614,7 +662,7 @@ namespace Base
         [ClientRpc]
         public void RpcPlayerChangedWeapon(int index)
         {
-            if(m_currentWeapon != index)
+            if (m_currentWeapon != index)
             {
                 ChangeWeaponToSlotImpl(index);
             }

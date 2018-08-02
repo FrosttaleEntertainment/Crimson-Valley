@@ -181,6 +181,11 @@ namespace Base
                 {
                     yield return StartCoroutine(FireRanged());
                 }
+                else
+                {
+                    CmdFireStopped();
+                }
+
                 yield return null;
             }
         }
@@ -205,11 +210,17 @@ namespace Base
         }
 
         [Command]
+        private void CmdFireStopped()
+        {
+            Owner.SwitchAnimation(AnimationState.AS_IDLE);
+        }
+
+        [Command]
         private void CmdFireRange()
         {
             if (m_currentAmmo >= Stats.AmmoCost)
             {
-                m_player.SetShooting(true, Stats.TimeToCooldown);
+                Owner.SwitchAnimation(AnimationState.AS_SHOOTING);
 
                 //DoFireEffect(); // client call?
                 RpcInstantiateBullet();
@@ -292,7 +303,7 @@ namespace Base
                 Stats.CurrentMagazines--;
                 m_currentAmmo = Stats.MagazineSize;
                 Owner.DoWeaponReload();
-                m_player.ReloadWeapon();
+                Owner.SwitchAnimation(AnimationState.AS_RELOADING);
 
                 if (Stats.ReloadSound != null)
                 {

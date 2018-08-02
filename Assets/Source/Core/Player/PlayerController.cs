@@ -38,34 +38,9 @@ namespace Base
         private const string Interact = "Interact";
         private const string DropWeapon = "DropWeapon";
 
-        public void SetShooting(bool state, float cooldown = 0)
-        {
-            if(state == true && Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
-            {
-                m_animator.SetLayerWeight((int)PlayerAnimatorLayers.ShootingIdleOverride, 1);
-                IsShooting = true;
-            } else
-            {
-                EndShooting();
-            }
-        }
-
-        public void ReloadWeapon()
-        {
-            m_animator.SetTrigger("isReloading");
-            EndShooting();
-        }
-
-        private void EndShooting()
-        {
-            m_animator.SetLayerWeight((int)PlayerAnimatorLayers.ShootingIdleOverride, 0);
-            IsShooting = false;
-        }
-
-
         private void Start()
         {
-            if (GameController.Instance.IsMultyPlayer() &&  !isLocalPlayer)
+            if (GameController.Instance.IsMultyPlayer() && !isLocalPlayer)
             {
                 Destroy(this);
                 return;
@@ -107,15 +82,6 @@ namespace Base
 
             Move();
             Aim();
-        }
-
-
-        private void LateUpdate()
-        {
-            if(IsShooting && GetInputFire1 == 0)
-            {
-                EndShooting();
-            }
         }
 
         private void Move()
