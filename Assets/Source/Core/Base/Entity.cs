@@ -233,6 +233,7 @@ namespace Base
                         break;
                     case Base.AnimationState.AS_RELOADING:
                         {
+                            m_animator.SetLayerWeight((int)PlayerAnimatorLayers.ShootingIdleOverride, 0);
                             m_animator.SetTrigger("isReloading");
                         }
                         break;

@@ -220,7 +220,10 @@ namespace Base
         {
             if (m_currentAmmo >= Stats.AmmoCost)
             {
-                Owner.SwitchAnimation(AnimationState.AS_SHOOTING);
+                if(!IsReloading)
+                {
+                    Owner.SwitchAnimation(AnimationState.AS_SHOOTING);
+                }
 
                 //DoFireEffect(); // client call?
                 RpcInstantiateBullet();
