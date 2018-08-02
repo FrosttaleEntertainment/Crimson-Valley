@@ -184,8 +184,6 @@ namespace Base
                 {
                     yield return StartCoroutine(FireRanged());
                 }
-
-                CmdEndFire();
                 yield return null;
             }
         }
@@ -207,16 +205,6 @@ namespace Base
             }
 
             yield return StartCoroutine(NoAmmo());
-        }
-
-        [Command]
-        private void CmdEndFire()
-        {
-            if (m_isShooting == true)
-            {
-                m_isShooting = false;
-                RpcPlayAnimation();
-            }
         }
 
         [Command]
@@ -243,6 +231,15 @@ namespace Base
 
             // the IFs failed, so this code is reached and we are indeed out of ammo.
             RpcNoAmmo();
+        }
+
+        [Server]
+        private void LateUpdate()
+        {
+            if (m_isShooting && !Attacking && !Attacking2)
+            {
+                RpcPlayAnimation();
+            }
         }
 
         [ClientRpc]
@@ -506,8 +503,6 @@ namespace Base
                 {
                     if (m_player == null) yield break;
                     while (m_player.GetInputFire1 > 0) yield return null;
-
-                    Debug.Log("Test");
                 }
             }
         }
