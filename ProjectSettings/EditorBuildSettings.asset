@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Worlds/MilitaryBase.unity
     guid: a800cb7e7e2779d4c94d845fdddefc1c
+  - enabled: 1
+    path: Assets/Scenes/Test/TestZombieKillMultyplayer.unity
+    guid: b9a7b41ce8abdca43826d746b945e819
   m_configObjects: {}

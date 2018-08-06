@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 
 public class EnemySpawner : NetworkBehaviour
 {
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefabs;
     public int numberOfEnemies;
 
     public override void OnStartServer()
@@ -22,7 +22,8 @@ public class EnemySpawner : NetworkBehaviour
                 Random.Range(0, 180),
                 0.0f);
 
-            var enemy = (GameObject)Instantiate(enemyPrefab, spawnPosition, spawnRotation);
+            var type = Random.Range(0, enemyPrefabs.Length);
+            var enemy = (GameObject)Instantiate(enemyPrefabs[type], spawnPosition, spawnRotation);
             NetworkServer.Spawn(enemy);
         }
     }
