@@ -54,11 +54,6 @@ namespace Base
 
             m_camera.GetComponent<CameraControl>().Target = this.gameObject;
 
-            if (m_entity)
-            {
-                EntityRepository.Players.Add(m_entity);
-            }
-
             if(m_animator)
             {
                 m_chest = m_animator.GetBoneTransform(HumanBodyBones.Chest);

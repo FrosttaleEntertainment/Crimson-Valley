@@ -152,6 +152,8 @@ namespace Base
                     if (isServer)
                     {
                         LobbyManager.s_Singleton.AddEntity(this);
+
+                        EntityRepository.Players.Add(this);
                     }
 
                     if (isLocalPlayer)
