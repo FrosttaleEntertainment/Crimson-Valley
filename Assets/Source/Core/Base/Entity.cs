@@ -144,6 +144,8 @@ namespace Base
                 if (GameController.Instance.IsSinglePlayer())
                 {
                     CmdLoadInitialWeapons();
+
+                    EntityRepository.Players.Add(this);
                 }
                 else if (GameController.Instance.IsMultyPlayer())
                 {
@@ -152,10 +154,7 @@ namespace Base
                     if (isServer)
                     {
                         LobbyManager.s_Singleton.AddEntity(this);
-                    }
 
-                    if (GameController.Instance.IsSinglePlayer() || isServer)
-                    {
                         EntityRepository.Players.Add(this);
                     }
 
