@@ -152,7 +152,10 @@ namespace Base
                     if (isServer)
                     {
                         LobbyManager.s_Singleton.AddEntity(this);
+                    }
 
+                    if (GameController.Instance.IsSinglePlayer() || isServer)
+                    {
                         EntityRepository.Players.Add(this);
                     }
 
