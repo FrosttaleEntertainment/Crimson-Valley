@@ -29,6 +29,7 @@ namespace Base
         private List<Entity> m_threatList = new List<Entity>();
 
         private Entity m_target;
+        private TreeOfLife m_treeOfLife;
 
         private NavMeshAgent m_agent;
         private Animator m_animator;
@@ -57,6 +58,13 @@ namespace Base
 
             m_entity.OnAttackedAlert += AlertOnHit;
             m_entity.Stats.MoveSpeed = Random.Range(1f, 2.8f);
+
+            m_treeOfLife = FindObjectOfType<TreeOfLife>();
+
+            if(m_treeOfLife)
+            {
+                m_target = m_treeOfLife.GetComponent<Entity>();
+            }
 
             AgentConfigure();
         }
@@ -141,11 +149,7 @@ namespace Base
         [Server]
         private void Wander()
         {
-            if (m_threatList.Count > 0)
-            {
-                StartChase();
-
-            }
+            StartChase();
         }
 
         [Server]
@@ -194,7 +198,12 @@ namespace Base
         [Server]
         private void RotateTowardsTarget()
         {
-            Vector3 direction = (m_target.transform.position - transform.position).normalized;
+            var vec1 = m_target.transform.position;
+            vec1.y = 0;
+            var vec2 = transform.position;
+            vec2.y = 0;
+            Vector3 direction = (vec1 - vec2).normalized;
+
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * m_agent.angularSpeed);
         }
@@ -242,6 +251,7 @@ namespace Base
                     if(m_target != m_threatList[i])
                     {
                         m_target = m_threatList[i];
+                        break;
                     }
                 }
             }

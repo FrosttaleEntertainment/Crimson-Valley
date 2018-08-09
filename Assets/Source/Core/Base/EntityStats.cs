@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum EntityGroup { Player, Zombie, Other };
+public enum EntityGroup { Player, Zombie, TreeOfLife, Other };
 public enum ArmorType { None, Fat };
 
 [System.Serializable]
