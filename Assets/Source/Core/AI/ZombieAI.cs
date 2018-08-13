@@ -37,8 +37,11 @@ namespace Base
         private Vector3 m_startPos;
 
         private float m_startSpeed = 0.1f;
-        private float m_stopSpeed = 0.01f;
-        private float m_lastSpeed = -1f;
+        private float m_stopSpeed = 0.05f;
+        private float m_lastSpeed = 0f;
+
+        private Vector2 m_smoothDeltaPosition = Vector2.zero;
+        private Vector2 m_velocity = Vector2.zero;
 
 
         //gizmos
@@ -57,7 +60,7 @@ namespace Base
             m_animator      = GetComponent<Animator>();
 
             m_entity.OnAttackedAlert += AlertOnHit;
-            m_entity.Stats.MoveSpeed = Random.Range(1f, 2.8f);
+            m_entity.Stats.MoveSpeed = Random.Range(1.3f, 3f);
 
             m_treeOfLife = FindObjectOfType<TreeOfLife>();
 
