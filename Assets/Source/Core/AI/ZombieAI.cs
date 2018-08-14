@@ -21,6 +21,9 @@ namespace Base
         public LayerMask ThreatMask;
         public float ScanFrequency = 1.0f;
 
+        public Transform LeftHand;
+        public Transform RightHand;
+
 
         private float m_lastScan;
         private float m_lastWander;
@@ -46,6 +49,65 @@ namespace Base
 
         //gizmos
         private static float _editorGizmoSpin;
+
+        [Server]
+        public void HitTarget(string parameters)
+        { 
+            var arguments = parameters.Split('|');
+            var emissionPoint = arguments[0];
+            var hitRange = float.Parse(arguments[1]);
+            List<Entity> targets;
+
+            switch (emissionPoint)
+            {
+                case "left":
+                    targets = FindTargetsToHit(LeftHand, hitRange);
+                    break;
+                case "right":
+                    targets = FindTargetsToHit(RightHand, hitRange);
+                    break;
+                default:
+                    targets = new List<Entity>();
+                    break;
+            }
+
+           if(targets.Count > 0)
+           {
+                DoDamage(targets);
+           }
+        }
+
+        [Server] 
+        private List<Entity> FindTargetsToHit(Transform emissionPoint, float hitRange)
+        {
+            List<Entity> entities = new List<Entity>();
+
+            var playerLayerMask = 1 << 8;
+            Collider[] hitColliders = Physics.OverlapSphere(emissionPoint.position, hitRange, playerLayerMask);
+
+            Debug.Log(hitColliders.Length);
+            foreach (var hit in hitColliders)
+            {
+                var entity = hit.GetComponent<Entity>();
+                if(entity)
+                {
+                    entities.Add(entity);
+                }
+            }
+
+            return entities;
+        }
+
+        [Server]
+        private void DoDamage(List<Entity> targets)
+        {
+            for (int i = 0; i < targets.Count; i++)
+            {
+                targets[i].DoDamage(5, m_entity);
+            }
+        }
+
+
 
 
         [Server]

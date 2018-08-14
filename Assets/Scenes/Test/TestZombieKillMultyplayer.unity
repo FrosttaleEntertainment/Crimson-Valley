@@ -486,6 +486,46 @@ MonoBehaviour:
   Arbiter: {fileID: 1308586469}
   ZoomDuration: 1.25
   ZoomValues: 0a000000080000000600000004000000
+--- !u!1 &1699770247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1699770249}
+  - component: {fileID: 1699770248}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1699770248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1699770247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ba291a65c22744882beb0b10328346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1699770249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1699770247}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 15.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1753094068
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +576,8 @@ MonoBehaviour:
   - {fileID: 1154428994057238, guid: 1fc6772d7b2e03349851f71db133340d, type: 2}
   - {fileID: 1403805622189994, guid: f2c806e48aa80994ab35b562e779e2bf, type: 2}
   - {fileID: 1887230882778728, guid: e76741c9d0867684c86b37a0813aefde, type: 2}
-  numberOfEnemies: 120
+  waveCountPerPlayer: 10
+  wavesPerNight: 3
 --- !u!114 &1753094071
 MonoBehaviour:
   m_ObjectHideFlags: 0

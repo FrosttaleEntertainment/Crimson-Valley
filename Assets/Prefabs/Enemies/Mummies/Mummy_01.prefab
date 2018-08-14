@@ -1464,6 +1464,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   ScanFrequency: 1
+  LeftHand: {fileID: 4139554658685606}
+  RightHand: {fileID: 4761878801007264}
 --- !u!135 &135934217003424764
 SphereCollider:
   m_ObjectHideFlags: 1
