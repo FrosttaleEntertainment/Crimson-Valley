@@ -408,12 +408,6 @@ namespace Base
             //
 
             IsDead = true;
-
-            if (isServer)
-            {
-                StartCoroutine(StaticUtil.DestroyInternal(gameObject, 2f));
-                //NetworkServer.Destroy(gameObject); //StartCoroutine(CrippleAndDie());
-            }
         }
 
 

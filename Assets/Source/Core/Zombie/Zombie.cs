@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Base;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -15,9 +16,20 @@ public class Zombie : Base.Entity
         m_animator = GetComponent<Animator>();
     }
 
+    public void BurnDie()
+    {
+        Die();
+
+        if (isServer)
+        {
+            RpcStartBurnEffect(); // not sure if this is the right place for this
+            StartCoroutine(StaticUtil.DestroyInternal(gameObject, 4f));
+        }
+    }
+
     protected override void Die()
     {
-        base.Die();
+        base.Die();       
 
         RpcActivateDeath();
     }
@@ -28,6 +40,12 @@ public class Zombie : Base.Entity
         m_capsuleCollider.enabled = false;
 
         m_ragdollControl.Activate();
+    }
+
+    [ClientRpc]
+    private void RpcStartBurnEffect()
+    {
+        // burn effect here
     }
 }
 
