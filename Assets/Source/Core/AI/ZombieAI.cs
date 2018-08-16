@@ -40,8 +40,8 @@ namespace Base
         private Vector3 m_startPos;
 
         private float m_startSpeed = 0.1f;
-        private float m_stopSpeed = 0.05f;
-        private float m_lastSpeed = 0f;
+        private float m_stopSpeed = 0.1f;
+        private float m_lastSpeed = 0.1f;
 
         private Vector2 m_smoothDeltaPosition = Vector2.zero;
         private Vector2 m_velocity = Vector2.zero;
@@ -85,7 +85,6 @@ namespace Base
             var playerLayerMask = 1 << 8;
             Collider[] hitColliders = Physics.OverlapSphere(emissionPoint.position, hitRange, playerLayerMask);
 
-            Debug.Log(hitColliders.Length);
             foreach (var hit in hitColliders)
             {
                 var entity = hit.GetComponent<Entity>();
@@ -139,7 +138,7 @@ namespace Base
         {
             if (m_agent && m_entity)
             {
-                m_agent.stoppingDistance    = 0.2f;
+                m_agent.stoppingDistance    = 0;
                 //m_agent.autoBraking         = false;
                 m_agent.angularSpeed        = 100f * m_entity.Stats.TurnSpeed;
                 m_agent.speed               = m_entity.Stats.MoveSpeed;

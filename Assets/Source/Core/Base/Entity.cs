@@ -11,7 +11,9 @@ namespace Base
     {
         AS_IDLE,
         AS_RELOADING,
-        AS_SHOOTING
+        AS_SHOOTING,
+        AS_DEATH,
+        AS_FLINCH
     }
 
     public class Entity : NetworkBehaviour
@@ -239,6 +241,16 @@ namespace Base
                         {
                             m_animator.SetLayerWeight((int)PlayerAnimatorLayers.ShootingIdleOverride, 0);
                             m_animator.SetTrigger("isReloading");
+                        }
+                        break;
+                    case Base.AnimationState.AS_DEATH:
+                        {
+                            m_animator.SetTrigger("die");
+                        }
+                        break;
+                    case Base.AnimationState.AS_FLINCH:
+                        {
+                            m_animator.SetTrigger("flinch");
                         }
                         break;
                     default:

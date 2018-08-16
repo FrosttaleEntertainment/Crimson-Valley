@@ -54,6 +54,9 @@ namespace Base
 
             m_camera.GetComponent<CameraControl>().Target = this.gameObject;
 
+            m_entity.OnDeath += PlayerDeath;
+            m_entity.OnAttacked += PlayerHit;
+
             if(m_animator)
             {
                 m_chest = m_animator.GetBoneTransform(HumanBodyBones.Chest);
@@ -65,6 +68,8 @@ namespace Base
             if (m_entity)
             {
                 EntityRepository.Players.Remove(m_entity);
+                m_entity.OnDeath -= PlayerDeath;
+                m_entity.OnAttacked -= PlayerHit;
             }
         }
 
@@ -172,6 +177,23 @@ namespace Base
         {
             return angle < 0 ? (angle * -1) : (360 - angle);
         }
+
+        [Server]
+        private void PlayerDeath()
+        {
+            m_entity.SwitchAnimation(AnimationState.AS_DEATH);
+        }
+
+        [Server]
+        private void PlayerHit()
+        {
+            if(m_entity.IsDead)
+            {
+                return;
+            }
+            m_entity.SwitchAnimation(AnimationState.AS_FLINCH);
+        }
+
 
 
         public float GetInputFire1 { get { return Input.GetAxis(Fire1); } }
