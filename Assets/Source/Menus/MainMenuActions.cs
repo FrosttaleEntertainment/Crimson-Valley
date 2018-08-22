@@ -20,14 +20,14 @@ public class MainMenuActions : MonoBehaviour {
     {
         GameController.Instance.SetSinglePlayer();
 
-        SceneController.Instance.LoadLevelSelectionMenu();
+        SceneController.Instance.LoadCharacterlSelectionMenu();
     }
 
     public void StartMultyplayer()
     {
         GameController.Instance.SetMultyPlayer();
 
-        SceneController.Instance.LoadLevelSelectionMenu();
+        SceneController.Instance.LoadLobby();
     }
 
     public void OpenCustomerCare()

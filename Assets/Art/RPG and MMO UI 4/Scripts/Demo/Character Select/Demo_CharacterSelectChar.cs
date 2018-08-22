@@ -27,9 +27,9 @@ public class Demo_CharacterSelectChar : MonoBehaviour {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (Demo_CharacterSelectMgr.instance != null)
+        if (CharacterSelectMgr.instance != null)
         {
-            Demo_CharacterSelectMgr.instance.SelectCharacter(this);
+            CharacterSelectMgr.instance.SelectCharacter(this);
         }
     }
 }

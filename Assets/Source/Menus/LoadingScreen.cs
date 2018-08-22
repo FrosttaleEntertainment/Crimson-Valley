@@ -10,18 +10,6 @@ public class LoadingScreen : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-	
-    public bool SetLoadingScreenBackground(string level)
-    {
-        if(Background == null)
-        {
-            return false;
-        }
-
-        //TODO Set desired image from config
-
-        return true;
-    }
 
     public bool Show()
     {

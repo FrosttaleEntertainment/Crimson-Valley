@@ -11,9 +11,10 @@ public class SceneController : Singleton<SceneController>
 {
     public const string LEVEL_LOADING_SCENE_ID = "LevelLoadinScreen";
     public const string LOBBY_SCENE_ID = "NetworkLobby";
-    public const string LEVEL_SELECTION_SCENE_ID = "LevelSelectionMenu";
+    public const string CHARACTER_SELECTION_SCENE_ID = "CharacterSelectionMenu";
     public const string CHAT_LAYOUT_SCENE_ID = "ChatLayout";
     public const string HUD_SCENE_ID = "HudOverlay";
+    public const string DESERT_SCENE_ID = "Desert";
 
     void OnEnable()
     {
@@ -26,23 +27,21 @@ public class SceneController : Singleton<SceneController>
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public bool StartLevel(string level)
-    {
-        GameController.Instance.Scene = level;
-
+    public bool OnCharacterSelected()
+    {    
         bool isSinglePlayer = GameController.Instance.IsSinglePlayer();
-
+    
         if (isSinglePlayer)
         {
-            MenuController.Instance.PrepareLoading(level, true);
-
-            LoadScene(level, LoadSceneMode.Single, true);
+            MenuController.Instance.PrepareLoading(true);
+    
+            LoadScene(DESERT_SCENE_ID, LoadSceneMode.Single, true);
         }
         else
         {
             return LoadLobby();
         }
-
+    
         return true;
     }
 
@@ -58,9 +57,9 @@ public class SceneController : Singleton<SceneController>
         return true;
     }
 
-    public bool LoadLevelSelectionMenu()
+    public bool LoadCharacterlSelectionMenu()
     {
-        LoadScene(LEVEL_SELECTION_SCENE_ID, LoadSceneMode.Single, true); //async
+        LoadScene(CHARACTER_SELECTION_SCENE_ID, LoadSceneMode.Single, true); //async
         return true;
     }
 
@@ -161,7 +160,7 @@ public class SceneController : Singleton<SceneController>
             return;
         }
 
-        if(scene.name == LEVEL_SELECTION_SCENE_ID)
+        if(scene.name == CHARACTER_SELECTION_SCENE_ID)
         {
             if(GameController.Instance.IsSinglePlayer())
             {
@@ -183,8 +182,6 @@ public class SceneController : Singleton<SceneController>
         switch (scene.name)
         {
             case "Desert":
-            case "Forest":
-            case "MilitaryBase":
                 return true;
 #if UNITY_EDITOR
             case "TestZombieKillMultyplayer":

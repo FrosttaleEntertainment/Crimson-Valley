@@ -29,12 +29,10 @@ public class MenuController : Singleton<MenuController>
         Debug.Assert(LoadingScreen, "LoadingScreen not found on this root object");
     }
 
-    public void PrepareLoading(string level, bool autoShow = false)
+    public void PrepareLoading(bool autoShow = false)
     {
         if (LoadingScreen)
         {
-            LoadingScreen.SetLoadingScreenBackground(level);
-
             if(autoShow)
             {
                 ShowLoading();
