@@ -53,7 +53,7 @@ public class SceneController : Singleton<SceneController>
 
     public bool StartGame()
     {
-        LoadScene(1, LoadSceneMode.Single, false); //sync
+        LoadScene(0, LoadSceneMode.Single, false); //sync
         return true;
     }
 

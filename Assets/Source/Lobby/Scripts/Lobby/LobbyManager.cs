@@ -66,14 +66,14 @@ namespace Prototype.NetworkLobby
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
             currentPanel = mainMenuPanel;
 
-            backButton.gameObject.SetActive(false);
+            //backButton.gameObject.SetActive(false);
             GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
 
             SetServerInfo("Offline", "None");
 
-            playScene = GameController.Instance.Scene;
+            //playScene = GameController.Instance.Scene;
 
             // set loading background since we know the level
             MenuController.Instance.PrepareLoading();
@@ -166,11 +166,11 @@ namespace Prototype.NetworkLobby
 
             if (currentPanel != mainMenuPanel)
             {
-                backButton.gameObject.SetActive(true);
+                //backButton.gameObject.SetActive(true);
             }
             else
             {
-                backButton.gameObject.SetActive(false);
+                //backButton.gameObject.SetActive(false);
                 SetServerInfo("Offline", "None");
                 _isMatchmaking = false;
 
@@ -186,8 +186,8 @@ namespace Prototype.NetworkLobby
 
         public void SetServerInfo(string status, string host)
         {
-            statusInfo.text = status;
-            hostInfo.text = host;
+            //statusInfo.text = status;
+            //hostInfo.text = host;
         }
 
 
@@ -195,8 +195,11 @@ namespace Prototype.NetworkLobby
         public BackButtonDelegate backDelegate;
         public void GoBackButton()
         {
-            backDelegate();
-			topPanel.isInGame = false;
+            if(backDelegate != null)
+            {
+                backDelegate();
+            }
+			//topPanel.isInGame = false;
         }
 
         // ----------------- Server management
@@ -213,7 +216,7 @@ namespace Prototype.NetworkLobby
 
         public void SimpleBackClbk()
         {
-            ChangeTo(mainMenuPanel);
+            SceneController.Instance.StartGame();
         }
                  
         public void StopHostClbk()

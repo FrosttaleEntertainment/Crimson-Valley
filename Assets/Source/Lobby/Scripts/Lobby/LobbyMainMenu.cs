@@ -18,10 +18,12 @@ namespace Prototype.NetworkLobby
 
         public void OnEnable()
         {
-            lobbyManager.topPanel.ToggleVisibility(true);
+            //lobbyManager.topPanel.ToggleVisibility(true);
 
             ipInput.onEndEdit.RemoveAllListeners();
             ipInput.onEndEdit.AddListener(onEndEditIP);
+
+            lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
 
             matchNameInput.onEndEdit.RemoveAllListeners();
             matchNameInput.onEndEdit.AddListener(onEndEditGameName);
@@ -73,11 +75,14 @@ namespace Prototype.NetworkLobby
             lobbyManager.SetServerInfo("Matchmaker Host", lobbyManager.matchHost);
         }
 
-        public void OnClickOpenServerList()
+        public void OnClickOpenServerList(bool isLan)
         {
-            lobbyManager.StartMatchMaker();
-            lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
-            lobbyManager.ChangeTo(lobbyServerList);
+            if(isLan)
+            {
+                lobbyManager.StartMatchMaker();
+                lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
+                //lobbyManager.ChangeTo(lobbyServerList);
+            }
         }
 
         void onEndEditIP(string text)
