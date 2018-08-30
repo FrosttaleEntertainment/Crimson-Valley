@@ -31,7 +31,7 @@ namespace Prototype.NetworkLobby
 
             noServerFound.SetActive(false);
 
-            RequestPage(0);
+            StartCoroutine(PeriodicalPageRefresh());
         }
 
 		public void OnGUIMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matches)
@@ -41,6 +41,11 @@ namespace Prototype.NetworkLobby
                 if (currentPage == 0)
                 {
                     noServerFound.SetActive(true);
+
+                    foreach (Transform t in serverListRect)
+                    {
+                        Destroy(t.gameObject);
+                    }
                 }
 
                 currentPage = previousPage;
@@ -78,10 +83,26 @@ namespace Prototype.NetworkLobby
             RequestPage(newPage);
         }
 
+        IEnumerator PeriodicalPageRefresh()
+        {
+            while (this.enabled)
+            {
+                RequestPage(0);
+                yield return new WaitForSeconds(5.0f);
+            }
+        }
+
         public void RequestPage(int page)
         {
             previousPage = currentPage;
             currentPage = page;
+            
+            if(lobbyManager.matchMaker == null)
+            {
+                lobbyManager.StartMatchMaker();
+                lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
+            }
+
 			lobbyManager.matchMaker.ListMatches(page, 6, "", true, 0, 0, OnGUIMatchList);
 		}
     }
