@@ -33,10 +33,10 @@ namespace Prototype.NetworkLobby
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
-        static Color JoinColor = new Color(255.0f/255.0f, 0.0f, 101.0f/255.0f,1.0f);
-        static Color NotReadyColor = new Color(34.0f / 255.0f, 44 / 255.0f, 55.0f / 255.0f, 1.0f);
-        static Color ReadyColor = new Color(0.0f, 204.0f / 255.0f, 204.0f / 255.0f, 1.0f);
-        static Color TransparentColor = new Color(0, 0, 0, 0);
+        //static Color JoinColor = new Color(255.0f/255.0f, 0.0f, 101.0f/255.0f,1.0f);
+        //static Color NotReadyColor = new Color(34.0f / 255.0f, 44 / 255.0f, 55.0f / 255.0f, 1.0f);
+        //static Color ReadyColor = new Color(0.0f, 204.0f / 255.0f, 204.0f / 255.0f, 1.0f);
+        //static Color TransparentColor = new Color(0, 0, 0, 0);
 
         //static Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         //static Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
@@ -71,7 +71,7 @@ namespace Prototype.NetworkLobby
             base.OnStartAuthority();
 
             //if we return from a game, color of text can still be the one for "Ready"
-            readyButton.transform.GetChild(0).GetComponent<Text>().color = Color.white;
+            readyButton.transform.GetComponentInChildren<Text>().color = Color.white;
 
            SetupLocalPlayer();
         }
@@ -91,9 +91,9 @@ namespace Prototype.NetworkLobby
             nameInput.interactable = false;
             removePlayerButton.interactable = NetworkServer.active;
 
-            ChangeReadyButtonColor(NotReadyColor);
+            //ChangeReadyButtonColor(NotReadyColor);
 
-            readyButton.transform.GetChild(0).GetComponent<Text>().text = "...";
+            readyButton.transform.GetComponentInChildren<Text>().text = "...";
             readyButton.interactable = false;
 
             OnClientReady(false);
@@ -110,9 +110,9 @@ namespace Prototype.NetworkLobby
             if (playerColor == Color.white)
                 CmdColorChange();
 
-            ChangeReadyButtonColor(JoinColor);
+            //ChangeReadyButtonColor(JoinColor);
 
-            readyButton.transform.GetChild(0).GetComponent<Text>().text = "JOIN";
+            readyButton.transform.GetComponentInChildren<Text>().text = "JOIN";
             readyButton.interactable = true;
 
             //have to use child count of player prefab already setup as "this.slot" is not set yet
@@ -154,22 +154,22 @@ namespace Prototype.NetworkLobby
         {
             if (readyState)
             {
-                ChangeReadyButtonColor(TransparentColor);
+                //ChangeReadyButtonColor(TransparentColor);
 
-                Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
+                Text textComponent = readyButton.transform.GetComponentInChildren<Text>();
                 textComponent.text = "READY";
-                textComponent.color = ReadyColor;
+                //textComponent.color = ReadyColor;
                 readyButton.interactable = false;
                 colorButton.interactable = false;
                 nameInput.interactable = false;
             }
             else
             {
-                ChangeReadyButtonColor(isLocalPlayer ? JoinColor : NotReadyColor);
+                //ChangeReadyButtonColor(isLocalPlayer ? JoinColor : NotReadyColor);
 
-                Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
+                Text textComponent = readyButton.transform.GetComponentInChildren<Text>();
                 textComponent.text = isLocalPlayer ? "JOIN" : "...";
-                textComponent.color = Color.white;
+                //textComponent.color = Color.white;
                 readyButton.interactable = isLocalPlayer;
                 colorButton.interactable = isLocalPlayer;
                 nameInput.interactable = isLocalPlayer;

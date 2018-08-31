@@ -135,8 +135,11 @@ namespace Prototype.NetworkLobby
                     ChangeTo(mainMenuPanel);
                 }
 
-                topPanel.ToggleVisibility(true);
-                topPanel.isInGame = false;
+                if(topPanel)
+                {
+                    topPanel.ToggleVisibility(true);
+                    topPanel.isInGame = false;
+                }
             }
             else
             {
@@ -145,8 +148,12 @@ namespace Prototype.NetworkLobby
                 Destroy(GameObject.Find("MainMenuUI(Clone)"));
 
                 //backDelegate = StopGameClbk;
-                topPanel.isInGame = true;
-                topPanel.ToggleVisibility(false);
+
+                if(topPanel)
+                {
+                    topPanel.isInGame = true;
+                    topPanel.ToggleVisibility(false);
+                }
             }
         }
 
