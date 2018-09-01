@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -5291,7 +5291,7 @@ MonoBehaviour:
     m_LineSpacing: 1.1
   m_Text: 'This is a direct play server, it is not listed in "List servers"
 
-    Other players have to connect using your IP address'
+    Other players have to connect using your IP address {0}'
 --- !u!222 &1033291903
 CanvasRenderer:
   m_ObjectHideFlags: 0

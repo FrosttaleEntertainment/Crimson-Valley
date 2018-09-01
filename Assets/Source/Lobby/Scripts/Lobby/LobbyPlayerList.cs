@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Prototype.NetworkLobby
 {
@@ -26,7 +29,27 @@ namespace Prototype.NetworkLobby
         public void DisplayDirectServerWarning(bool enabled)
         {
             if(warningDirectPlayServer != null)
+            {
+                var ipAdress = LocalIPAddress();
+                warningDirectPlayServer.GetComponentInChildren<Text>().text = string.Format(warningDirectPlayServer.GetComponentInChildren<Text>().text, ipAdress);
                 warningDirectPlayServer.SetActive(enabled);
+            }
+        }
+
+        public string LocalIPAddress()
+        {
+            IPHostEntry host;
+            string localIP = "";
+            host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    localIP = ip.ToString();
+                    break;
+                }
+            }
+            return localIP;
         }
 
         void Update()
