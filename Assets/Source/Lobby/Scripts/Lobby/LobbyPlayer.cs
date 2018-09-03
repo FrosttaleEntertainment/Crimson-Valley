@@ -21,8 +21,8 @@ namespace Prototype.NetworkLobby
         public Button waitingPlayerButton;
         public Button removePlayerButton;
 
-        //public GameObject localIcone;
-        // public GameObject remoteIcone;
+        public GameObject localIcone;
+        public GameObject remoteIcone;
 
         //OnMyName function will be invoked on clients when server change the value of playerName
         [SyncVar(hook = "OnMyName")]
@@ -93,7 +93,7 @@ namespace Prototype.NetworkLobby
 
             //ChangeReadyButtonColor(NotReadyColor);
 
-            readyButton.transform.GetComponentInChildren<Text>().text = "waiting for player...";
+            readyButton.transform.GetComponentInChildren<Text>().text = "...";
             readyButton.interactable = false;
 
             OnClientReady(false);
@@ -102,8 +102,8 @@ namespace Prototype.NetworkLobby
         void SetupLocalPlayer()
         {
             nameInput.interactable = true;
-            //remoteIcone.gameObject.SetActive(false);
-            //localIcone.gameObject.SetActive(true);
+            remoteIcone.gameObject.SetActive(false);
+            localIcone.gameObject.SetActive(true);
 
             CheckRemoveButton();
 
@@ -112,7 +112,7 @@ namespace Prototype.NetworkLobby
 
             //ChangeReadyButtonColor(JoinColor);
 
-            readyButton.transform.GetComponentInChildren<Text>().text = "READY";
+            readyButton.transform.GetComponentInChildren<Text>().text = "JOIN";
             readyButton.interactable = true;
 
             //have to use child count of player prefab already setup as "this.slot" is not set yet
