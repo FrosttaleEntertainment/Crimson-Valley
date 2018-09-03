@@ -18,11 +18,12 @@ namespace Prototype.NetworkLobby
         public Button colorButton;
         public InputField nameInput;
         public Button readyButton;
+        public Button readyButtonOrange;
         public Button waitingPlayerButton;
         public Button removePlayerButton;
 
-        public GameObject localIcone;
-        public GameObject remoteIcone;
+        //public GameObject localIcone;
+        //public GameObject remoteIcone;
 
         //OnMyName function will be invoked on clients when server change the value of playerName
         [SyncVar(hook = "OnMyName")]
@@ -89,12 +90,19 @@ namespace Prototype.NetworkLobby
         void SetupOtherPlayer()
         {
             nameInput.interactable = false;
-            removePlayerButton.interactable = NetworkServer.active;
+            removePlayerButton.gameObject.SetActive(NetworkServer.active);
 
             //ChangeReadyButtonColor(NotReadyColor);
+            if (readyButton.IsActive())
+            {
+                readyButton.transform.GetChild(0).GetComponent<Image>().color = Color.clear;
+                readyButton.transform.GetComponentInChildren<Text>().text = "waiting...";
+                readyButton.interactable = false;
+                readyButton.gameObject.SetActive(true);
 
-            readyButton.transform.GetComponentInChildren<Text>().text = "...";
-            readyButton.interactable = false;
+                readyButtonOrange.gameObject.SetActive(false);
+                readyButtonOrange.interactable = false;
+            }
 
             OnClientReady(false);
         }
@@ -102,18 +110,24 @@ namespace Prototype.NetworkLobby
         void SetupLocalPlayer()
         {
             nameInput.interactable = true;
-            remoteIcone.gameObject.SetActive(false);
-            localIcone.gameObject.SetActive(true);
+            //remoteIcone.gameObject.SetActive(false);
+            //localIcone.gameObject.SetActive(true);
 
             CheckRemoveButton();
 
             if (playerColor == Color.white)
                 CmdColorChange();
 
+            readyButtonOrange.transform.GetComponentInChildren<Text>().text = "READY";
             //ChangeReadyButtonColor(JoinColor);
+            if (readyButton.IsActive())
+            {
+                readyButtonOrange.gameObject.SetActive(true);
+                readyButtonOrange.transform.GetComponentInChildren<Text>().text = "READY";
+                readyButtonOrange.interactable = true;
 
-            readyButton.transform.GetComponentInChildren<Text>().text = "JOIN";
-            readyButton.interactable = true;
+                readyButton.gameObject.SetActive(false);
+            }
 
             //have to use child count of player prefab already setup as "this.slot" is not set yet
             if (playerName == "")
@@ -129,8 +143,8 @@ namespace Prototype.NetworkLobby
             colorButton.onClick.RemoveAllListeners();
             colorButton.onClick.AddListener(OnColorClicked);
 
-            readyButton.onClick.RemoveAllListeners();
-            readyButton.onClick.AddListener(OnReadyClicked);
+            readyButtonOrange.onClick.RemoveAllListeners();
+            readyButtonOrange.onClick.AddListener(OnReadyClicked);
 
             //when OnClientEnterLobby is called, the loval PlayerController is not yet created, so we need to redo that here to disable
             //the add button if we reach maxLocalPlayer. We pass 0, as it was already counted on OnClientEnterLobby
@@ -147,17 +161,32 @@ namespace Prototype.NetworkLobby
             foreach (PlayerController p in ClientScene.localPlayers)
                 localPlayerCount += (p == null || p.playerControllerId == -1) ? 0 : 1;
 
-            removePlayerButton.interactable = localPlayerCount > 1;
+            removePlayerButton.gameObject.SetActive(localPlayerCount > 1);
         }
 
         public override void OnClientReady(bool readyState)
         {
+            if (isLocalPlayer)
+            {
+                readyButton.gameObject.SetActive(true);
+                readyButton.transform.GetComponentInChildren<Text>().text = "READY";
+                readyButton.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+                readyButton.interactable = true;
+
+                readyButtonOrange.gameObject.SetActive(false);
+            }
+            else
+            {
+                readyButton.transform.GetChild(0).GetComponent<Image>().color = Color.clear;
+            }
+
             if (readyState)
             {
                 //ChangeReadyButtonColor(TransparentColor);
 
                 Text textComponent = readyButton.transform.GetComponentInChildren<Text>();
                 textComponent.text = "READY";
+                readyButton.transform.GetChild(0).GetComponent<Image>().color = Color.white;
                 //textComponent.color = ReadyColor;
                 readyButton.interactable = false;
                 colorButton.interactable = false;
@@ -168,7 +197,8 @@ namespace Prototype.NetworkLobby
                 //ChangeReadyButtonColor(isLocalPlayer ? JoinColor : NotReadyColor);
 
                 Text textComponent = readyButton.transform.GetComponentInChildren<Text>();
-                textComponent.text = isLocalPlayer ? "JOIN" : "...";
+                textComponent.text = isLocalPlayer ? "READY" : "waiting...";
+
                 //textComponent.color = Color.white;
                 readyButton.interactable = isLocalPlayer;
                 colorButton.interactable = isLocalPlayer;
@@ -228,6 +258,7 @@ namespace Prototype.NetworkLobby
         public void ToggleJoinButton(bool enabled)
         {
             readyButton.gameObject.SetActive(enabled);
+            readyButtonOrange.gameObject.SetActive(enabled);
             waitingPlayerButton.gameObject.SetActive(!enabled);
         }
 
