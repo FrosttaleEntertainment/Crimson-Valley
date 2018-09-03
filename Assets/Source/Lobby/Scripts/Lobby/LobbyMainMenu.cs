@@ -83,6 +83,10 @@ namespace Prototype.NetworkLobby
                 lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
                 //lobbyManager.ChangeTo(lobbyServerList);
             }
+            else
+            {
+                lobbyManager.StopMatchMaker();
+            }
         }
 
         void onEndEditIP(string text)
