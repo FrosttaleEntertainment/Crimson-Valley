@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/MainMenu.unity
     guid: 7c50699a082edd44d8039c9abfd3c22f
   - enabled: 1
-    path: Assets/Scenes/Menus/LevelSelectionMenu.unity
-    guid: b31c4566ef319e04ea84c5bb095bcf65
-  - enabled: 1
     path: Assets/Scenes/Lobby/Scenes/NetworkLobby.unity
     guid: 3c0d76c55eed6214f9d3b070caede5d3
+  - enabled: 1
+    path: Assets/Scenes/Menus/CharacterSelectionMenu.unity
+    guid: b31c4566ef319e04ea84c5bb095bcf65
   - enabled: 1
     path: Assets/Scenes/Menus/LevelLoadinScreen.unity
     guid: 2013e6b608cd7d649bdeab45f95e1064

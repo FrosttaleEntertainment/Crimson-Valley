@@ -223,6 +223,7 @@ namespace Prototype.NetworkLobby
 
         public void SimpleBackClbk()
         {
+            ChangeTo(null);
             SceneController.Instance.StartGame();
         }
                  

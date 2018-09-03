@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prototype.NetworkLobby;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -170,6 +171,11 @@ public class SceneController : Singleton<SceneController>
         else if(scene.name == LOBBY_SCENE_ID)
         {
             AddLoadingScene();
+            
+            if(LobbyManager.s_Singleton)
+            {
+                LobbyManager.s_Singleton.ChangeTo(LobbyManager.s_Singleton.mainMenuPanel);
+            }
         }
         else if(scene.name == LEVEL_LOADING_SCENE_ID)
         {
