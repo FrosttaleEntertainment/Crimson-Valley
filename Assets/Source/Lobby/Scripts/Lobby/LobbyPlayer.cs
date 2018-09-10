@@ -258,7 +258,12 @@ namespace Prototype.NetworkLobby
         public void ToggleJoinButton(bool enabled)
         {
             readyButton.gameObject.SetActive(enabled);
-            readyButtonOrange.gameObject.SetActive(enabled);
+
+            if(isLocalPlayer)
+            {
+                readyButtonOrange.gameObject.SetActive(enabled);
+            }
+
             waitingPlayerButton.gameObject.SetActive(!enabled);
         }
 
