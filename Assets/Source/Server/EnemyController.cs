@@ -95,8 +95,6 @@ public class EnemyController : NetworkBehaviour
                     zombie.BurnDie();
                 }
             }
-
-            Debug.Log("smthng");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Base;
 using Prototype.NetworkLobby;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct ChatMessage
 {
@@ -74,7 +75,7 @@ public class ChatController : Singleton<ChatController> {
         {
             if(ChatManager)
             {
-                ChatManager.DisplayMessage(msg);
+                ChatManager.ReceiveChatMessage(ChatManager.ChatTabType.CHAT_TAB_TYPE_TEAM, msg.Message, msg.Sender);
             }
         }
         else

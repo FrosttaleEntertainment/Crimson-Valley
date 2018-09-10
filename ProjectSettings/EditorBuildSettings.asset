@@ -21,9 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Hud/HudOverlay.unity
     guid: fa7d4cc60e6a11245950b9fa8fd81d2a
   - enabled: 1
-    path: Assets/Scenes/Hud/ChatLayout.unity
-    guid: 02db44eca373c924b85a97c4d6c0be43
-  - enabled: 1
     path: Assets/Scenes/Worlds/Desert.unity
     guid: f9f07455a46393840a42a7341aed7164
   - enabled: 1

@@ -13,7 +13,6 @@ public class SceneController : Singleton<SceneController>
     public const string LEVEL_LOADING_SCENE_ID = "LevelLoadinScreen";
     public const string LOBBY_SCENE_ID = "NetworkLobby";
     public const string CHARACTER_SELECTION_SCENE_ID = "CharacterSelectionMenu";
-    public const string CHAT_LAYOUT_SCENE_ID = "ChatLayout";
     public const string HUD_SCENE_ID = "HudOverlay";
     public const string DESERT_SCENE_ID = "Desert";
 
@@ -88,10 +87,6 @@ public class SceneController : Singleton<SceneController>
                 GameController.Instance.StartPlaying(true);
             }
         }
-        else
-        {
-            AddChatLayout();
-        }
     }
 
     public UnityEngine.AsyncOperation AddHudLayout()
@@ -107,12 +102,6 @@ public class SceneController : Singleton<SceneController>
     public Scene GetCurrentScene()
     {
         return SceneManager.GetActiveScene();
-    }
-
-    private bool AddChatLayout()
-    {
-        LoadScene(CHAT_LAYOUT_SCENE_ID, LoadSceneMode.Additive, true); //async
-        return true;
     }
 
     private UnityEngine.AsyncOperation LoadScene(string id, LoadSceneMode mode = LoadSceneMode.Single, bool async = false)
