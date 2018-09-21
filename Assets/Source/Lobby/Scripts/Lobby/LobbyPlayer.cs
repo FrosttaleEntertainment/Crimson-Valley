@@ -30,6 +30,10 @@ namespace Prototype.NetworkLobby
         public string playerName = "";
         [SyncVar(hook = "OnMyColor")]
         public Color playerColor = Color.white;
+        [SyncVar(hook = "OnMyCharacter")]
+        public int playerCharacter = 0;
+
+        public bool isPrepared = false;
 
         //public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         //public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
@@ -65,6 +69,7 @@ namespace Prototype.NetworkLobby
             //will be created with the right value currently on server
             OnMyName(playerName);
             OnMyColor(playerColor);
+            OnMyCharacter(playerCharacter);
         }
 
         public override void OnStartAuthority()
@@ -118,14 +123,20 @@ namespace Prototype.NetworkLobby
             if (playerColor == Color.white)
                 CmdColorChange();
 
-            readyButtonOrange.transform.GetComponentInChildren<Text>().text = "READY";
+            if (isPrepared)
+            {
+                readyButtonOrange.transform.GetComponentInChildren<Text>().text = "READY";
+            }
+            else
+            {
+                readyButtonOrange.transform.GetComponentInChildren<Text>().text = "PREPARE";
+            }
+
             //ChangeReadyButtonColor(JoinColor);
             if (readyButton.IsActive())
             {
-                readyButtonOrange.gameObject.SetActive(true);
-                readyButtonOrange.transform.GetComponentInChildren<Text>().text = "READY";
+                readyButtonOrange.gameObject.SetActive(true);                
                 readyButtonOrange.interactable = true;
-
                 readyButton.gameObject.SetActive(false);
             }
 
@@ -145,6 +156,7 @@ namespace Prototype.NetworkLobby
 
             readyButtonOrange.onClick.RemoveAllListeners();
             readyButtonOrange.onClick.AddListener(OnReadyClicked);
+
 
             //when OnClientEnterLobby is called, the loval PlayerController is not yet created, so we need to redo that here to disable
             //the add button if we reach maxLocalPlayer. We pass 0, as it was already counted on OnClientEnterLobby
@@ -225,6 +237,18 @@ namespace Prototype.NetworkLobby
             colorButton.GetComponent<Image>().color = newColor;
         }
 
+        public void OnMyCharacter(int newCharacter)
+        {
+            playerCharacter = newCharacter;
+
+            if(isPrepared)
+            {
+                readyButtonOrange.transform.GetComponentInChildren<Text>().text = "READY";
+            }
+
+            //TODO: characterIcon change
+        }
+
         //===== UI Handler
 
         //Note that those handler use Command function, as we need to change the value on the server not locally
@@ -236,7 +260,15 @@ namespace Prototype.NetworkLobby
 
         public void OnReadyClicked()
         {
-            SendReadyToBeginMessage();
+            if(isPrepared)
+            {
+                SendReadyToBeginMessage();
+            }
+            else
+            {
+                LobbyManager.s_Singleton.GetComponent<Canvas>().enabled = false;
+                SceneController.Instance.LoadCharacterlSelectionMenu(true);
+            }
         }
 
         public void OnNameChanged(string str)
@@ -334,6 +366,13 @@ namespace Prototype.NetworkLobby
         public void CmdNameChanged(string name)
         {
             playerName = name;
+        }
+
+        [Command]
+        public void CmdCharacterChanged(int newChar)
+        {
+            playerCharacter = newChar;
+            OnMyCharacter(playerCharacter);
         }
 
         //Cleanup thing when get destroy (which happen when client kick or disconnect)

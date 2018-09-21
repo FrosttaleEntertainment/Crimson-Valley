@@ -20,6 +20,18 @@ namespace Prototype.NetworkLobby
         protected VerticalLayoutGroup _layout;
         protected List<LobbyPlayer> _players = new List<LobbyPlayer>();
 
+        public LobbyPlayer GetLocalLobbyPlayer()
+        {
+            foreach (var player in _players)
+            {
+                if(player.isLocalPlayer)
+                {
+                    return player;
+                }
+            }
+            return null;
+        }
+
         public void OnEnable()
         {
             _instance = this;

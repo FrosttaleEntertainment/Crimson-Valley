@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Prototype.NetworkLobby;
 
 public class CharacterSelectMgr : MonoBehaviour {
 
@@ -25,6 +26,8 @@ public class CharacterSelectMgr : MonoBehaviour {
     [SerializeField] private Text m_RaceClassText;
     
     [SerializeField] private int m_IngameSceneId = 0;
+
+    [SerializeField] private Button m_PlayButton;
 
     private int m_SelectedIndex = -1;
     private Transform m_SelectedTransform;
@@ -59,8 +62,17 @@ public class CharacterSelectMgr : MonoBehaviour {
             }
         }
 
-        // Select the first character
-        this.SelectCharacter(0);
+        if(GameController.Instance.IsMultyPlayer())
+        {
+            m_PlayButton.GetComponentInChildren<Text>().text = "SELECT";
+            LobbyPlayer lobbyPlayer = LobbyPlayerList._instance.GetLocalLobbyPlayer();
+            this.SelectCharacter(lobbyPlayer.playerCharacter);
+        }
+        else
+        {
+            // Select the first character
+            this.SelectCharacter(0);
+        }
     }
 
     protected void Update()
@@ -301,6 +313,21 @@ public class CharacterSelectMgr : MonoBehaviour {
 
     public void OnPlayClick()
     {
-        SceneController.Instance.OnCharacterSelected();
+        bool isSinglePlayer = GameController.Instance.IsSinglePlayer();
+
+        if (isSinglePlayer)
+        {
+            SceneController.Instance.OnStartGame();
+        }
+        else
+        {
+            LobbyPlayer lobbyPlayer = LobbyPlayerList._instance.GetLocalLobbyPlayer();
+            lobbyPlayer.isPrepared = true;
+            lobbyPlayer.CmdCharacterChanged(m_SelectedIndex);            
+
+            LobbyManager.s_Singleton.GetComponent<Canvas>().enabled = true;
+            SceneController.Instance.UnloadCharacterSelectionMenu();
+        }
+        
     }
 }

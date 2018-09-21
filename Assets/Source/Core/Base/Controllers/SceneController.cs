@@ -27,7 +27,7 @@ public class SceneController : Singleton<SceneController>
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public bool OnCharacterSelected()
+    public bool OnStartGame()
     {    
         bool isSinglePlayer = GameController.Instance.IsSinglePlayer();
     
@@ -39,7 +39,7 @@ public class SceneController : Singleton<SceneController>
         }
         else
         {
-            return LoadLobby();
+            Debug.Assert(false, "This should not happens!");
         }
     
         return true;
@@ -57,9 +57,22 @@ public class SceneController : Singleton<SceneController>
         return true;
     }
 
-    public bool LoadCharacterlSelectionMenu()
+    public bool LoadCharacterlSelectionMenu(bool additive = false)
     {
-        LoadScene(CHARACTER_SELECTION_SCENE_ID, LoadSceneMode.Single, true); //async
+        if(additive)
+        {
+            LoadScene(CHARACTER_SELECTION_SCENE_ID, LoadSceneMode.Additive , true); //async
+        }
+        else
+        {
+            LoadScene(CHARACTER_SELECTION_SCENE_ID, LoadSceneMode.Single, true); //async
+        }
+        return true;
+    }
+
+    public bool UnloadCharacterSelectionMenu()
+    {
+        UnloadScene(CHARACTER_SELECTION_SCENE_ID);
         return true;
     }
 
