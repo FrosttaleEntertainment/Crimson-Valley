@@ -31,7 +31,7 @@ namespace Prototype.NetworkLobby
         [SyncVar(hook = "OnMyColor")]
         public Color playerColor = Color.white;
         [SyncVar(hook = "OnMyCharacter")]
-        public int playerCharacter = 0;
+        public int playerCharacter = -1;
 
         public bool isPrepared = false;
 

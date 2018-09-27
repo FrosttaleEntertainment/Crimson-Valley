@@ -66,7 +66,9 @@ public class CharacterSelectMgr : MonoBehaviour {
         {
             m_PlayButton.GetComponentInChildren<Text>().text = "SELECT";
             LobbyPlayer lobbyPlayer = LobbyPlayerList._instance.GetLocalLobbyPlayer();
-            this.SelectCharacter(lobbyPlayer.playerCharacter);
+
+            int selectedIndex = (lobbyPlayer.isPrepared && lobbyPlayer.playerCharacter >= 0) ? lobbyPlayer.playerCharacter : 0;
+            this.SelectCharacter(selectedIndex);
         }
         else
         {
