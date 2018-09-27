@@ -77,6 +77,11 @@ public class CharacterSelectMgr : MonoBehaviour {
 
     protected void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnBackClick();
+        }
+
         if (this.m_Slots.Count == 0)
             return;
         
@@ -329,5 +334,21 @@ public class CharacterSelectMgr : MonoBehaviour {
             SceneController.Instance.UnloadCharacterSelectionMenu();
         }
         
+    }
+
+    public void OnBackClick()
+    {
+        bool isSinglePlayer = GameController.Instance.IsSinglePlayer();
+
+        if (isSinglePlayer)
+        {
+            SceneController.Instance.StartGame();
+        }
+        else
+        {
+            LobbyManager.s_Singleton.GetComponent<Canvas>().enabled = true;
+            SceneController.Instance.UnloadCharacterSelectionMenu();
+        }
+
     }
 }
