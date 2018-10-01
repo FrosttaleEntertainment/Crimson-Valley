@@ -33,6 +33,8 @@ namespace Base
 
         private Entity m_target;
         private TreeOfLife m_treeOfLife;
+        private AgentAttackRangeModifier m_attackRangeModifier;
+        private Vector3 m_targetColliderLength;
 
         private NavMeshAgent m_agent;
         private Animator m_animator;
@@ -225,7 +227,8 @@ namespace Base
             {
                 m_agent.SetDestination(m_target.transform.position);
                 m_animator.SetBool("IsMoving", true);
-                if (StaticUtil.FastDistance(m_target.transform.position, this.transform.position) <= AttackRange)
+                var distance = StaticUtil.FastDistance(m_target.transform.position, this.transform.position);
+                if ((m_attackRangeModifier && distance <= m_attackRangeModifier.AgentAttackRange) || distance < AttackRange)
                 {
                     m_mood = Mood.Attack;
                     RotateTowardsTarget();
@@ -238,7 +241,8 @@ namespace Base
         [Server]
         private void Attack()
         {
-            if (StaticUtil.FastDistance(m_target.transform.position, this.transform.position) <= AttackRange)
+            var distance = StaticUtil.FastDistance(m_target.transform.position, this.transform.position);
+            if ((m_attackRangeModifier && distance <= m_attackRangeModifier.AgentAttackRange) || distance < AttackRange)
             {
                 m_animator.SetTrigger("IsAttacking");
                 RotateTowardsTarget();
@@ -256,7 +260,12 @@ namespace Base
         {
             GetClosestThreat();
 
-            m_mood = Mood.Chase;
+            if(m_target)
+            {
+                m_mood = Mood.Chase;
+
+                m_attackRangeModifier = m_target.GetComponent<AgentAttackRangeModifier>();
+            }
         }
 
         [Server]
@@ -276,6 +285,10 @@ namespace Base
         private void StartChase(Entity target)
         {
             m_target = target;
+
+            var col = target.GetComponent<Collider>();
+            var colBounds = col.bounds;
+            m_targetColliderLength = colBounds.extents;
 
             m_mood = Mood.Chase;
         }

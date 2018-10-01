@@ -138,13 +138,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4847424869352260}
   - component: {fileID: 33366594124832166}
-  - component: {fileID: 65182443694964100}
   - component: {fileID: 65971005790177198}
   - component: {fileID: 114617046027651770}
   - component: {fileID: 114276251795245668}
-  - component: {fileID: 114050186467559930}
   - component: {fileID: 208276385407325326}
-  m_Layer: 0
+  - component: {fileID: 114150079499278890}
+  - component: {fileID: 114893084734731178}
+  m_Layer: 8
   m_Name: TreeOfLife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +768,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1301816319389954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.56, y: 1.06, z: -3.7}
+  m_LocalPosition: {x: 109.85103, y: 11.940533, z: 123.97567}
   m_LocalScale: {x: 6.3435826, y: 2.4197, z: 6.6046624}
   m_Children:
   - {fileID: 4116678388599350}
@@ -1940,18 +1940,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525009763614936}
   m_Mesh: {fileID: 4300000, guid: bb63d242b50d25c4abcded51f2bbfee7, type: 3}
---- !u!65 &65182443694964100
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1301816319389954}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65971005790177198
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1964,7 +1952,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114050186467559930
+--- !u!114 &114150079499278890
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1972,9 +1960,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1301816319389954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2674afd2e41a0f48aa0f13139f29fdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 6389564705f63b84fa153966196c8ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AgentAttackRange: 6
 --- !u!114 &114257862541961672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1986,7 +1975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647438ca8245b6742a96a62582a0e7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quality: 2
+  quality: 3
   highReflectionMask:
     serializedVersion: 2
     m_Bits: 7
@@ -2041,10 +2030,10 @@ MonoBehaviour:
       Max: 0
       IncreasePerLevel: 0
     Health:
-      Base: 0
-      Actual: 0
+      Base: 100
+      Actual: 100
       Min: 0
-      Max: 0
+      Max: 100
       IncreasePerLevel: 0
     Armor:
       Base: 0
@@ -2134,6 +2123,17 @@ MonoBehaviour:
     i15: 122
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114893084734731178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1301816319389954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2674afd2e41a0f48aa0f13139f29fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!208 &208276385407325326
 NavMeshObstacle:
   m_ObjectHideFlags: 1

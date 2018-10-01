@@ -15,8 +15,8 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
+  - EnemyCollision
+  - EnemyNoCollision
   - 
   - 
   - 

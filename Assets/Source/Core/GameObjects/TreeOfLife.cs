@@ -10,11 +10,11 @@ public class TreeOfLife : NetworkBehaviour
     private Entity m_entity;
 
     [Server]
-    private void Awake()
+    private void Start()
     {
         m_entity = GetComponent<Entity>();
 
-        if(m_entity)
+        if (m_entity)
         {
             m_entity.OnDeath += Death;
         }
@@ -34,7 +34,18 @@ public class TreeOfLife : NetworkBehaviour
     [Server]
     private void Death()
     {
+        CmdSetPlayerLookAtTree();
+    }
 
+    [Command]
+    private void CmdSetPlayerLookAtTree()
+    {
+        var camera = Camera.main;
+        var camControl = camera.GetComponent<CameraControl>();
+        if(camControl)
+        {
+            camControl.Target = this.gameObject;
+        }
     }
 }
 
