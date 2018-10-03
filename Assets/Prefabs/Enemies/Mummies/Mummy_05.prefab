@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 136370273437663852}
   - component: {fileID: 114362826907610406}
   - component: {fileID: 114470171110067444}
+  - component: {fileID: 114523795432677898}
   m_Layer: 0
   m_Name: Mummy_05
   m_TagString: Enemy
@@ -1314,6 +1315,20 @@ MonoBehaviour:
   sendRate: 30
   networkChannel: 1
   childObjectToSync: {fileID: 0}
+--- !u!114 &114523795432677898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037433944526624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492392c310a924d4291d26c3c333296b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  markerSprite: {fileID: 21300000, guid: afb023e63c5f1b646a83ad530fad2a0e, type: 3}
+  markerSize: 6.5
+  isActive: 1
 --- !u!114 &114636762159695174
 MonoBehaviour:
   m_ObjectHideFlags: 1

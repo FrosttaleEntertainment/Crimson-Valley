@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class HudController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         GameController.Instance.onPhaseProgress += OnPhaseProgressImpl;
         GameController.Instance.onPhaseChanged += OnPhaseChangedImpl;
     }
@@ -54,4 +55,20 @@ public class HudController : MonoBehaviour {
     void Update () {
 		
 	}
+
+    public void OnMinimapZoomOut()
+    {
+        if(MapCanvasController.Instance.radarDistance < 90)
+        {
+            MapCanvasController.Instance.radarDistance += 20;
+        }
+    }
+
+    public void OnMinimapZoomIn()
+    {
+        if (MapCanvasController.Instance.radarDistance > 10)
+        {
+            MapCanvasController.Instance.radarDistance -= 20;
+        }
+    }
 }

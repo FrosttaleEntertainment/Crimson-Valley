@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 136032279343114708}
   - component: {fileID: 114400249857377888}
   - component: {fileID: 114017267950899820}
+  - component: {fileID: 114613777369146868}
   m_Layer: 0
   m_Name: Mummy_08
   m_TagString: Enemy
@@ -1335,6 +1336,20 @@ MonoBehaviour:
     i15: 222
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114613777369146868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887230882778728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492392c310a924d4291d26c3c333296b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  markerSprite: {fileID: 21300000, guid: afb023e63c5f1b646a83ad530fad2a0e, type: 3}
+  markerSize: 6.5
+  isActive: 1
 --- !u!114 &114781781475781560
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -165,6 +165,10 @@ namespace Base
                         // It is safe to init the chat controller now
                         ChatController.Instance.Init(this);
                     }
+                    else
+                    {
+                        this.gameObject.GetComponent<MapMarker>().enabled = true;
+                    }
                 }
             }
 

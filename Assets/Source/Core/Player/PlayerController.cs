@@ -54,6 +54,14 @@ namespace Base
 
             m_camera.GetComponent<CameraControl>().Target = this.gameObject;
 
+            if (GameController.Instance.IsMultyPlayer())
+            {
+                var hudCtrl = FindObjectOfType<HudController>();
+                var mapCanvasCtrl = hudCtrl.GetComponentInChildren<MapCanvasController>(true);
+                mapCanvasCtrl.gameObject.SetActive(true);
+                mapCanvasCtrl.Load();
+            }
+
             m_entity.OnDeath += PlayerDeath;
             m_entity.OnAttacked += PlayerHit;
 
