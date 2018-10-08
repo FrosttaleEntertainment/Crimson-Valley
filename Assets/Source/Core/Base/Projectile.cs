@@ -93,12 +93,10 @@ namespace Base
                 //add grenade logic here
                 return;
             }
-
             if (col.collider.CompareTag("Enemy") && Stats.CauseAoeDamage == false)
             {
                 _victimGo = col.gameObject;
                 _victim = _victimGo.GetComponent<Entity>();
-
 
 
                 if (_victim != null)
@@ -141,6 +139,8 @@ namespace Base
                 }
             }
             else if (Stats.CauseAoeDamage && !Stats.Bouncer) DoDamageAoe(); // I cause AoE immediately when I hit something.
+
+            StaticUtil.DeSpawn(this.gameObject);
         }
 
         private void Fire(Vector3 fromPos)

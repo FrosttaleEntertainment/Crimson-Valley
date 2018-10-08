@@ -319,6 +319,7 @@ namespace Base
         private void GetClosestThreat()
         {
             float closest = -1;
+            var previousTarget = m_target;
             for (int i = 0; i < m_threatList.Count; i++)
             {
                 float currentDist = StaticUtil.FastDistance(this.transform.position, m_threatList[i].transform.position);
@@ -328,6 +329,11 @@ namespace Base
                     if(m_target != m_threatList[i])
                     {
                         m_target = m_threatList[i];
+
+                        if(m_target != previousTarget)
+                        {
+                            m_attackRangeModifier = m_target.GetComponent<AgentAttackRangeModifier>();
+                        }
                         break;
                     }
                 }
