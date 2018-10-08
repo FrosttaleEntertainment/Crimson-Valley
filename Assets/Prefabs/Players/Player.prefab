@@ -1442,6 +1442,7 @@ GameObject:
   - component: {fileID: 114478944478461868}
   - component: {fileID: 208661840575413254}
   - component: {fileID: 65407880690132000}
+  - component: {fileID: 114405382996232074}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -3678,6 +3679,20 @@ MonoBehaviour:
     i15: 250
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114405382996232074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1667819358333844}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492392c310a924d4291d26c3c333296b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  markerSprite: {fileID: 21300000, guid: 59903ebe1935a9f46ad3868a5b1e9030, type: 3}
+  markerSize: 13
+  isActive: 1
 --- !u!114 &114478944478461868
 MonoBehaviour:
   m_ObjectHideFlags: 1

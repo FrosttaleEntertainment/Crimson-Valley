@@ -92,7 +92,7 @@ public class EnemyController : NetworkBehaviour
                 var zombie = enemy.GetComponent<Zombie>();
                 if(zombie)
                 {
-                    zombie.BurnDie();
+                    //zombie.BurnDie();
                 }
             }
         }
