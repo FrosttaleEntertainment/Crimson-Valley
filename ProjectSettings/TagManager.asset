@@ -30,12 +30,21 @@ TagManager:
   - 
   - 
   - Player
+<<<<<<< HEAD
   - Enemy
   - CompanionAI
   - Triggers
   - StopMove
   - HeadTrack
   - BodyPart
+=======
+  - EnemyCollision
+  - EnemyNoCollision
+  - Bullet
+  - 
+  - 
+  - 
+>>>>>>> 3ac4bd0b54aec65deffe175ec90827d53b3c3604
   - 
   - 
   - 

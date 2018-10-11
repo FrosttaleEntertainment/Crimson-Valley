@@ -403,6 +403,7 @@ namespace Base
         /// </summary>
         protected virtual void Die()
         {
+            if (IsDead) return;
             // Deny controls, reset mecanim inputs, reset velocity, turn off navmesh, turn off collider
             //if (_isControllable)
             //{
