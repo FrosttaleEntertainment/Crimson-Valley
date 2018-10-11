@@ -14,7 +14,7 @@ public class NetworkLobbyHook : LobbyHook
         data.Name = lobby.playerName;
         data.Color = lobby.playerColor;
 
-        Entity entity = gamePlayer.GetComponent<Entity>();
-        entity.LobbyData = data;
+        //Entity entity = gamePlayer.GetComponent<Entity>();
+        //entity.LobbyData = data;
     }
 }

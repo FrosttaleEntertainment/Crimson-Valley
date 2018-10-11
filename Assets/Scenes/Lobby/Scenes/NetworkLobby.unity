@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3486843, g: 0.36265308, b: 0.37997717, a: 1}
+  m_IndirectSpecularColor: {r: 0.31351012, g: 0.3142477, b: 0.33896828, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -2388,8 +2388,7 @@ MonoBehaviour:
   m_MinPlayers: 2
   m_LobbyPlayerPrefab: {fileID: 11487034, guid: ad727d7e1462ecc4f83c898ecc501997,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 1667819358333844, guid: 2922416ed0133144fbdb31f2fc05d1fa,
-    type: 2}
+  m_GamePlayerPrefab: {fileID: 114070, guid: 80dd0462ab7502b48a7fe99ea1cd882a, type: 2}
   m_LobbyScene: NetworkLobby
   m_PlayScene: Desert
   lobbySlots: []
@@ -2718,7 +2717,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -160}
-  m_SizeDelta: {x: 20, y: 80}
+  m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &464595121
 MonoBehaviour:
@@ -3858,10 +3857,10 @@ RectTransform:
   m_Father: {fileID: 2022772607}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 89, y: -31}
-  m_SizeDelta: {x: 78, y: 38}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &760065855
 MonoBehaviour:
@@ -4538,10 +4537,10 @@ RectTransform:
   m_Father: {fileID: 164433827}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 900.5, y: 0}
-  m_SizeDelta: {x: 4, y: 56}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &874850299
 MonoBehaviour:
@@ -7029,10 +7028,10 @@ RectTransform:
   m_Father: {fileID: 164433827}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 757.5, y: 0}
-  m_SizeDelta: {x: 143, y: 56}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1382418687
 MonoBehaviour:
@@ -7203,7 +7202,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -160}
-  m_SizeDelta: {x: 20, y: 80}
+  m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1450372553
 MonoBehaviour:
@@ -8801,7 +8800,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 32, y: -30}
-  m_SizeDelta: {x: -64, y: 58}
+  m_SizeDelta: {x: -64, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1663203254
 MonoBehaviour:
@@ -9395,10 +9394,10 @@ RectTransform:
   m_Father: {fileID: 1382418686}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 71.5, y: -31}
-  m_SizeDelta: {x: 43, y: 38}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1778803692
 MonoBehaviour:
@@ -10454,10 +10453,10 @@ RectTransform:
   m_Father: {fileID: 164433827}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 904.5, y: 0}
-  m_SizeDelta: {x: 178, y: 56}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2022772608
 MonoBehaviour:

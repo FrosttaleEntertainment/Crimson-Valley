@@ -311,7 +311,7 @@ namespace Prototype.NetworkLobby
                 LobbyManager.s_Singleton.GetComponent<Canvas>().enabled = false;
 
                 // show loading
-                MenuController.Instance.ShowLoading();
+                //MenuController.Instance.ShowLoading();
             }
         }
 

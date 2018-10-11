@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Invector.vCamera;
 
 [AddComponentMenu("MiniMap/Map canvas controller")]
 [RequireComponent(typeof(RectTransform))]
@@ -142,7 +143,7 @@ public class MapCanvasController : MonoBehaviour
     {
         if (!playerTransform)
         {
-            if (Camera.main.GetComponent<CameraControl>().Target == null)
+            if (Camera.main.GetComponent<vThirdPersonCamera>().target == null)
             {
                 if (GameController.Instance.IsMultyPlayer())
                 {
@@ -152,7 +153,7 @@ public class MapCanvasController : MonoBehaviour
             }
             else
             {
-                playerTransform = Camera.main.GetComponent<CameraControl>().Target.transform;
+                playerTransform = Camera.main.GetComponent<vThirdPersonCamera>().target.transform;
             }
         }
 

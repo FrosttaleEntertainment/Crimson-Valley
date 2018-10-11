@@ -76,7 +76,7 @@ namespace Prototype.NetworkLobby
             //playScene = GameController.Instance.Scene;
 
             // set loading background since we know the level
-            MenuController.Instance.PrepareLoading();
+            //MenuController.Instance.PrepareLoading();
 
             m_entities = new List<Entity>();
             m_readyPlayers = 0;

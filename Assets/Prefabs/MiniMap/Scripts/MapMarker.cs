@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 
 using System.Collections;
+using Invector.vCamera;
 
 [AddComponentMenu("MiniMap/Map marker")]
 public class MapMarker : MonoBehaviour
@@ -59,7 +60,7 @@ public class MapMarker : MonoBehaviour
 	void Update () {
         MapCanvasController[] controllers = GameObject.FindObjectsOfType<MapCanvasController>();
      
-        if (Camera.main.GetComponent<CameraControl>().Target != null && controllers.Length > 0)
+        if (Camera.main.GetComponent<vThirdPersonCamera>().target != null && controllers.Length > 0)
         {
             MapCanvasController controller = MapCanvasController.Instance;
             if (!controller)

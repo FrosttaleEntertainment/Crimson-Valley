@@ -5,6 +5,21 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Action
+  - AutoCrouch
+  - Ragdoll
+  - Ignore Ragdoll
+  - Boss
+  - CompanionAI
+  - Weapon
+  - PlayerUI
+  - Collectable
+  - Interactable
+  - LookAt
+  - Water
+  - FreeClimb
+  - ClimbDirection
+  - Zipline
   layers:
   - Default
   - TransparentFX
@@ -15,12 +30,12 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - CompanionAI
+  - Triggers
+  - StopMove
+  - HeadTrack
+  - BodyPart
   - 
   - 
   - 
