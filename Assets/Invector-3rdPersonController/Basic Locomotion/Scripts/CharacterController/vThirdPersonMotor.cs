@@ -309,7 +309,7 @@ namespace Invector.vCharacterController
 
                 if(m_frame.StaminaText != null)
                 {
-                    m_frame.StaminaText.text = string.Format("{0}%", (int)maxStamina / currentStamina);
+                    m_frame.StaminaText.text = string.Format("{0}%", (int)(100 * m_frame.Stamina.fillAmount));
                 }
             }
         }

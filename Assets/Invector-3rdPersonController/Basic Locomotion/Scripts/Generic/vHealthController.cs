@@ -77,12 +77,12 @@ namespace Invector
         ///===== callback from sync var
         public void OnHealthChange(float newHealth)
         {
-            currentHealth = newHealth;   
+            currentHealth = newHealth;
             
             if(m_frame != null)
             {
                 m_frame.Health.fillAmount = currentHealth / maxHealth;
-                m_frame.HealthText.text = string.Format("{0}%", (int)maxHealth / currentHealth);
+                m_frame.HealthText.text = string.Format("{0}%", (int)(100 * m_frame.Health.fillAmount));
             }
         }
 
