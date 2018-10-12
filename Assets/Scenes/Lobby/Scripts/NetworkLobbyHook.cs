@@ -3,6 +3,7 @@ using Prototype.NetworkLobby;
 using System.Collections;
 using UnityEngine.Networking;
 using Base;
+using Invector.vCharacterController;
 
 public class NetworkLobbyHook : LobbyHook 
 {
@@ -14,7 +15,7 @@ public class NetworkLobbyHook : LobbyHook
         data.Name = lobby.playerName;
         data.Color = lobby.playerColor;
 
-        //Entity entity = gamePlayer.GetComponent<Entity>();
-        //entity.LobbyData = data;
+        vThirdPersonController controller = gamePlayer.GetComponent<vThirdPersonController>();
+        controller.LobbyData = data;
     }
 }

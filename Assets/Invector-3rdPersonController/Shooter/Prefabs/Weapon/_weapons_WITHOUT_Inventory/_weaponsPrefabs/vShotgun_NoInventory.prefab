@@ -362,6 +362,8 @@ GameObject:
   - component: {fileID: 11439748}
   - component: {fileID: 6520222}
   - component: {fileID: 5455438}
+  - component: {fileID: 114986906077294968}
+  - component: {fileID: 114481883628795578}
   m_Layer: 1
   m_Name: vShotgun_NoInventory
   m_TagString: Weapon
@@ -1786,6 +1788,79 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 175672}
   m_IsPrefabAsset: 1
+--- !u!114 &114481883628795578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9de747ec6d608d4b984ba2628a309b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interpolationBackTime: 0.1
+  extrapolationTimeLimit: 0.3
+  extrapolationDistanceLimit: 0.3
+  sendPositionThreshold: 0.001
+  sendRotationThreshold: 0.001
+  sendScaleThreshold: 0.001
+  sendVelocityThreshold: 0.001
+  sendAngularVelocityThreshold: 0.001
+  receivedPositionThreshold: 0
+  receivedRotationThreshold: 0
+  positionSnapThreshold: 8
+  rotationSnapThreshold: 60
+  scaleSnapThreshold: 3
+  positionLerpSpeed: 1
+  rotationLerpSpeed: 1
+  scaleLerpSpeed: 0.2
+  syncPosition: 0
+  syncRotation: 0
+  syncScale: 0
+  syncVelocity: 0
+  syncAngularVelocity: 0
+  isPositionCompressed: 1
+  isRotationCompressed: 1
+  isScaleCompressed: 1
+  isVelocityCompressed: 1
+  isAngularVelocityCompressed: 1
+  whereToUpdateTransform: 1
+  sendRate: 60
+  networkChannel: 1
+  childObjectToSync: {fileID: 0}
+--- !u!114 &114986906077294968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 5
+    i1: 81
+    i2: 227
+    i3: 198
+    i4: 29
+    i5: 157
+    i6: 97
+    i7: 36
+    i8: 184
+    i9: 72
+    i10: 250
+    i11: 224
+    i12: 199
+    i13: 56
+    i14: 137
+    i15: 130
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!198 &198024518617722410
 ParticleSystem:
   m_ObjectHideFlags: 1

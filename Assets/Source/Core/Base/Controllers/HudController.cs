@@ -1,15 +1,58 @@
-﻿using System.Collections;
+﻿using Invector.vCharacterController;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class HudController : MonoBehaviour {
+    public PartyFrame MyPartyFrame;
+
+    public GridLayoutGroup PartyFrames;
+    public GameObject PartyMemberPrefab;
 
     // Use this for initialization
     void Start () {
         GameController.Instance.onPhaseProgress += OnPhaseProgressImpl;
         GameController.Instance.onPhaseChanged += OnPhaseChangedImpl;
+
+        var players = FindObjectsOfType<vThirdPersonController>();
+        foreach (var player in players)
+        {
+            if(player.HasPartyFrame())
+            {
+                continue;
+            }
+
+            AddPartyMember(player);
+        }
+    }
+
+    public void AddPartyMember(vThirdPersonController partyMember)
+    {
+        if(partyMember.HasPartyFrame())
+        {
+            return;
+        }
+
+        if(PartyFrames)
+        {
+            if(PartyMemberPrefab)
+            {
+                if(GameController.Instance.IsSinglePlayer())
+                {
+                    partyMember.AssignPartyFrame(MyPartyFrame);
+                }
+                else
+                {
+                    if(!partyMember.isLocalPlayer)
+                    {
+                        var instance = Instantiate(PartyMemberPrefab, PartyFrames.gameObject.transform);
+                        partyMember.AssignPartyFrame(instance.GetComponent<PartyFrame>());
+                    }
+                }
+            }
+        }
     }
 
     private void OnDestroy()

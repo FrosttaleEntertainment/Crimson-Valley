@@ -144,6 +144,11 @@ namespace Invector.vCamera
                 mouseX = transform.root.eulerAngles.y;
             }
             isInit = true;
+
+            if(GameController.Instance.IsSinglePlayer())
+            {
+                MenuController.Instance.HideLoading();
+            }
         }
 
         void FixedUpdate()

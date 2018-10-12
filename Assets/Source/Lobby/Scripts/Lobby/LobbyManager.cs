@@ -8,15 +8,17 @@ using System.Collections;
 using UnityEngine.Networking.NetworkSystem;
 using System.Collections.Generic;
 using Base;
+using Invector.vCharacterController;
 
 namespace Prototype.NetworkLobby
 {
     public class LobbyManager : NetworkLobbyManager 
     {
         static short MsgKicked = MsgType.Highest + 1;
-        static short MsgReadyToBegin = MsgType.Highest + 2;
+        static short MsgServerReadyToBegin = MsgType.Highest + 2;
         static short MsgChatMsgSend = MsgType.Highest + 3;
         static short MsgGamePhaseChanged = MsgType.Highest + 4;
+        static short MsgClientReadyToBegin = MsgType.Highest + 5;
 
         static public LobbyManager s_Singleton;
 
@@ -57,7 +59,6 @@ namespace Prototype.NetworkLobby
 
         protected LobbyHook _lobbyHooks;
 
-        private List<Entity> m_entities;
         private int m_readyPlayers;
 
         void Start()
@@ -76,9 +77,11 @@ namespace Prototype.NetworkLobby
             //playScene = GameController.Instance.Scene;
 
             // set loading background since we know the level
-            //MenuController.Instance.PrepareLoading();
+            if(GameController.Instance.IsMultyPlayer())
+            {
+                MenuController.Instance.PrepareLoading();
+            }
 
-            m_entities = new List<Entity>();
             m_readyPlayers = 0;
         }
 
@@ -95,7 +98,7 @@ namespace Prototype.NetworkLobby
 
                 if (m_readyPlayers == NetworkServer.connections.Count)
                 {
-                    ServerLoadPlayers();
+                    SendServerReadyToBegin();
                 }
             }
         }
@@ -275,13 +278,28 @@ namespace Prototype.NetworkLobby
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////
-        class ReadyToBeginMsg : MessageBase { }
-        public void SendReadyToBegin()
+        class ClientReadyToBeginMsg : MessageBase { }
+        public void SendClientReadyToBegin()
         {
-            NetworkServer.SendToAll(MsgReadyToBegin, new ReadyToBeginMsg());
+            NetworkServer.SendToAll(MsgServerReadyToBegin, new ServerReadyToBeginMsg());
         }
 
-        public void ReadyToBeginMessageHandler(NetworkMessage netMsg)
+        public void ClientReadyToBeginMessageHandler(NetworkMessage netMsg)
+        {
+            if(NetworkServer.active)
+            {
+                LobbyManager.s_Singleton.ReadyPlayers++;
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        class ServerReadyToBeginMsg : MessageBase { }
+        public void SendServerReadyToBegin()
+        {
+            NetworkServer.SendToAll(MsgServerReadyToBegin, new ServerReadyToBeginMsg());
+        }
+
+        public void ServerReadyToBeginMessageHandler(NetworkMessage netMsg)
         {
             MenuController.Instance.HideLoading();
 
@@ -334,19 +352,6 @@ namespace Prototype.NetworkLobby
             }
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        private void ServerLoadPlayers()
-        {
-            foreach (Entity e in m_entities)
-            {
-                e.CmdLoadInitialWeapons();
-            }
-
-            SendReadyToBegin();
-
-            //GameController.Instance.StartPlaying(true);
-        }
-
         public void SendGamePhaseChangedMsg(GamePhaseChangedMsg msg)
         {
             NetworkServer.SendToAll(MsgGamePhaseChanged, msg);
@@ -386,12 +391,6 @@ namespace Prototype.NetworkLobby
                 StopMatchMaker();
                 StopHost();
             }
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-        public void AddEntity(Entity ent)
-        {
-            m_entities.Add(ent);
         }
 
         //allow to handle the (+) button to add/remove player
@@ -540,18 +539,19 @@ namespace Prototype.NetworkLobby
             {
                 //this will execute for the client (if youre the host, this will also run).
                 client.RegisterHandler(MsgGamePhaseChanged, GamePhaseChangedMessageHandler);
-                client.RegisterHandler(MsgReadyToBegin, ReadyToBeginMessageHandler);
+                client.RegisterHandler(MsgServerReadyToBegin, ServerReadyToBeginMessageHandler);
             }
 
             if (NetworkServer.active)
             {
                 //this will execute for server (if youre the host, this will also run).
                 NetworkServer.RegisterHandler(MsgGamePhaseChanged, GamePhaseChangedMessageHandler);
-                NetworkServer.RegisterHandler(MsgReadyToBegin, ReadyToBeginMessageHandler);
+                NetworkServer.RegisterHandler(MsgServerReadyToBegin, ServerReadyToBeginMessageHandler);
             }
 
             // server
             NetworkServer.RegisterHandler(MsgChatMsgSend, SendChatMsgMessageHandler);
+            NetworkServer.RegisterHandler(MsgChatMsgSend, ClientReadyToBeginMessageHandler);
 
             if (!NetworkServer.active)
             {

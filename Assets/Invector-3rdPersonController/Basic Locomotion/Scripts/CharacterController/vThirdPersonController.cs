@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Invector.vCamera;
+using Prototype.NetworkLobby;
+using UnityEngine.Networking;
 
 namespace Invector.vCharacterController
 {
@@ -9,7 +11,10 @@ namespace Invector.vCharacterController
     {
         #region Variables
 
-        public static vThirdPersonController instance;
+        //public static vThirdPersonController instance;
+
+        [SyncVar]
+        public LobbyData LobbyData;
 
         #endregion
 
@@ -18,12 +23,63 @@ namespace Invector.vCharacterController
             StartCoroutine(UpdateRaycast()); // limit raycasts calls for better performance
         }
 
+        public bool HasPartyFrame()
+        {
+            return m_frame != null;
+        }
+
+        public override void AssignPartyFrame(PartyFrame frame)
+        {
+            base.AssignPartyFrame(frame);
+
+            if(m_frame && m_frame.Name)
+            {
+                m_frame.Name.text = LobbyData.Name;
+            }
+        }
+
         protected override void Start()
         {
             base.Start();
 
-            Camera.main.GetComponent<vThirdPersonCamera>().target = this.gameObject.transform;
-            Camera.main.GetComponent<vThirdPersonCamera>().Init();
+            //create hud frame for this player
+            var hudCtrl = FindObjectOfType<HudController>();
+            if(hudCtrl)
+            {
+                hudCtrl.AddPartyMember(this);
+            }
+
+            if (GameController.Instance.IsMultyPlayer())
+            {
+                if (isLocalPlayer)
+                {
+                    Camera.main.GetComponent<vThirdPersonCamera>().target = this.gameObject.transform;
+                    Camera.main.GetComponent<vThirdPersonCamera>().Init();
+
+                    //minimap
+                    if (hudCtrl)
+                    {
+                        var mapCanvasCtrl = hudCtrl.GetComponentInChildren<MapCanvasController>(true);
+                        mapCanvasCtrl.gameObject.SetActive(true);
+                        mapCanvasCtrl.Load();
+                    }
+
+                    LobbyManager.s_Singleton.SendClientReadyToBegin();
+
+                    // Show "Waiting for other players" text
+                    MenuController.Instance.OnLocalLoaded();
+
+                    // It is safe to init the chat controller now
+                    ChatController.Instance.Init(this);
+                }
+                else
+                {
+                    this.gameObject.GetComponent<MapMarker>().enabled = true;
+
+                    //Destroy(this);
+                    //return;
+                }
+            }
         }
 
         #region Locomotion Actions

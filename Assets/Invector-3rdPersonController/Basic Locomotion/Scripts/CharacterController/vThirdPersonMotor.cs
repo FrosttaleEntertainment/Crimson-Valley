@@ -6,6 +6,7 @@ using Invector;
 using Invector.EventSystems;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 namespace Invector.vCharacterController
 {
@@ -22,6 +23,7 @@ namespace Invector.vCharacterController
         public float maxStamina = 200f;
         public float staminaRecovery = 1.2f;
         [HideInInspector]
+        [SyncVar(hook = "OnStaminaChange")]
         public float currentStamina;
         protected bool recoveringStamina;
         [HideInInspector]
@@ -294,6 +296,22 @@ namespace Invector.vCharacterController
             currentStamina = maxStamina;
             ResetJumpMultiplier();
             isGrounded = true;
+        }
+
+        ///===== callback from sync var
+        public void OnStaminaChange(float newStamina)
+        {
+            currentStamina = newStamina;
+
+            if (m_frame != null)
+            {
+                m_frame.Stamina.fillAmount = currentStamina / maxStamina;
+
+                if(m_frame.StaminaText != null)
+                {
+                    m_frame.StaminaText.text = string.Format("{0}%", (int)maxStamina / currentStamina);
+                }
+            }
         }
 
         public virtual void UpdateMotor()

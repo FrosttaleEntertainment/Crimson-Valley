@@ -1,4 +1,5 @@
 ﻿using Base;
+using Invector.vCharacterController;
 using Prototype.NetworkLobby;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ public class ChatController : Singleton<ChatController> {
 
     public bool IsInitialized { get; set; }
 
-    private Entity m_entity;
+    private vThirdPersonController m_controller;
     private ChatManager m_manager;
 
     private ChatManager ChatManager
@@ -44,11 +45,11 @@ public class ChatController : Singleton<ChatController> {
 		
 	}
 
-    public void Init(Entity entity)
+    public void Init(vThirdPersonController ctrl)
     {
-        m_entity = entity;
+        m_controller = ctrl;
 
-        if (m_entity != null)
+        if (m_controller != null)
         {
             IsInitialized = true;
         }
@@ -86,11 +87,11 @@ public class ChatController : Singleton<ChatController> {
 
     public void ClientSendMessage(string textMsg)
     {
-        if(m_entity != null)
+        if(m_controller != null)
         {
             //TODO Validate text before sending
             var msg = new ChatMessage();
-            msg.Sender = m_entity.LobbyData;
+            msg.Sender = m_controller.LobbyData;
             msg.Message = textMsg;
 
             LobbyManager.s_Singleton.SendChatMsg(msg);

@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 136235371271563880}
   - component: {fileID: 114407860066488252}
   - component: {fileID: 114039041116316796}
+  - component: {fileID: 114989376326934136}
   m_Layer: 9
   m_Name: Mummy_07
   m_TagString: Enemy
@@ -1466,6 +1467,20 @@ MonoBehaviour:
   ScanFrequency: 1
   LeftHand: {fileID: 4026419802325508}
   RightHand: {fileID: 4927394820473538}
+--- !u!114 &114989376326934136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1403805622189994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492392c310a924d4291d26c3c333296b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  markerSprite: {fileID: 21300000, guid: afb023e63c5f1b646a83ad530fad2a0e, type: 3}
+  markerSize: 6.5
+  isActive: 1
 --- !u!135 &135353180433708154
 SphereCollider:
   m_ObjectHideFlags: 1

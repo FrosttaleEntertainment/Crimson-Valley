@@ -187,9 +187,9 @@ public class GameController : Singleton<GameController>
         switch (state)
         {
             case GameState.Day:
-                return 30;
+                return 40;
             case GameState.Night:
-                return 20;
+                return 10;
         }
 
         Debug.Assert(false, "Why is this reached?");

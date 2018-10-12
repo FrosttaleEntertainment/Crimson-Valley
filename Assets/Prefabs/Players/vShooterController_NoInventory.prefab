@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 114747275760052092}
   - component: {fileID: 114296012020652630}
   - component: {fileID: 114350889090946266}
+  - component: {fileID: 114794417357470430}
   m_Layer: 8
   m_Name: vShooterController_NoInventory
   m_TagString: Player
@@ -6083,7 +6084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 9599192}
-  m_ParameterSendBits: 262143
+  m_ParameterSendBits: 4294967295
   param0: 
   param1: 
   param2: 
@@ -6177,6 +6178,47 @@ MonoBehaviour:
     i15: 42
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114794417357470430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9de747ec6d608d4b984ba2628a309b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interpolationBackTime: 0.1
+  extrapolationTimeLimit: 0.3
+  extrapolationDistanceLimit: 0.3
+  sendPositionThreshold: 0.001
+  sendRotationThreshold: 0.001
+  sendScaleThreshold: 0.001
+  sendVelocityThreshold: 0.001
+  sendAngularVelocityThreshold: 0.001
+  receivedPositionThreshold: 0
+  receivedRotationThreshold: 0
+  positionSnapThreshold: 8
+  rotationSnapThreshold: 60
+  scaleSnapThreshold: 3
+  positionLerpSpeed: 0.2
+  rotationLerpSpeed: 0.2
+  scaleLerpSpeed: 0.2
+  syncPosition: 0
+  syncRotation: 0
+  syncScale: 7
+  syncVelocity: 0
+  syncAngularVelocity: 0
+  isPositionCompressed: 1
+  isRotationCompressed: 1
+  isScaleCompressed: 1
+  isVelocityCompressed: 1
+  isAngularVelocityCompressed: 1
+  whereToUpdateTransform: 1
+  sendRate: 30
+  networkChannel: 1
+  childObjectToSync: {fileID: 0}
 --- !u!114 &114862243742420254
 MonoBehaviour:
   m_ObjectHideFlags: 1

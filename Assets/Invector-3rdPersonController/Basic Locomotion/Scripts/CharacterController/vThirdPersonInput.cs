@@ -51,8 +51,7 @@ namespace Invector.vCharacterController
 
         [HideInInspector]
         public vThirdPersonController cc;                   // access the ThirdPersonController component
-        [HideInInspector]
-        public vHUDController hud;                          // acess vHUDController component        
+               
         protected bool updateIK = false;
         protected bool isInit;
 
@@ -73,15 +72,21 @@ namespace Invector.vCharacterController
 
         protected virtual void Start()
         {
+            if (GameController.Instance.IsMultyPlayer())
+            {
+                if (!isLocalPlayer)
+                {
+                    Destroy(this);
+                    return;
+                }
+            }
+
             cc = GetComponent<vThirdPersonController>();
 
             if (cc != null)
                 cc.Init();
 
-            if (vThirdPersonController.instance == cc || vThirdPersonController.instance == null)
-            {
-                StartCoroutine(CharacterInit());
-            }
+            StartCoroutine(CharacterInit());
 
             ShowCursor(showCursorOnStart);
             LockCursor(unlockCursorOnStart);
@@ -94,12 +99,7 @@ namespace Invector.vCharacterController
             {
                 tpCamera = FindObjectOfType<vCamera.vThirdPersonCamera>();
                 if (tpCamera && tpCamera.target != transform) tpCamera.SetMainTarget(this.transform);
-            }
-            if (hud == null && vHUDController.instance != null)
-            {
-                hud = vHUDController.instance;
-                hud.Init(cc);
-            }
+            }            
         }
 
         #endregion
@@ -129,7 +129,6 @@ namespace Invector.vCharacterController
             InputHandle();                      // update input methods
             cc.UpdateMotor();                   // call ThirdPersonMotor methods
             //cc.UpdateAnimator();                // call ThirdPersonAnimator methods
-            UpdateHUD();                        // update hud graphics
         }
 
         protected virtual void InputHandle()
@@ -369,17 +368,6 @@ namespace Invector.vCharacterController
         }
 
         #endregion
-
-        #region HUD       
-
-        public virtual void UpdateHUD()
-        {
-            if (hud == null)
-                return;
-
-            hud.UpdateHUD(cc);
-        }
-
-        #endregion
+        
     }
 }

@@ -3,6 +3,8 @@ using Invector.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+
 namespace Invector
 {
     [vClassHeader("vHealthController")]
@@ -14,7 +16,13 @@ namespace Invector
         public class OnReceiveDamage : UnityEngine.Events.UnityEvent<vDamage> { }
         [vEditorToolbar("Health", order = 0)]
         [SerializeField] [vReadOnly] protected bool _isDead;
-        [vBarDisplay("maxHealth", true)] [SerializeField] protected float _currentHealth;
+
+        [vBarDisplay("maxHealth", true)]
+        [SerializeField]
+        [SyncVar(hook = "OnHealthChange")]
+        protected float _currentHealth;
+
+        protected PartyFrame m_frame;
 
         public int maxHealth = 100;
         public float currentHealth
@@ -64,6 +72,26 @@ namespace Invector
         {
             currentHealth = maxHealth;
             currentHealthRecoveryDelay = healthRecoveryDelay;
+        }
+
+        ///===== callback from sync var
+        public void OnHealthChange(float newHealth)
+        {
+            currentHealth = newHealth;   
+            
+            if(m_frame != null)
+            {
+                m_frame.Health.fillAmount = currentHealth / maxHealth;
+                m_frame.HealthText.text = string.Format("{0}%", (int)maxHealth / currentHealth);
+            }
+        }
+
+        public virtual void AssignPartyFrame(PartyFrame frame)
+        {
+            if(frame != null)
+            {
+                m_frame = frame;
+            }
         }
 
         protected virtual bool canRecoverHealth

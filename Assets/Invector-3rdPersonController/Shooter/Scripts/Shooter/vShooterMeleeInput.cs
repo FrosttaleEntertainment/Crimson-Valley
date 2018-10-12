@@ -73,9 +73,18 @@ namespace Invector.vShooter
         public bool lockShooterInput;
 
         #endregion
-
+        
         protected override void Start()
         {
+            if (GameController.Instance.IsMultyPlayer())
+            {
+                if (!isLocalPlayer)
+                {
+                    Destroy(this);
+                    return;
+                }
+            }
+
             shooterManager = GetComponent<vShooterManager>();
 
             base.Start();
@@ -99,6 +108,15 @@ namespace Invector.vShooter
 
         protected override void LateUpdate()
         {
+            if (GameController.Instance.IsMultyPlayer())
+            {
+                if (!isLocalPlayer)
+                {
+                    Destroy(this);
+                    return;
+                }
+            }
+
             if ((!updateIK && animator.updateMode == AnimatorUpdateMode.AnimatePhysics)) return;
             base.LateUpdate();
             UpdateAimBehaviour();                       

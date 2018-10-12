@@ -155,7 +155,6 @@ namespace Base
 
                     if (isServer)
                     {
-                        LobbyManager.s_Singleton.AddEntity(this);
 
                         EntityRepository.Players.Add(this);
                     }
@@ -163,7 +162,7 @@ namespace Base
                     if (isLocalPlayer)
                     {
                         // It is safe to init the chat controller now
-                        ChatController.Instance.Init(this);
+                       // ChatController.Instance.Init(this);
                     }
                     else
                     {

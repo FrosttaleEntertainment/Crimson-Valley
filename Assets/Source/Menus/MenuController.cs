@@ -18,13 +18,15 @@ public class MenuController : Singleton<MenuController>
 
     public void OnLoadingScreenLoaded(GameObject[] rootObjects)
     {
-        if (rootObjects.Length != 1)
+        for (int i = 0; i < rootObjects.Length; i++)
         {
-            Debug.Assert(false, "More than one root object (canvas) in loading scene!");
-            return;
-        }
+            LoadingScreen = rootObjects[i].GetComponent<LoadingScreen>();
 
-        LoadingScreen = rootObjects[0].GetComponent<LoadingScreen>();
+            if(LoadingScreen)
+            {
+                break;
+            }
+        }
 
         Debug.Assert(LoadingScreen, "LoadingScreen not found on this root object");
     }
@@ -50,8 +52,6 @@ public class MenuController : Singleton<MenuController>
 
     public void HideLoading()
     {
-        Debug.Assert(GameController.Instance.IsMultyPlayer(), "This should only be used for multiplayer mode");
-
         if (LoadingScreen)
         {
             Destroy(LoadingScreen.gameObject);

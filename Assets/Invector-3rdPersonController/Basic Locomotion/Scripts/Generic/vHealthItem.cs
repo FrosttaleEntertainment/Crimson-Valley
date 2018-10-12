@@ -29,7 +29,7 @@ namespace Invector
                     {
                         var tpInput = other.GetComponent<vThirdPersonInput>();
                         // show message if the character's health is full
-                        tpInput.hud.ShowText("Health is Full");
+                        //tpInput.hud.ShowText("Health is Full");
                     }
                 }
             }
