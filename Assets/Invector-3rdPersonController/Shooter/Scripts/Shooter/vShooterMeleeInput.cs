@@ -312,7 +312,7 @@ namespace Invector.vShooter
                 if (weapon.chargeWeapon && weapon.powerCharge != 0) weapon.powerCharge = 0;
                 if (weapon.secundaryWeapon != null && weapon.secundaryWeapon.chargeWeapon && weapon.secundaryWeapon.powerCharge != 0) weapon.secundaryWeapon.powerCharge = 0;
             }
-            shooterManager.UpdateShotTime();
+            //shooterManager.UpdateShotTime();
         }
 
         protected virtual void HandleShot(vShooterWeapon weapon, GenericInput weaponInput, bool secundaryShot = false)

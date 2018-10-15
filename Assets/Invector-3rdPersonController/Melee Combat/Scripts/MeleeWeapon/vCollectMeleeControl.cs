@@ -5,6 +5,7 @@ using System;
 
 namespace Invector.vMelee
 {
+    using UnityEngine.Networking;
     using vCharacterController;
     using vCharacterController.vActions;
     [vClassHeader("CollectMeleeControl")]
@@ -36,6 +37,25 @@ namespace Invector.vMelee
         }
 
         public virtual void HandleCollectableInput(vCollectableStandalone collectableStandAlone)
+        {
+            
+        }
+
+        //[Command]
+        //public virtual void CmdHandleCollectableInput(NetworkInstanceId collectableId)
+        //{
+        //    var collectableObj = NetworkServer.FindLocalObject(collectableId);
+        //    InternalHandleCollectableInput(collectableObj.GetComponentInChildren<vCollectableStandalone>());
+        //}
+        //
+        //[ClientRpc]
+        //public virtual void RpcHandleCollectableInput(NetworkInstanceId collectableId)
+        //{
+        //    var collectableObj = NetworkServer.FindLocalObject(collectableId);
+        //    InternalHandleCollectableInput(collectableObj.GetComponentInChildren<vCollectableStandalone>());
+        //}
+
+        protected virtual void InternalHandleCollectableInput(vCollectableStandalone collectableStandAlone)
         {
             if (!meleeManager) return;
             if (collectableStandAlone != null && collectableStandAlone.weapon != null)
@@ -98,9 +118,14 @@ namespace Invector.vMelee
         {
             if (leftWeapon)
             {
+                if (isServer)
+                {
+                    RemoveAuthority(leftWeapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
+                }
+
                 leftWeapon.transform.parent = null;
                 var _collectable = leftWeapon.GetComponentInChildren<vCollectableStandalone>();
-                if (_collectable) _collectable.OnDrop.Invoke();
+                if (_collectable) _collectable.OnDrop.Invoke();                
             }
             if (meleeManager)
                 meleeManager.leftWeapon = null;
@@ -111,9 +136,14 @@ namespace Invector.vMelee
         {
             if (rightWeapon)
             {
+                if (isServer)
+                {
+                    RemoveAuthority(rightWeapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
+                }
+
                 rightWeapon.transform.parent = null;
                 var _collectable = rightWeapon.GetComponentInChildren<vCollectableStandalone>();
-                if (_collectable) _collectable.OnDrop.Invoke();
+                if (_collectable) _collectable.OnDrop.Invoke();                
             }
             if (meleeManager)
                 meleeManager.rightWeapon = null;
@@ -148,6 +178,17 @@ namespace Invector.vMelee
                 currentDisplay.RemoveRightWeaponIcon();
                 currentDisplay.RemoveRightWeaponText();
             }
+        }
+
+        
+        protected void SetAuthority(NetworkIdentity grabID, NetworkIdentity playerID)
+        {
+            grabID.AssignClientAuthority(playerID.connectionToClient);
+        }
+        
+        protected void RemoveAuthority(NetworkIdentity grabID, NetworkIdentity playerID)
+        {
+            grabID.RemoveClientAuthority(playerID.connectionToClient);
         }
     }
 }

@@ -5,6 +5,8 @@ namespace Invector.vShooter
 {
     using vItemManager;
     using vCharacterController;
+    using UnityEngine.Networking;
+
     [vClassHeader("SHOOTER MANAGER", iconName = "shooterIcon")]
     public class vShooterManager : vMonoBehaviour
     {
@@ -100,7 +102,9 @@ namespace Invector.vShooter
         private int totalAmmo;
         private int secundaryTotalAmmo;
         private bool usingThirdPersonController;
+        
         private float currentShotTime;
+
         private float hipfirePrecisionAngle;
         private float hipfirePrecision;
         #endregion        
@@ -153,14 +157,14 @@ namespace Invector.vShooter
                     lWeapon.hitLayer = damageLayer;
                     lWeapon.root = transform;
                     lWeapon.onDestroy.AddListener(OnDestroyWeapon);
-                    if (lWeapon.autoReload) ReloadWeaponAuto(lWeapon, false, false);
+                    if (lWeapon.autoReload) CmdReloadWeaponAuto(lWeapon.gameObject, false, false);
                     if (lWeapon.secundaryWeapon)
                     {
                         lWeapon.secundaryWeapon.ignoreTags = ignoreTags;
                         lWeapon.secundaryWeapon.hitLayer = damageLayer;
                         lWeapon.secundaryWeapon.root = transform;
                         lWeapon.secundaryWeapon.isSecundaryWeapon = true;
-                        if (lWeapon.secundaryWeapon.autoReload) ReloadWeaponAuto(lWeapon.secundaryWeapon, false, true);
+                        if (lWeapon.secundaryWeapon.autoReload) CmdReloadWeaponAuto(lWeapon.secundaryWeapon.gameObject, false, true);
                     }
                     if (usingThirdPersonController)
                     {
@@ -185,14 +189,14 @@ namespace Invector.vShooter
                     rWeapon.hitLayer = damageLayer;
                     rWeapon.root = transform;
                     rWeapon.onDestroy.AddListener(OnDestroyWeapon);
-                    if (rWeapon.autoReload) ReloadWeaponAuto(rWeapon, false, false);
+                    if (rWeapon.autoReload) CmdReloadWeaponAuto(rWeapon.gameObject, false, false);
                     if (rWeapon.secundaryWeapon)
                     {
                         rWeapon.secundaryWeapon.ignoreTags = ignoreTags;
                         rWeapon.secundaryWeapon.hitLayer = damageLayer;
                         rWeapon.secundaryWeapon.root = transform;
                         rWeapon.secundaryWeapon.isSecundaryWeapon = true;
-                        if (rWeapon.secundaryWeapon.autoReload) ReloadWeaponAuto(rWeapon.secundaryWeapon, false, true);
+                        if (rWeapon.secundaryWeapon.autoReload) CmdReloadWeaponAuto(rWeapon.secundaryWeapon.gameObject, false, true);
                     }
                     if (usingThirdPersonController)
                     {
@@ -282,11 +286,40 @@ namespace Invector.vShooter
             get { return currentShotTime > 0; }
         }
 
+        [Command]
+        public void CmdReloadWeapon(bool ignoreAmmo, bool ignoreAnim)
+        {
+            if(InternalReloadWeapon(ignoreAmmo, ignoreAnim) == false)
+            {
+                return;
+            }
+
+            RpcReloadWeapon(ignoreAmmo, ignoreAnim);
+        }
+
+        [ClientRpc]
+        public void RpcReloadWeapon(bool ignoreAmmo, bool ignoreAnim)
+        {
+            InternalReloadWeapon(ignoreAmmo, ignoreAnim);
+        }
+
         public void ReloadWeapon(bool ignoreAmmo = false, bool ignoreAnim = false)
         {
             var weapon = rWeapon ? rWeapon : lWeapon;
 
             if (!weapon) return;
+
+            if (isLocalPlayer)
+            {
+                CmdReloadWeapon(ignoreAmmo, ignoreAnim);
+            }
+        }
+
+        private bool InternalReloadWeapon(bool ignoreAmmo, bool ignoreAnim)
+        {
+            var weapon = rWeapon ? rWeapon : lWeapon;
+
+            if (!weapon) return false;
             UpdateTotalAmmo();
             bool primaryWeaponAnim = false;
             if (!(!ignoreAmmo && (weapon.ammoCount >= weapon.clipSize || !WeaponHasAmmo())) && !weapon.autoReload)
@@ -330,9 +363,30 @@ namespace Invector.vShooter
                 }
             }
             UpdateTotalAmmo();
+
+            return true;
         }
 
-        protected void ReloadWeaponAuto(vShooterWeapon weapon, bool ignoreAmmo, bool secundaryWeapon = false)
+        private void LateUpdate()
+        {
+            UpdateShotTime();
+        }
+
+        [Command]
+        protected void CmdReloadWeaponAuto(GameObject weapon, bool ignoreAmmo, bool secundaryWeapon)
+        {
+            InternalReloadWeaponAuto(weapon.GetComponent<vShooterWeapon>(), ignoreAmmo, secundaryWeapon);
+
+            RpcReloadWeaponAuto(weapon, ignoreAmmo, secundaryWeapon);
+        }
+
+        [ClientRpc]
+        protected void RpcReloadWeaponAuto(GameObject weapon, bool ignoreAmmo, bool secundaryWeapon)
+        {
+            InternalReloadWeaponAuto(weapon.GetComponent<vShooterWeapon>(), ignoreAmmo, secundaryWeapon);
+        }
+
+        protected void InternalReloadWeaponAuto(vShooterWeapon weapon, bool ignoreAmmo, bool secundaryWeapon)
         {
             if (!weapon) return;
             UpdateTotalAmmo();
@@ -415,21 +469,77 @@ namespace Invector.vShooter
 
         public virtual void Shoot(Vector3 aimPosition, bool applyHipfirePrecision = false, bool useSecundaryWeapon = false)
         {
-            if (isShooting) return;
+            if(isLocalPlayer && !isShooting)
+            {
+                var weapon = rWeapon ? rWeapon : lWeapon;
+                if (!weapon)
+                {
+                    return;
+                }
+
+                var secundaryWeapon = weapon.secundaryWeapon;
+
+                if (useSecundaryWeapon && !secundaryWeapon)
+                {
+                    return;
+                }
+
+                var targetWeapon = useSecundaryWeapon ? secundaryWeapon : weapon;
+                if (targetWeapon.ammoCount > 0)
+                {
+                    CmdShoot(aimPosition, applyHipfirePrecision, useSecundaryWeapon);
+                }
+                else
+                {
+                    weapon.EmptyClipEffect();
+                }
+                
+            }
+        }
+
+        [Command]
+        public void CmdShoot(Vector3 aimPosition, bool applyHipfirePrecision, bool useSecundaryWeapon)
+        {
+            if(InternalShoot(aimPosition, applyHipfirePrecision, useSecundaryWeapon) == false)
+            {
+                return;
+            }
+
+            RpcShoot(aimPosition, applyHipfirePrecision, useSecundaryWeapon);
+        }
+
+        [ClientRpc]
+        public void RpcShoot(Vector3 aimPosition, bool applyHipfirePrecision, bool useSecundaryWeapon)
+        {
+            InternalShoot(aimPosition, applyHipfirePrecision, useSecundaryWeapon);
+        }
+
+        private bool InternalShoot(Vector3 aimPosition, bool applyHipfirePrecision, bool useSecundaryWeapon)
+        {
+            if (isShooting)
+            {
+                return false;
+            }
+
             var weapon = rWeapon ? rWeapon : lWeapon;
-            if (!weapon) return;
+            if (!weapon)
+            {
+                return false;
+            }
+
             var secundaryWeapon = weapon.secundaryWeapon;
 
             if (useSecundaryWeapon && !secundaryWeapon)
             {
-                return;
+                return false;
             }
+
             var targetWeapon = useSecundaryWeapon ? secundaryWeapon : weapon;
-            if (targetWeapon.autoReload) ReloadWeaponAuto(targetWeapon, false, useSecundaryWeapon);
+            if (targetWeapon.autoReload) CmdReloadWeaponAuto(targetWeapon.gameObject, false, useSecundaryWeapon);
             if (targetWeapon.ammoCount > 0)
             {
                 var _aimPos = applyHipfirePrecision ? aimPosition + HipFirePrecision(aimPosition) : aimPosition;
-                targetWeapon.ShootEffect(_aimPos, transform);
+                targetWeapon.ShootEffect(_aimPos, transform); //TODO Spawn on server only
 
                 if (applyRecoilToCamera)
                 {
@@ -442,10 +552,12 @@ namespace Invector.vShooter
             }
             else
             {
-                weapon.EmptyClipEffect();
+                return false;
             }
-            if (targetWeapon.autoReload) ReloadWeaponAuto(targetWeapon, false, useSecundaryWeapon);
+            if (targetWeapon.autoReload) CmdReloadWeaponAuto(targetWeapon.gameObject, false, useSecundaryWeapon);
             currentShotTime = weapon.shootFrequency;
+
+            return true;
         }
 
         IEnumerator Recoil(float horizontal, float up)

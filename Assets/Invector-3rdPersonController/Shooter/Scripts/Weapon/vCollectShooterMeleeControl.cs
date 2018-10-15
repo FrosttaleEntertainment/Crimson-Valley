@@ -16,19 +16,49 @@ namespace Invector.vMelee
             shooterManager = GetComponent<vShooterManager>();
         }
 
-        [Command]
-        void CmdSetAuthority(NetworkIdentity grabID, NetworkIdentity playerID)
-        {
-            grabID.AssignClientAuthority(playerID.connectionToClient);
-        }
-
-        [Command]
-        void CmdRemoveAuthority(NetworkIdentity grabID, NetworkIdentity playerID)
-        {
-            grabID.RemoveClientAuthority(playerID.connectionToClient);
-        }
-
         public override void HandleCollectableInput(vCollectableStandalone collectableStandAlone)
+        {
+            if (isLocalPlayer)
+            {
+                CmdHandleCollectableInput(collectableStandAlone.weapon);
+            }
+        }
+
+        [Command]
+        public void CmdHandleCollectableInput(GameObject collectableObj)
+        {
+            try
+            {                
+                InternalHandleCollectableInput(collectableObj.GetComponentInChildren<vCollectableStandalone>());
+
+                //base.CmdHandleCollectableInput(collectableId);
+            }
+            catch (System.Exception)
+            {
+                Debug.Log("Error equiping weapon on server");
+                return;                
+            }
+
+            RpcHandleCollectableInput(collectableObj);            
+        }
+
+        [ClientRpc]
+        public void RpcHandleCollectableInput(GameObject collectableObj)
+        {
+            try
+            {
+                InternalHandleCollectableInput(collectableObj.GetComponentInChildren<vCollectableStandalone>());
+
+                //base.RpcHandleCollectableInput(collectableId);
+            }
+            catch (System.Exception)
+            {
+                Debug.Log("Error equiping weapon on client");
+                return;
+            }
+        }
+
+        protected override void InternalHandleCollectableInput(vCollectableStandalone collectableStandAlone)
         {
             if (shooterManager && collectableStandAlone != null && collectableStandAlone.weapon != null)
             {
@@ -47,20 +77,15 @@ namespace Invector.vMelee
 
                             if (leftWeapon && leftWeapon != weapon.gameObject)
                             {
-                                if (isLocalPlayer)
-                                {
-                                    CmdRemoveAuthority(leftWeapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
-                                }
-
                                 RemoveLeftWeapon();
                             }
 
                             shooterManager.SetLeftWeapon(weapon.gameObject);
                             collectableStandAlone.OnEquip.Invoke();
 
-                            if (isLocalPlayer)
+                            if (isServer)
                             {
-                                CmdSetAuthority(collectableStandAlone.weapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
+                                SetAuthority(collectableStandAlone.weapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
                             }
 
                             leftWeapon = weapon.gameObject;
@@ -68,13 +93,13 @@ namespace Invector.vMelee
 
                             if (rightWeapon)
                             {
-                                if (isLocalPlayer)
-                                {
-                                    CmdRemoveAuthority(rightWeapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
-                                }
 
                                 RemoveRightWeapon();
                             }
+                        }
+                        else
+                        {
+                            throw new System.Exception("Invalid equipment point");
                         }
                     }
                     else
@@ -88,20 +113,15 @@ namespace Invector.vMelee
 
                             if (rightWeapon && rightWeapon != weapon.gameObject)
                             {
-                                if (isLocalPlayer)
-                                {
-                                    CmdRemoveAuthority(rightWeapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
-                                }
-
                                 RemoveRightWeapon();
                             }
 
                             shooterManager.SetRightWeapon(weapon.gameObject);
                             collectableStandAlone.OnEquip.Invoke();
 
-                            if (isLocalPlayer)
+                            if (isServer)
                             {
-                                CmdSetAuthority(collectableStandAlone.weapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
+                                SetAuthority(collectableStandAlone.weapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
                             }
 
                             rightWeapon = weapon.gameObject;
@@ -109,18 +129,26 @@ namespace Invector.vMelee
 
                             if (leftWeapon)
                             {
-                                if (isLocalPlayer)
-                                {
-                                    CmdRemoveAuthority(leftWeapon.GetComponent<NetworkIdentity>(), gameObject.GetComponent<NetworkIdentity>());
-                                }
-
                                 RemoveLeftWeapon();
                             }
                         }
+                        else
+                        {
+                            throw new System.Exception("Invalid equipment point");
+                        }
                     }
                 }
+                else
+                {
+                    throw new System.Exception("Invalid collectable");
+                }
             }
-            base.HandleCollectableInput(collectableStandAlone);
+            else
+            {
+                throw new System.Exception("Invalid collectable");
+            }
+
+            base.InternalHandleCollectableInput(collectableStandAlone);
         }
 
         protected override void RemoveRightWeapon()

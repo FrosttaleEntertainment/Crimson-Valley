@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 114125341332989562}
   - component: {fileID: 54569530316034046}
   - component: {fileID: 65429349196470508}
+  - component: {fileID: 114025478357648140}
   m_Layer: 1
   m_Name: vBow_NoInventory
   m_TagString: Weapon
@@ -1184,6 +1185,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114025478357648140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502236462830544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 245
+    i1: 13
+    i2: 192
+    i3: 117
+    i4: 31
+    i5: 144
+    i6: 8
+    i7: 36
+    i8: 73
+    i9: 171
+    i10: 39
+    i11: 195
+    i12: 57
+    i13: 78
+    i14: 82
+    i15: 60
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114125341332989562
 MonoBehaviour:
   m_ObjectHideFlags: 1
