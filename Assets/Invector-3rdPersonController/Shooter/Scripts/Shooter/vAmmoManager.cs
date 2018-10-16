@@ -93,7 +93,10 @@ namespace Invector.vItemManager
         [ClientRpc]
         public void RpcAddAmmo(string ammoName, int id, int amount)
         {
-            InternalAddAmmo(ammoName, id, amount);
+            if(isServer == false)
+            {
+                InternalAddAmmo(ammoName, id, amount);
+            }
         }
 
         protected void InternalAddAmmo(string ammoName, int id, int amount)

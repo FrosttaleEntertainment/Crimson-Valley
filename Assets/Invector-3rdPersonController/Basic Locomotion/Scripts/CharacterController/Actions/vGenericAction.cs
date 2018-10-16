@@ -69,27 +69,10 @@ namespace Invector.vCharacterController.vActions
                     if (!triggerActionOnce)
                     {
                         OnDoAction.Invoke(triggerAction);
-                        if(isLocalPlayer)
-                        {
-                            CmdTriggerAnimation();
-                        }                   
+                        TriggerAnimation();                        
                     }                        
                 }
             }
-        }
-
-        [Command]
-        private void CmdTriggerAnimation()
-        {
-            TriggerAnimation();
-
-            RpcTriggerAnimation();
-        }
-
-        [ClientRpc]
-        private void RpcTriggerAnimation()
-        {
-            TriggerAnimation();
         }
 
         public virtual bool actionConditions
@@ -125,12 +108,28 @@ namespace Invector.vCharacterController.vActions
         public virtual IEnumerator DestroyDelay(vTriggerGenericAction triggerAction)
         {            
             var _triggerAction = triggerAction;
-            yield return new WaitForSeconds(_triggerAction.destroyDelay);            
-            ResetPlayerSettings();
+            yield return new WaitForSeconds(_triggerAction.destroyDelay);
+            
+            if(isLocalPlayer)
+            {
+                CmdDestroy(_triggerAction.gameObject);
+            }
+        }
 
-            if(isServer)
-            {            
-                NetworkServer.Destroy(_triggerAction.gameObject);
+        [Command]
+        private void CmdDestroy(GameObject obj)
+        {
+            NetworkServer.Destroy(obj);
+
+            RpcAfterDestroy();
+        }
+
+        [ClientRpc]
+        private void RpcAfterDestroy()
+        {
+            if(isLocalPlayer)
+            {
+                ResetPlayerSettings();
             }
         }
 
