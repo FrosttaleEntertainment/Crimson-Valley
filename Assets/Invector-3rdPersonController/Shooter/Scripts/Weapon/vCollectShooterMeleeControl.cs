@@ -93,7 +93,6 @@ namespace Invector.vMelee
 
                             if (rightWeapon)
                             {
-
                                 RemoveRightWeapon();
                             }
                         }

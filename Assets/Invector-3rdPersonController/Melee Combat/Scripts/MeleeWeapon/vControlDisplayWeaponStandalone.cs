@@ -9,7 +9,7 @@ namespace Invector
 
         protected virtual void Start()
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
 
         #region Control Left Display

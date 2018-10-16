@@ -27,7 +27,7 @@ namespace Invector.vMelee
         protected virtual void Start()
         {
             meleeManager = GetComponent<vMeleeManager>();
-            if (controlDisplayPrefab)
+            if (controlDisplayPrefab && isLocalPlayer)
                 currentDisplay = Instantiate(controlDisplayPrefab) as vControlDisplayWeaponStandalone;
         }
 
@@ -152,6 +152,7 @@ namespace Invector.vMelee
 
         protected virtual void UpdateLeftDisplay(vCollectableStandalone collectable = null)
         {
+            if (!isLocalPlayer) return;
             if (!currentDisplay) return;
             if (collectable)
             {
@@ -167,6 +168,7 @@ namespace Invector.vMelee
         }
         protected virtual void UpdateRightDisplay(vCollectableStandalone collectable = null)
         {
+            if (!isLocalPlayer) return;
             if (!currentDisplay) return;
             if (collectable)
             {

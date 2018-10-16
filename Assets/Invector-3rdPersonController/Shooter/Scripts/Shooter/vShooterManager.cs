@@ -118,7 +118,7 @@ namespace Invector.vShooter
             ammoManager = GetComponent<vAmmoManager>();
             ammoManager.updateTotalAmmo = new vAmmoManager.OnUpdateTotalAmmo(UpdateTotalAmmo);
             usingThirdPersonController = GetComponent<vThirdPersonController>() != null;
-            if (useAmmoDisplay)
+            if (useAmmoDisplay && isLocalPlayer)
             {
                 GetAmmoDisplays();
             }
@@ -157,16 +157,16 @@ namespace Invector.vShooter
                     lWeapon.hitLayer = damageLayer;
                     lWeapon.root = transform;
                     lWeapon.onDestroy.AddListener(OnDestroyWeapon);
-                    if (lWeapon.autoReload) CmdReloadWeaponAuto(lWeapon.gameObject, false, false);
+                    if (lWeapon.autoReload && isServer) CmdReloadWeaponAuto(lWeapon.gameObject, false, false);
                     if (lWeapon.secundaryWeapon)
                     {
                         lWeapon.secundaryWeapon.ignoreTags = ignoreTags;
                         lWeapon.secundaryWeapon.hitLayer = damageLayer;
                         lWeapon.secundaryWeapon.root = transform;
                         lWeapon.secundaryWeapon.isSecundaryWeapon = true;
-                        if (lWeapon.secundaryWeapon.autoReload) CmdReloadWeaponAuto(lWeapon.secundaryWeapon.gameObject, false, true);
+                        if (lWeapon.secundaryWeapon.autoReload && isServer) CmdReloadWeaponAuto(lWeapon.secundaryWeapon.gameObject, false, true);
                     }
-                    if (usingThirdPersonController)
+                    if (usingThirdPersonController && isLocalPlayer)
                     {
                         if (useAmmoDisplay && !ammoDisplayL) GetAmmoDisplays();
                         if (useAmmoDisplay && ammoDisplayL) ammoDisplayL.Show();
@@ -189,16 +189,16 @@ namespace Invector.vShooter
                     rWeapon.hitLayer = damageLayer;
                     rWeapon.root = transform;
                     rWeapon.onDestroy.AddListener(OnDestroyWeapon);
-                    if (rWeapon.autoReload) CmdReloadWeaponAuto(rWeapon.gameObject, false, false);
+                    if (rWeapon.autoReload && isServer) CmdReloadWeaponAuto(rWeapon.gameObject, false, false);
                     if (rWeapon.secundaryWeapon)
                     {
                         rWeapon.secundaryWeapon.ignoreTags = ignoreTags;
                         rWeapon.secundaryWeapon.hitLayer = damageLayer;
                         rWeapon.secundaryWeapon.root = transform;
                         rWeapon.secundaryWeapon.isSecundaryWeapon = true;
-                        if (rWeapon.secundaryWeapon.autoReload) CmdReloadWeaponAuto(rWeapon.secundaryWeapon.gameObject, false, true);
+                        if (rWeapon.secundaryWeapon.autoReload && isServer) CmdReloadWeaponAuto(rWeapon.secundaryWeapon.gameObject, false, true);
                     }
-                    if (usingThirdPersonController)
+                    if (usingThirdPersonController && isLocalPlayer)
                     {
                         if (useAmmoDisplay && !ammoDisplayR) GetAmmoDisplays();
                         if (useAmmoDisplay && ammoDisplayR) ammoDisplayR.Show();
@@ -450,7 +450,7 @@ namespace Invector.vShooter
         {
             if (!useAmmoDisplay) return;
             var weapon = displayId == 1 ? rWeapon : lWeapon;
-
+            if (!isLocalPlayer) return;
             if (!weapon) return;
             if (!ammoDisplayR || !ammoDisplayL) GetAmmoDisplays();
             var ammoDisplay = displayId == 1 ? ammoDisplayR : ammoDisplayL;
