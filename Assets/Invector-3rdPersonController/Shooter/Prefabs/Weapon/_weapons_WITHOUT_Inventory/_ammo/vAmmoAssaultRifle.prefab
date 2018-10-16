@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 11488230}
   - component: {fileID: 11499780}
   - component: {fileID: 11405500}
+  - component: {fileID: 114585103154540534}
   m_Layer: 11
   m_Name: vAmmoAssaultRifle
   m_TagString: Action
@@ -596,7 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433be6e73b3fd844aaaf1f34e0654970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openCloseEvents: 0
+  openCloseEvents: 1
   openCloseWindow: 1
   selectedToolbar: 0
   autoAction: 1
@@ -666,3 +667,35 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 110160}
   m_IsPrefabAsset: 1
+--- !u!114 &114585103154540534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 122
+    i1: 183
+    i2: 40
+    i3: 163
+    i4: 63
+    i5: 47
+    i6: 109
+    i7: 68
+    i8: 201
+    i9: 23
+    i10: 77
+    i11: 133
+    i12: 218
+    i13: 124
+    i14: 221
+    i15: 135
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0

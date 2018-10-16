@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using System;
+using UnityEngine.Networking;
 
 namespace Invector.vItemManager
 {
@@ -54,19 +55,11 @@ namespace Invector.vItemManager
         /// <param name="amount"></param>
         public void AddAmmo(string ammoName, int id, int amount)
         {
-            var ammo = ammos.Find(a => a.ammoID == id);
-            if (ammo == null)
+            if(isLocalPlayer)
             {
-                ammo = new vAmmo(ammoName, id, amount);
-                ammos.Add(ammo);
-                ammo.onDestroyAmmoItem = new vAmmo.OnDestroyItem(OnDestroyAmmoItem);
+                CmdAddAmmo(ammoName, id, amount);
             }
-            else if (ammo != null)
-            {                
-                ammo.AddAmmo(amount);
-            }
-            UpdateTotalAmmo();
-        }     
+        }
 
         /// <summary>
         /// Use with ItemManager
@@ -85,6 +78,36 @@ namespace Invector.vItemManager
                 }
                 //var ammoItems = ammo.ammoItems.FindAll(i => i.amount < i.maxStack);
                 ammo.ammoItems.Add(item);
+            }
+            UpdateTotalAmmo();
+        }
+
+        [Command]
+        public void CmdAddAmmo(string ammoName, int id, int amount)
+        {
+            InternalAddAmmo(ammoName, id, amount);
+
+            RpcAddAmmo(ammoName, id, amount);
+        }
+
+        [ClientRpc]
+        public void RpcAddAmmo(string ammoName, int id, int amount)
+        {
+            InternalAddAmmo(ammoName, id, amount);
+        }
+
+        protected void InternalAddAmmo(string ammoName, int id, int amount)
+        {
+            var ammo = ammos.Find(a => a.ammoID == id);
+            if (ammo == null)
+            {
+                ammo = new vAmmo(ammoName, id, amount);
+                ammos.Add(ammo);
+                ammo.onDestroyAmmoItem = new vAmmo.OnDestroyItem(OnDestroyAmmoItem);
+            }
+            else if (ammo != null)
+            {
+                ammo.AddAmmo(amount);
             }
             UpdateTotalAmmo();
         }

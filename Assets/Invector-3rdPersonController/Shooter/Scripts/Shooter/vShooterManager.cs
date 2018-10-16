@@ -541,14 +541,17 @@ namespace Invector.vShooter
                 var _aimPos = applyHipfirePrecision ? aimPosition + HipFirePrecision(aimPosition) : aimPosition;
                 targetWeapon.ShootEffect(_aimPos, transform); //TODO Spawn on server only
 
-                if (applyRecoilToCamera)
+                if(isLocalPlayer)
                 {
-                    var recoilHorizontal = Random.Range(targetWeapon.recoilLeft, targetWeapon.recoilRight);
-                    var recoilUp = Random.Range(0, targetWeapon.recoilUp);
-                    StartCoroutine(Recoil(recoilHorizontal, recoilUp));
-                }
+                    if (applyRecoilToCamera)
+                    {
+                        var recoilHorizontal = Random.Range(targetWeapon.recoilLeft, targetWeapon.recoilRight);
+                        var recoilUp = Random.Range(0, targetWeapon.recoilUp);
+                        StartCoroutine(Recoil(recoilHorizontal, recoilUp));
+                    }
 
-                UpdateAmmoDisplay(rWeapon ? 1 : -1);
+                    UpdateAmmoDisplay(rWeapon ? 1 : -1);
+                }                
             }
             else
             {

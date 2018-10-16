@@ -27,6 +27,8 @@ namespace Invector.vMelee
         protected virtual void Start()
         {
             meleeManager = GetComponent<vMeleeManager>();
+
+            //TODO Include weapondisplay in HudOverlay and get it when loaded
             if (controlDisplayPrefab && isLocalPlayer)
                 currentDisplay = Instantiate(controlDisplayPrefab) as vControlDisplayWeaponStandalone;
         }
@@ -40,20 +42,6 @@ namespace Invector.vMelee
         {
             
         }
-
-        //[Command]
-        //public virtual void CmdHandleCollectableInput(NetworkInstanceId collectableId)
-        //{
-        //    var collectableObj = NetworkServer.FindLocalObject(collectableId);
-        //    InternalHandleCollectableInput(collectableObj.GetComponentInChildren<vCollectableStandalone>());
-        //}
-        //
-        //[ClientRpc]
-        //public virtual void RpcHandleCollectableInput(NetworkInstanceId collectableId)
-        //{
-        //    var collectableObj = NetworkServer.FindLocalObject(collectableId);
-        //    InternalHandleCollectableInput(collectableObj.GetComponentInChildren<vCollectableStandalone>());
-        //}
 
         protected virtual void InternalHandleCollectableInput(vCollectableStandalone collectableStandAlone)
         {

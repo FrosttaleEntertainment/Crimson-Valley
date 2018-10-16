@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 namespace Invector.vCharacterController.vActions
 {
+    using UnityEngine.Networking;
     using vCharacterController;
     [vClassHeader("GENERIC ACTION", "Use the vTriggerGenericAction to trigger a simple animation.", iconName = "triggerIcon")]
     public class vGenericAction : vActionListener
@@ -68,10 +69,27 @@ namespace Invector.vCharacterController.vActions
                     if (!triggerActionOnce)
                     {
                         OnDoAction.Invoke(triggerAction);
-                        TriggerAnimation();                        
+                        if(isLocalPlayer)
+                        {
+                            CmdTriggerAnimation();
+                        }                   
                     }                        
                 }
             }
+        }
+
+        [Command]
+        private void CmdTriggerAnimation()
+        {
+            TriggerAnimation();
+
+            RpcTriggerAnimation();
+        }
+
+        [ClientRpc]
+        private void RpcTriggerAnimation()
+        {
+            TriggerAnimation();
         }
 
         public virtual bool actionConditions
@@ -109,7 +127,11 @@ namespace Invector.vCharacterController.vActions
             var _triggerAction = triggerAction;
             yield return new WaitForSeconds(_triggerAction.destroyDelay);            
             ResetPlayerSettings();
-            Destroy(_triggerAction.gameObject);
+
+            if(isServer)
+            {            
+                NetworkServer.Destroy(_triggerAction.gameObject);
+            }
         }
 
         protected virtual void AnimationBehaviour()

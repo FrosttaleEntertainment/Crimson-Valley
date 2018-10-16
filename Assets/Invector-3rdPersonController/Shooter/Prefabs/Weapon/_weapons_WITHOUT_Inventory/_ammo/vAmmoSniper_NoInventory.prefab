@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 11405870}
   - component: {fileID: 11459616}
   - component: {fileID: 11412718}
+  - component: {fileID: 114103246662520836}
   m_Layer: 11
   m_Name: vAmmoSniper_NoInventory
   m_TagString: Action
@@ -596,8 +597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433be6e73b3fd844aaaf1f34e0654970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openCloseEvents: 0
-  openCloseWindow: 0
+  openCloseEvents: 1
+  openCloseWindow: 1
   selectedToolbar: 0
   autoAction: 1
   disableCollision: 1
@@ -662,3 +663,35 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119170}
   m_IsPrefabAsset: 1
+--- !u!114 &114103246662520836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 7
+    i1: 220
+    i2: 15
+    i3: 193
+    i4: 121
+    i5: 255
+    i6: 234
+    i7: 36
+    i8: 105
+    i9: 167
+    i10: 66
+    i11: 90
+    i12: 176
+    i13: 53
+    i14: 151
+    i15: 175
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0

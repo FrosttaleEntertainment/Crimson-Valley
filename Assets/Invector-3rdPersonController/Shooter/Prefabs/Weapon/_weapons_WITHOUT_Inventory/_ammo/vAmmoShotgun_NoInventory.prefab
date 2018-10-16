@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 11486056}
   - component: {fileID: 11491430}
   - component: {fileID: 11479930}
+  - component: {fileID: 114056954696088076}
   m_Layer: 11
   m_Name: vAmmoShotgun_NoInventory
   m_TagString: Action
@@ -377,8 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433be6e73b3fd844aaaf1f34e0654970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openCloseEvents: 0
-  openCloseWindow: 0
+  openCloseEvents: 1
+  openCloseWindow: 1
   selectedToolbar: 0
   autoAction: 1
   disableCollision: 1
@@ -443,3 +444,35 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 168964}
   m_IsPrefabAsset: 1
+--- !u!114 &114056954696088076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 168964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 12
+    i1: 157
+    i2: 240
+    i3: 183
+    i4: 142
+    i5: 174
+    i6: 215
+    i7: 4
+    i8: 90
+    i9: 105
+    i10: 30
+    i11: 212
+    i12: 156
+    i13: 155
+    i14: 52
+    i15: 245
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
