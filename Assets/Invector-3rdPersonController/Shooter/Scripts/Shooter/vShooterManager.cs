@@ -600,7 +600,7 @@ namespace Invector.vShooter
             {
                 vCamera.vThirdPersonCamera.instance.offsetMouse.x = bx + tx;
                 vCamera.vThirdPersonCamera.instance.offsetMouse.y = by + ty;
-            }            
+            }
         }
 
         public void UpdateShotTime()

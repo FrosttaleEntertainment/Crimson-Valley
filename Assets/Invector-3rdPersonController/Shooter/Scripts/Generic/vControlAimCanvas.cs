@@ -29,7 +29,18 @@ namespace Invector.vShooter
         protected Vector2 sizeDeltaCenter { get { return currentAimCanvas.sizeDeltaCenter; } }
 
         protected vCamera.vThirdPersonCamera tpCamera;
-        protected vThirdPersonController cc;
+        protected vThirdPersonController _cc;
+
+        protected vThirdPersonController cc
+        {
+            get
+            {
+                if (!_cc)
+                    _cc = FindObjectOfType<vThirdPersonController>();
+
+                return _cc;
+            }            
+        }
 
         protected UnityEvent onEnableAim { get { return currentAimCanvas.onEnableAim; } }
         protected UnityEvent onDisableAim { get { return currentAimCanvas.onDisableAim; } }
@@ -53,7 +64,6 @@ namespace Invector.vShooter
         void Start()
         {
             instance = this;
-            cc = FindObjectOfType<vThirdPersonController>();
             tpCamera = FindObjectOfType<vCamera.vThirdPersonCamera>();
             currentAimCanvas = aimCanvasCollection[0];
             isValid = true;

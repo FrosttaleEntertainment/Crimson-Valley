@@ -607,7 +607,7 @@ namespace Invector.vShooter
             {               
                 RotateAimArm();
                 RotateAimHand();
-
+            
                 if (!shooterManager.lWeapon)
                     UpdateLeftIK();
             }
