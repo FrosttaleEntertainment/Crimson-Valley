@@ -50,6 +50,10 @@ public class HudController : MonoBehaviour {
                         var instance = Instantiate(PartyMemberPrefab, PartyFrames.gameObject.transform);
                         partyMember.AssignPartyFrame(instance.GetComponent<PartyFrame>());
                     }
+                    else
+                    {
+                        partyMember.AssignPartyFrame(MyPartyFrame);
+                    }
                 }
             }
         }

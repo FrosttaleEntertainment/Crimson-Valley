@@ -72,6 +72,11 @@ namespace Invector.vCharacterController
 
         protected virtual void Start()
         {
+            cc = GetComponent<vThirdPersonController>();
+
+            if (cc != null)
+                cc.Init();
+
             if (GameController.Instance.IsMultyPlayer())
             {
                 if (!isLocalPlayer)
@@ -80,11 +85,6 @@ namespace Invector.vCharacterController
                     return;
                 }
             }
-
-            cc = GetComponent<vThirdPersonController>();
-
-            if (cc != null)
-                cc.Init();
 
             StartCoroutine(CharacterInit());
 

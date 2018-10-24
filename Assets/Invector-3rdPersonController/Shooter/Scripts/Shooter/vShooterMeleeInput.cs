@@ -76,6 +76,10 @@ namespace Invector.vShooter
         
         protected override void Start()
         {
+            shooterManager = GetComponent<vShooterManager>();
+
+            base.Start();
+
             if (GameController.Instance.IsMultyPlayer())
             {
                 if (!isLocalPlayer)
@@ -83,11 +87,7 @@ namespace Invector.vShooter
                     Destroy(this);
                     return;
                 }
-            }
-
-            shooterManager = GetComponent<vShooterManager>();
-
-            base.Start();
+            }            
 
             leftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
             rightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);

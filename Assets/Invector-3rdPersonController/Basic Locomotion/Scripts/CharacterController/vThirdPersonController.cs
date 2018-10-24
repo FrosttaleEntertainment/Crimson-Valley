@@ -84,6 +84,12 @@ namespace Invector.vCharacterController
 
         #region Locomotion Actions
 
+        [Command]
+        public void CmdSetSprinting(bool value)
+        {
+            isSprinting = value;
+        }
+
         public virtual void Sprint(bool value)
         {
             if (value)
@@ -91,13 +97,23 @@ namespace Invector.vCharacterController
                 if (currentStamina > 0 && input.sqrMagnitude > 0.1f)
                 {
                     if (isGrounded && !isCrouching)
+                    {
                         isSprinting = !isSprinting;
+                        CmdSetSprinting(isSprinting);
+                    }                        
                 }
             }
             else if (currentStamina <= 0 || input.sqrMagnitude < 0.1f || isCrouching || !isGrounded || actions || isStrafing && !strafeSpeed.walkByDefault && (direction >= 0.5 || direction <= -0.5 || speed <= 0))
             {
                 isSprinting = false;
+                CmdSetSprinting(isSprinting);
             }
+        }
+
+        [Command]
+        public void CmdSetCrouching(bool value)
+        {
+            isCrouching = value;
         }
 
         public virtual void Crouch()
@@ -108,24 +124,62 @@ namespace Invector.vCharacterController
                     isCrouching = false;
                 else
                     isCrouching = true;
+
+                CmdSetCrouching(isCrouching);
             }
+        }
+
+        [Command]
+        public void CmdSetStrafing(bool value)
+        {
+            isStrafing = value;
         }
 
         public virtual void Strafe()
         {
             isStrafing = !isStrafing;
+            CmdSetStrafing(isStrafing);
         }
 
         public virtual void Jump(bool consumeStamina = false)
         {
-            if (customAction) return;
+            CmdJump(consumeStamina);
+
+            if(!isServer)
+            {
+                JumpInternal(consumeStamina);
+            }
+        }
+
+        [Command]
+        public void CmdJump(bool consumeStamina)
+        {
+            if(JumpInternal(consumeStamina))
+            {
+                RpcJump(consumeStamina);
+            }
+        }
+
+        [ClientRpc]
+        public void RpcJump(bool consumeStamina)
+        {
+            if(!isLocalPlayer)
+            {
+                //Do not consume stamina on client, it is already synced
+                JumpInternal(false);
+            }
+        }
+
+        public bool JumpInternal(bool consumeStamina)
+        {
+            if (customAction) return false;
 
             // know if has enough stamina to make this action
             bool staminaConditions = currentStamina > jumpStamina;
             // conditions to do this action
             bool jumpConditions = !isCrouching && isGrounded && !actions && staminaConditions && !isJumping;
             // return if jumpCondigions is false
-            if (!jumpConditions) return;
+            if (!jumpConditions) return false;
             // trigger jump behaviour
             jumpCounter = jumpTimer;
             isJumping = true;
@@ -135,14 +189,44 @@ namespace Invector.vCharacterController
             else
                 animator.CrossFadeInFixedTime("JumpMove", .2f);
             // reduce stamina
-            if (consumeStamina)
+            if (consumeStamina && isServer)
             {
                 ReduceStamina(jumpStamina, false);
                 currentStaminaRecoveryDelay = 1f;
             }
+
+            return true;
         }
 
         public virtual void Roll()
+        {
+            CmdRoll();
+
+            if(!isServer)
+            {
+                RollInternal();
+            }
+        }
+
+        [Command]
+        public void CmdRoll()
+        {
+            if (RollInternal())
+            {
+                RpcRoll();
+            }
+        }
+
+        [ClientRpc]
+        public void RpcRoll()
+        {
+            if (!isLocalPlayer)
+            {
+                RollInternal();
+            }
+        }
+
+        public bool RollInternal()
         {
             bool staminaCondition = currentStamina > rollStamina;
             // can roll even if it's on a quickturn or quickstop animation
@@ -150,11 +234,16 @@ namespace Invector.vCharacterController
             // general conditions to roll
             bool rollConditions = (input != Vector2.zero || speed > 0.25f) && actionsRoll && isGrounded && staminaCondition && !isJumping;
 
-            if (!rollConditions || isRolling) return;
+            if (!rollConditions || isRolling) return false;
 
             animator.CrossFadeInFixedTime("Roll", 0.1f);
-            ReduceStamina(rollStamina, false);
-            currentStaminaRecoveryDelay = 2f;
+            if(isServer)
+            {
+                ReduceStamina(rollStamina, false);
+                currentStaminaRecoveryDelay = 2f;
+            }
+
+            return true;
         }
 
         /// <summary>

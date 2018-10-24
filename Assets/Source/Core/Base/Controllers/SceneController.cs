@@ -23,7 +23,6 @@ public class SceneController : Singleton<SceneController>
 
     void OnDisable()
     {
-        Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 

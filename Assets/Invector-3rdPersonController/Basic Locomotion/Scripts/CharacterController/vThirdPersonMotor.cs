@@ -314,6 +314,14 @@ namespace Invector.vCharacterController
             }
         }
 
+        protected virtual void Update()
+        {
+            if(GameController.Instance.IsMultyPlayer() && !isLocalPlayer && isServer)
+            {
+                UpdateMotor();
+            }
+        }
+
         public virtual void UpdateMotor()
         {
             CheckHealth();
