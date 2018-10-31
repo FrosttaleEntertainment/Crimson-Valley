@@ -1,3 +1,4 @@
+using Invector.vCharacterController;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -134,6 +135,44 @@ namespace UnityEngine.UI
             }
         }
 
+        void Update()
+        {
+            // Check for escape key press
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                if(m_InputField == null)
+                {
+                    return;
+                }
+
+                // Make sure we have input text
+                if (!string.IsNullOrEmpty(m_InputField.text))
+                {
+                    // Make sure the return key is pressed
+                    if (Input.GetKey(KeyCode.Return))
+                    {
+                        // Send the message
+                        this.SendChatMessage(m_InputField.text);
+                    }
+                }
+                else
+                {
+                    //Show cursor
+                    var ctrl = FindObjectOfType<vThirdPersonInput>();
+                    if (ctrl)
+                    {
+                        ctrl.ShowCursor(true);
+                        ctrl.LockCursor(true);
+                        ctrl.SetLockBasicInput(true);
+                        ctrl.SetLockCameraInput(true);
+                    }
+
+                    m_InputField.Select();
+                    m_InputField.ActivateInputField();
+                }                
+            }
+        }
+
         protected void OnDisable()
         {
             // Unhook the submit button click event
@@ -190,12 +229,8 @@ namespace UnityEngine.UI
             {
                 string text = this.m_InputField.text;
 
-                // Make sure we have input text
-                if (!string.IsNullOrEmpty(text))
-                {
-                    // Send the message
-                    this.SendChatMessage(text);
-                }
+                // Send the message
+                this.SendChatMessage(text);
             }
         }
 
@@ -341,12 +376,27 @@ namespace UnityEngine.UI
             //int tabId = (this.m_ActiveTabInfo != null ? this.m_ActiveTabInfo.id : 0);
 
             // Trigger the event
-            ChatController.Instance.ClientSendMessage(text);
+            // Make sure we have input text
+            if (!string.IsNullOrEmpty(text))
+            {
+                ChatController.Instance.ClientSendMessage(text);
+            }            
 
             // Clear the input field
             if (this.m_InputField != null)
             {
                 this.m_InputField.text = "";
+                this.m_InputField.DeactivateInputField();
+            }
+
+            //Hide cursor
+            var ctrl = FindObjectOfType<vThirdPersonInput>();
+            if (ctrl)
+            {
+                ctrl.ShowCursor(ctrl.showCursorOnStart);
+                ctrl.LockCursor(ctrl.unlockCursorOnStart);
+                ctrl.SetLockBasicInput(false);
+                ctrl.SetLockCameraInput(false);
             }
         }
 

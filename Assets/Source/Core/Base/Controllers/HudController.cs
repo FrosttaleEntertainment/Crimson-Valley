@@ -26,6 +26,11 @@ public class HudController : MonoBehaviour {
 
             AddPartyMember(player);
         }
+
+        if (GameController.Instance.IsMultyPlayer())
+        {
+            GetComponent<UIWindowManager>().enabled = false;
+        }
     }
 
     public void AddPartyMember(vThirdPersonController partyMember)

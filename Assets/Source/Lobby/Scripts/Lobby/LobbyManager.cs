@@ -551,7 +551,7 @@ namespace Prototype.NetworkLobby
 
             // server
             NetworkServer.RegisterHandler(MsgChatMsgSend, SendChatMsgMessageHandler);
-            NetworkServer.RegisterHandler(MsgChatMsgSend, ClientReadyToBeginMessageHandler);
+            NetworkServer.RegisterHandler(MsgClientReadyToBegin, ClientReadyToBeginMessageHandler);
 
             if (!NetworkServer.active)
             {

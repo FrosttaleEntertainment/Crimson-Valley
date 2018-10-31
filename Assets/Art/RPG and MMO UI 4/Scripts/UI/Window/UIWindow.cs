@@ -187,9 +187,9 @@ namespace UnityEngine.UI
 				// Add a manager if not present
 				if (manager == null)
 				{
-					GameObject newObj = new GameObject("Window Manager");
-					newObj.AddComponent<UIWindowManager>();
-					newObj.transform.SetAsFirstSibling();
+					//GameObject newObj = new GameObject("Window Manager");
+					//newObj.AddComponent<UIWindowManager>();
+					//newObj.transform.SetAsFirstSibling();
 				}
 			}
 			

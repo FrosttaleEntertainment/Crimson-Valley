@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Invector.vCharacterController;
 
 namespace UnityEngine.UI
 {
 	public class UIWindowManager : MonoBehaviour {
-	
-		protected virtual void Update()
+
+		void Update()
 		{
 			// Check for escape key press
-			if (Input.GetKeyUp(KeyCode.Escape))
+			if (Input.GetKeyDown(KeyCode.Escape))
 			{
-				bool EligibleForShow = true;
+                bool EligibleForShow = true;
 				
 				// Get the windows list
 				List<UIWindow> windows = UIWindow.GetWindows();
@@ -33,6 +34,19 @@ namespace UnityEngine.UI
 						}
 					}
 				}
+
+                if(!EligibleForShow)
+                {
+                    //Hide cursor
+                    var ctrl = FindObjectOfType<vThirdPersonInput>();
+                    if (ctrl)
+                    {
+                        ctrl.ShowCursor(ctrl.showCursorOnStart);
+                        ctrl.LockCursor(ctrl.unlockCursorOnStart);
+                        ctrl.SetLockBasicInput(false);
+                        ctrl.SetLockCameraInput(false);
+                    }
+                }
 				
 				// If we didnt hide any windows with this key press check if we should show a window
 				if (EligibleForShow)
@@ -45,10 +59,20 @@ namespace UnityEngine.UI
 						{
 							// Show the window
 							window.Show();
+
+                            //Show cursor
+                            var ctrl = FindObjectOfType<vThirdPersonInput>();
+                            if(ctrl)
+                            {
+                                ctrl.ShowCursor(true);
+                                ctrl.LockCursor(true);
+                                ctrl.SetLockBasicInput(true);
+                                ctrl.SetLockCameraInput(true);
+                            }
 						}
 					}
 				}
 			}
-		}
+        }
 	}
 }

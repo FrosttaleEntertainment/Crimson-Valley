@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Invector.vCharacterController.AI;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -89,10 +90,10 @@ public class EnemyController : NetworkBehaviour
             // TODO: kill all the enemies with burning animation(or just dying)
             foreach (var enemy in m_enemies)
             {
-                var zombie = enemy.GetComponent<Zombie>();
-                if(zombie)
+                var mummy = enemy.GetComponent<v_AIController>();
+                if(mummy)
                 {
-                    zombie.BurnDie();
+                    mummy.ChangeHealth(0);
                 }
             }
         }

@@ -88,13 +88,15 @@ GameObject:
   - component: {fileID: 95764072925177438}
   - component: {fileID: 195035001563702864}
   - component: {fileID: 114748066404389268}
-  - component: {fileID: 114778990886705216}
-  - component: {fileID: 114294388562149462}
   - component: {fileID: 114003757102570870}
   - component: {fileID: 136359806452701314}
   - component: {fileID: 114028104384185402}
   - component: {fileID: 114257349022468410}
   - component: {fileID: 114537329244241592}
+  - component: {fileID: 114888640300361030}
+  - component: {fileID: 114095304155155684}
+  - component: {fileID: 54393770913404682}
+  - component: {fileID: 114436787996910708}
   m_Layer: 9
   m_Name: Mummy_06
   m_TagString: Enemy
@@ -1091,6 +1093,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54393770913404682
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154428994057238}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54399805122793074
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1263,6 +1280,30 @@ MonoBehaviour:
   param3: 
   param4: 
   param5: 
+--- !u!114 &114095304155155684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154428994057238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3efef3ad62cd548b0f85eb11858ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openCloseEvents: 0
+  openCloseWindow: 1
+  selectedToolbar: 0
+  defaultHitEffect: {fileID: 120346, guid: b8f2fe1ee1a01724cb72f5b0e6bd2eef, type: 2}
+  customHitEffects:
+  - hitName: explosion
+    hitPrefab: {fileID: 111042, guid: c6a6b8a1609c89249a3201848ca9084e, type: 2}
+    rotateToHitDirection: 1
+    attachInReceiver: 1
+  - hitName: fire
+    hitPrefab: {fileID: 111042, guid: c6a6b8a1609c89249a3201848ca9084e, type: 2}
+    rotateToHitDirection: 1
+    attachInReceiver: 1
 --- !u!114 &114257349022468410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1304,7 +1345,7 @@ MonoBehaviour:
   sendRate: 30
   networkChannel: 1
   childObjectToSync: {fileID: 0}
---- !u!114 &114294388562149462
+--- !u!114 &114436787996910708
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1312,106 +1353,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1154428994057238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bfedea6b0a691143b1bb0fe39aa0663, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a6e29aa7f269ea44973293e4f139d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats:
-    EntityGroup: 1
-    ArmorType: 0
-    Name: ZombieMain
-    TeamID: 1
-    MoveSpeed: 2
-    TurnSpeed: 2
-    DeathFx: {fileID: 0}
-    LevelUpFx: {fileID: 0}
-    SpawnFx: {fileID: 0}
-    UseMecanim: 0
-    WeaponMountPoint: {fileID: 0}
-    AnimatorHostObj: {fileID: 0}
-    UseWeaponIk: 0
-    UseLeftHandIk: 0
-    UseRightHandIk: 0
-    CharacterScale: 0
-    Level:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Experience:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    XpReward:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Health:
-      Base: 100
-      Actual: 50
-      Min: 0
-      Max: 100
-      IncreasePerLevel: 0
-    Armor:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Strength:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Agility:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Dexterity:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Endurance:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-  ControlStats:
-    TurnSpeed: 1
-    MoveSpeed: 1
-    AnimatorMoveSpeed: 
-    AnimatorHorizontal: 
-    AnimatorVertical: 
-    AnimatorDie: 
-    AnimatorRevive: 
-    AnimatorReload: 
-    AnimatorSwap: 
-    AnimatorWeaponType: 
-  AnimationState: 0
-  IsDead: 0
-  WeaponListEditor: []
-  WeaponListRuntime: []
-  ShowGunDebug: 0
-  InvertHandForward: 0
-  ThumbDirection: {x: 0, y: 0, z: -1}
-  PalmDirection: {x: 0, y: 1, z: 0}
-  DominantHandPosCorrection: {x: 0, y: 0, z: 0}
-  DominantHandRotCorrection: {x: 90, y: -90, z: 0}
-  NonDominantHandPosCorrection: {x: 0, y: 0, z: 0}
-  NonDominantHandRotCorrection: {x: 0, y: 0, z: 0}
-  WeaponPositionInHandCorrection: {x: 0, y: 0, z: 0}
-  RightHandIkLayer: 0
-  LeftHandIkLayer: 1
+  openCloseEvents: 0
+  openCloseWindow: 1
+  selectedToolbar: 0
+  removePhysicsAfterDie: 0
+  disableColliders: 0
+  collisionSource: {fileID: 0}
+  collisionClip: {fileID: 8300000, guid: 820b4795221a59a4f84bdbb8bc6957e9, type: 3}
+  ignoreTags:
+  - Weapon
+  - Ignore Ragdoll
+  - Metal
+  iChar: {fileID: 0}
+  characterChest: {fileID: 0}
+  characterHips: {fileID: 0}
 --- !u!114 &114537329244241592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1458,7 +1416,7 @@ MonoBehaviour:
     i15: 13
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114778990886705216
+--- !u!114 &114888640300361030
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1466,21 +1424,118 @@ MonoBehaviour:
   m_GameObject: {fileID: 1154428994057238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 238ea68906395114e90581a61796f0e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ed68e2fa3a670145a76a285dc78d116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rigidbodies:
-  - {fileID: 54097612115061224}
-  - {fileID: 54041892891405892}
-  - {fileID: 54406783674181602}
-  - {fileID: 54399805122793074}
-  - {fileID: 54996888196068958}
-  - {fileID: 54995000081800832}
-  - {fileID: 54717548146119820}
-  - {fileID: 54165165073701714}
-  - {fileID: 54024832321188388}
-  - {fileID: 54024427110112314}
-  - {fileID: 54483752972889378}
+  openCloseEvents: 1
+  openCloseWindow: 1
+  selectedToolbar: 0
+  _isDead: 0
+  _currentHealth: 0
+  maxHealth: 100
+  healthRecovery: 1
+  healthRecoveryDelay: 0
+  currentHealthRecoveryDelay: 0
+  onReceiveDamage:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vHealthController+OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vHealthController+OnDead, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  deathBy: 2
+  removeComponentsAfterDie: 0
+  onActiveRagdoll:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActiveRagdoll, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  groundCheckDistance: 0.5
+  autoCrouchLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  headDetect: 0.95
+  patrolSpeed: 0.5
+  chaseSpeed: 1
+  strafeSpeed: 1
+  strafeSideways: 1
+  strafeBackward: 1
+  strafeDistance: 3
+  minStrafeSwape: 2
+  maxStrafeSwape: 5
+  strafeRotationSpeed: 5
+  sphereSensor: {fileID: 0}
+  tagsToDetect:
+  - Player
+  currentState: 0
+  drawAgentPath: 0
+  displayGizmos: 0
+  fieldOfView: 95
+  maxDetectDistance: 6
+  minDetectDistance: 2
+  distanceToLostTarget: 15
+  chaseStopDistance: 1
+  passiveToDamage: 0
+  agressiveAtFirstSight: 1
+  attackRotationSpeed: 0.5
+  firstAttackDelay: 0
+  minTimeToAttack: 4
+  maxTimeToAttack: 6
+  maxAttackCount: 3
+  randomAttackCount: 1
+  chanceToRoll: 0.135
+  chanceToBlockInStrafe: 0.224
+  chanceToBlockAttack: 0.291
+  raiseShield: 10
+  lowerShield: 0
+  distanceToChangeWaypoint: 1
+  patrollingStopDistance: 0.5
+  pathArea: {fileID: 0}
+  randomWaypoints: 0
+  _capsuleCollider: {fileID: 0}
+  healthSlider: {fileID: 0}
+  meleeManager: {fileID: 0}
+  lockMovement: 0
+  stateRoutineIteration: 0.15
+  destinationRoutineIteration: 0.5
+  findTargetIteration: 0.5
+  smoothSpeed: 5
+  onIdle:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onChase:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onPatrol:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!135 &135319466222701644
 SphereCollider:
   m_ObjectHideFlags: 1
