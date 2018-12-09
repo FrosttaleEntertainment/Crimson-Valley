@@ -38,12 +38,12 @@ TagManager:
   - 
   - Player
   - Enemy
-  - CompanionAI
+  - EnemyNoCollision
   - Triggers
   - StopMove
   - HeadTrack
   - BodyPart
-  - 
+  - CompanionAI
   - 
   - 
   - 

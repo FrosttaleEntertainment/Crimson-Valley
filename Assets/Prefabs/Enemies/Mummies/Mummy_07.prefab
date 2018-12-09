@@ -248,11 +248,8 @@ GameObject:
   - component: {fileID: 136235371271563880}
   - component: {fileID: 114407860066488252}
   - component: {fileID: 114039041116316796}
-  - component: {fileID: 114989376326934136}
-  - component: {fileID: 114076788553135368}
-  - component: {fileID: 114065121961502436}
-  - component: {fileID: 54058971327416204}
-  - component: {fileID: 114125790144026342}
+  - component: {fileID: 114292335992968490}
+  - component: {fileID: 114575337694810248}
   m_Layer: 9
   m_Name: Mummy_07
   m_TagString: Enemy
@@ -1018,21 +1015,6 @@ Transform:
   m_Father: {fileID: 4895432434446934}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54058971327416204
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1403805622189994}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!54 &54089290889078858
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1040,7 +1022,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1816612516688790}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1055,7 +1037,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1571008435043334}
   serializedVersion: 2
-  m_Mass: 1.875
+  m_Mass: 10.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1070,7 +1052,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1705577126825146}
   serializedVersion: 2
-  m_Mass: 1.875
+  m_Mass: 10.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1085,7 +1067,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1574699716971232}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1100,7 +1082,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1299751658965546}
   serializedVersion: 2
-  m_Mass: 1.875
+  m_Mass: 10.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1115,7 +1097,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1627294479412684}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1130,7 +1112,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1381840314139038}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1145,7 +1127,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1277929199231526}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1160,7 +1142,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1916662599327956}
   serializedVersion: 2
-  m_Mass: 3.125
+  m_Mass: 30.125
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1175,7 +1157,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1584667018625678}
   serializedVersion: 2
-  m_Mass: 3.125
+  m_Mass: 30.125
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1190,7 +1172,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1100153492491038}
   serializedVersion: 2
-  m_Mass: 1.875
+  m_Mass: 10.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1281,7 +1263,7 @@ MonoBehaviour:
   sendRate: 30
   networkChannel: 1
   childObjectToSync: {fileID: 0}
---- !u!114 &114065121961502436
+--- !u!114 &114292335992968490
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1289,40 +1271,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1403805622189994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3efef3ad62cd548b0f85eb11858ed1, type: 3}
+  m_Script: {fileID: 11500000, guid: 31f05b5fe43eb9c428704bfd9ab6b126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
-  defaultHitEffect: {fileID: 120346, guid: b8f2fe1ee1a01724cb72f5b0e6bd2eef, type: 2}
-  customHitEffects:
-  - hitName: explosion
-    hitPrefab: {fileID: 111042, guid: c6a6b8a1609c89249a3201848ca9084e, type: 2}
-    rotateToHitDirection: 1
-    attachInReceiver: 1
-  - hitName: fire
-    hitPrefab: {fileID: 111042, guid: c6a6b8a1609c89249a3201848ca9084e, type: 2}
-    rotateToHitDirection: 1
-    attachInReceiver: 1
---- !u!114 &114076788553135368
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1403805622189994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ed68e2fa3a670145a76a285dc78d116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  openCloseEvents: 1
-  openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 1
   _isDead: 0
   _currentHealth: 0
   maxHealth: 100
-  healthRecovery: 1
+  healthRecovery: 0
   healthRecoveryDelay: 0
   currentHealthRecoveryDelay: 0
   onReceiveDamage:
@@ -1332,7 +1290,18 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   onDead:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114575337694810248}
+        m_MethodName: Activate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Invector.vHealthController+OnDead, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   deathBy: 2
@@ -1357,99 +1326,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  groundCheckDistance: 0.5
-  autoCrouchLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  headDetect: 0.95
-  patrolSpeed: 0.5
-  chaseSpeed: 1
-  strafeSpeed: 1
-  strafeSideways: 1
-  strafeBackward: 1
-  strafeDistance: 3
-  minStrafeSwape: 2
-  maxStrafeSwape: 5
-  strafeRotationSpeed: 5
-  sphereSensor: {fileID: 0}
-  tagsToDetect:
-  - Player
-  currentState: 0
-  drawAgentPath: 0
-  displayGizmos: 0
-  fieldOfView: 95
-  maxDetectDistance: 6
-  minDetectDistance: 2
-  distanceToLostTarget: 15
-  chaseStopDistance: 1
-  passiveToDamage: 0
-  agressiveAtFirstSight: 1
-  attackRotationSpeed: 0.5
-  firstAttackDelay: 0
-  minTimeToAttack: 4
-  maxTimeToAttack: 6
-  maxAttackCount: 3
-  randomAttackCount: 1
-  chanceToRoll: 0.135
-  chanceToBlockInStrafe: 0.224
-  chanceToBlockAttack: 0.291
-  raiseShield: 10
-  lowerShield: 0
-  distanceToChangeWaypoint: 1
-  patrollingStopDistance: 0.5
-  pathArea: {fileID: 0}
-  randomWaypoints: 0
-  _capsuleCollider: {fileID: 0}
   healthSlider: {fileID: 0}
-  meleeManager: {fileID: 0}
-  lockMovement: 0
-  stateRoutineIteration: 0.15
-  destinationRoutineIteration: 0.5
-  findTargetIteration: 0.5
-  smoothSpeed: 5
-  onIdle:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onChase:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onPatrol:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!114 &114125790144026342
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1403805622189994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a6e29aa7f269ea44973293e4f139d58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  openCloseEvents: 0
-  openCloseWindow: 1
-  selectedToolbar: 0
-  removePhysicsAfterDie: 0
-  disableColliders: 0
-  collisionSource: {fileID: 0}
-  collisionClip: {fileID: 8300000, guid: 820b4795221a59a4f84bdbb8bc6957e9, type: 3}
-  ignoreTags:
-  - Weapon
-  - Ignore Ragdoll
-  - Metal
-  iChar: {fileID: 0}
-  characterChest: {fileID: 0}
-  characterHips: {fileID: 0}
 --- !u!114 &114407860066488252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1501,6 +1378,29 @@ MonoBehaviour:
     i15: 191
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114575337694810248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1403805622189994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 238ea68906395114e90581a61796f0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbodies:
+  - {fileID: 54503829907648016}
+  - {fileID: 54825524178432692}
+  - {fileID: 54089290889078858}
+  - {fileID: 54255113961067824}
+  - {fileID: 54251482930282566}
+  - {fileID: 54843392847267086}
+  - {fileID: 54340028148770464}
+  - {fileID: 54650751357153342}
+  - {fileID: 54332533211990714}
+  - {fileID: 54203994986371992}
+  - {fileID: 54813750333371914}
 --- !u!114 &114592374103757720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1522,20 +1422,6 @@ MonoBehaviour:
   ScanFrequency: 1
   LeftHand: {fileID: 4026419802325508}
   RightHand: {fileID: 4927394820473538}
---- !u!114 &114989376326934136
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1403805622189994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 492392c310a924d4291d26c3c333296b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  markerSprite: {fileID: 21300000, guid: afb023e63c5f1b646a83ad530fad2a0e, type: 3}
-  markerSize: 6.5
-  isActive: 1
 --- !u!135 &135353180433708154
 SphereCollider:
   m_ObjectHideFlags: 1

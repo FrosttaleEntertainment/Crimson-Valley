@@ -31,8 +31,8 @@ namespace Invector.vCharacterController.AI
 
         protected void FixedUpdate()
         {
-            ControlLocomotion();
-            HealthRecovery();            
+            //ControlLocomotion();
+            //HealthRecovery();            
         }
 
         #region AI Target

@@ -464,11 +464,8 @@ GameObject:
   - component: {fileID: 136032279343114708}
   - component: {fileID: 114400249857377888}
   - component: {fileID: 114017267950899820}
-  - component: {fileID: 114408730040020548}
-  - component: {fileID: 114163433317271450}
-  - component: {fileID: 114554754488343254}
-  - component: {fileID: 54382842400045814}
-  - component: {fileID: 114271292903662754}
+  - component: {fileID: 114700467882563380}
+  - component: {fileID: 114604327269601382}
   m_Layer: 9
   m_Name: Mummy_08
   m_TagString: Enemy
@@ -1025,7 +1022,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1841541663953054}
   serializedVersion: 2
-  m_Mass: 1.875
+  m_Mass: 10.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1040,7 +1037,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680240082075536}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1055,7 +1052,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1025478141102592}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1070,22 +1067,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1126216535756184}
   serializedVersion: 2
-  m_Mass: 3.125
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!54 &54382842400045814
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1887230882778728}
-  serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 30.125
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1100,7 +1082,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1233902770560562}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1115,7 +1097,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1097152322866290}
   serializedVersion: 2
-  m_Mass: 1.875
+  m_Mass: 10.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1130,7 +1112,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870896797310100}
   serializedVersion: 2
-  m_Mass: 3.125
+  m_Mass: 30.125
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1145,7 +1127,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1080271072053462}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1160,7 +1142,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1062827490916306}
   serializedVersion: 2
-  m_Mass: 1.875
+  m_Mass: 10.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1175,7 +1157,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1169096555261064}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 10.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1190,7 +1172,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251071704922590}
   serializedVersion: 2
-  m_Mass: 1.875
+  m_Mass: 10.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1281,151 +1263,6 @@ MonoBehaviour:
   sendRate: 30
   networkChannel: 1
   childObjectToSync: {fileID: 0}
---- !u!114 &114163433317271450
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1887230882778728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ed68e2fa3a670145a76a285dc78d116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  openCloseEvents: 1
-  openCloseWindow: 1
-  selectedToolbar: 0
-  _isDead: 0
-  _currentHealth: 0
-  maxHealth: 100
-  healthRecovery: 1
-  healthRecoveryDelay: 0
-  currentHealthRecoveryDelay: 0
-  onReceiveDamage:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Invector.vHealthController+OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onDead:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Invector.vHealthController+OnDead, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  deathBy: 2
-  removeComponentsAfterDie: 0
-  onActiveRagdoll:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Invector.vCharacterController.OnActiveRagdoll, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onActionEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onActionStay:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onActionExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  groundCheckDistance: 0.5
-  autoCrouchLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  headDetect: 0.95
-  patrolSpeed: 0.5
-  chaseSpeed: 1
-  strafeSpeed: 1
-  strafeSideways: 1
-  strafeBackward: 1
-  strafeDistance: 3
-  minStrafeSwape: 2
-  maxStrafeSwape: 5
-  strafeRotationSpeed: 5
-  sphereSensor: {fileID: 0}
-  tagsToDetect:
-  - Player
-  currentState: 0
-  drawAgentPath: 0
-  displayGizmos: 0
-  fieldOfView: 95
-  maxDetectDistance: 6
-  minDetectDistance: 2
-  distanceToLostTarget: 15
-  chaseStopDistance: 1
-  passiveToDamage: 0
-  agressiveAtFirstSight: 1
-  attackRotationSpeed: 0.5
-  firstAttackDelay: 0
-  minTimeToAttack: 4
-  maxTimeToAttack: 6
-  maxAttackCount: 3
-  randomAttackCount: 1
-  chanceToRoll: 0.135
-  chanceToBlockInStrafe: 0.224
-  chanceToBlockAttack: 0.291
-  raiseShield: 10
-  lowerShield: 0
-  distanceToChangeWaypoint: 1
-  patrollingStopDistance: 0.5
-  pathArea: {fileID: 0}
-  randomWaypoints: 0
-  _capsuleCollider: {fileID: 0}
-  healthSlider: {fileID: 0}
-  meleeManager: {fileID: 0}
-  lockMovement: 0
-  stateRoutineIteration: 0.15
-  destinationRoutineIteration: 0.5
-  findTargetIteration: 0.5
-  smoothSpeed: 5
-  onIdle:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onChase:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onPatrol:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!114 &114271292903662754
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1887230882778728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a6e29aa7f269ea44973293e4f139d58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  openCloseEvents: 0
-  openCloseWindow: 1
-  selectedToolbar: 0
-  removePhysicsAfterDie: 0
-  disableColliders: 0
-  collisionSource: {fileID: 0}
-  collisionClip: {fileID: 8300000, guid: 820b4795221a59a4f84bdbb8bc6957e9, type: 3}
-  ignoreTags:
-  - Weapon
-  - Ignore Ragdoll
-  - Metal
-  iChar: {fileID: 0}
-  characterChest: {fileID: 0}
-  characterHips: {fileID: 0}
 --- !u!114 &114400249857377888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1445,20 +1282,6 @@ MonoBehaviour:
   param3: 
   param4: 
   param5: 
---- !u!114 &114408730040020548
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1887230882778728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 492392c310a924d4291d26c3c333296b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  markerSprite: {fileID: 21300000, guid: afb023e63c5f1b646a83ad530fad2a0e, type: 3}
-  markerSize: 6.5
-  isActive: 1
 --- !u!114 &114477499501685008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1512,7 +1335,7 @@ MonoBehaviour:
     i15: 222
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114554754488343254
+--- !u!114 &114604327269601382
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1520,22 +1343,85 @@ MonoBehaviour:
   m_GameObject: {fileID: 1887230882778728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3efef3ad62cd548b0f85eb11858ed1, type: 3}
+  m_Script: {fileID: 11500000, guid: 238ea68906395114e90581a61796f0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbodies:
+  - {fileID: 54315991078476950}
+  - {fileID: 54816703086653178}
+  - {fileID: 54966175219265550}
+  - {fileID: 54836341960276420}
+  - {fileID: 54794670188478320}
+  - {fileID: 54937187131955010}
+  - {fileID: 54780244568285362}
+  - {fileID: 54255801880308266}
+  - {fileID: 54059909930636236}
+  - {fileID: 54991508527168246}
+  - {fileID: 54361576053100264}
+--- !u!114 &114700467882563380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887230882778728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f05b5fe43eb9c428704bfd9ab6b126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
-  defaultHitEffect: {fileID: 120346, guid: b8f2fe1ee1a01724cb72f5b0e6bd2eef, type: 2}
-  customHitEffects:
-  - hitName: explosion
-    hitPrefab: {fileID: 111042, guid: c6a6b8a1609c89249a3201848ca9084e, type: 2}
-    rotateToHitDirection: 1
-    attachInReceiver: 1
-  - hitName: fire
-    hitPrefab: {fileID: 111042, guid: c6a6b8a1609c89249a3201848ca9084e, type: 2}
-    rotateToHitDirection: 1
-    attachInReceiver: 1
+  selectedToolbar: 1
+  _isDead: 0
+  _currentHealth: 0
+  maxHealth: 100
+  healthRecovery: 0
+  healthRecoveryDelay: 0
+  currentHealthRecoveryDelay: 0
+  onReceiveDamage:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vHealthController+OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114604327269601382}
+        m_MethodName: Activate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Invector.vHealthController+OnDead, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  deathBy: 2
+  removeComponentsAfterDie: 0
+  onActiveRagdoll:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActiveRagdoll, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  healthSlider: {fileID: 0}
 --- !u!135 &135623595992414966
 SphereCollider:
   m_ObjectHideFlags: 1

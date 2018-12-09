@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 33366594124832166}
   - component: {fileID: 65971005790177198}
   - component: {fileID: 114617046027651770}
-  - component: {fileID: 114276251795245668}
   - component: {fileID: 208276385407325326}
   - component: {fileID: 114150079499278890}
   - component: {fileID: 114893084734731178}
@@ -1983,114 +1982,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   keepUnderCamera: 0
---- !u!114 &114276251795245668
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1301816319389954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed005ab6c59d2cc4b9588793fa93e379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Stats:
-    EntityGroup: 2
-    ArmorType: 0
-    Name: Tree
-    TeamID: 0
-    MoveSpeed: 0
-    TurnSpeed: 0
-    DeathFx: {fileID: 0}
-    LevelUpFx: {fileID: 0}
-    SpawnFx: {fileID: 0}
-    UseMecanim: 0
-    WeaponMountPoint: {fileID: 0}
-    AnimatorHostObj: {fileID: 0}
-    UseWeaponIk: 0
-    UseLeftHandIk: 0
-    UseRightHandIk: 0
-    CharacterScale: 0
-    Level:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Experience:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    XpReward:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Health:
-      Base: 100
-      Actual: 100
-      Min: 0
-      Max: 100
-      IncreasePerLevel: 0
-    Armor:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Strength:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Agility:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Dexterity:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-    Endurance:
-      Base: 0
-      Actual: 0
-      Min: 0
-      Max: 0
-      IncreasePerLevel: 0
-  ControlStats:
-    TurnSpeed: 1
-    MoveSpeed: 1
-    AnimatorMoveSpeed: 
-    AnimatorHorizontal: 
-    AnimatorVertical: 
-    AnimatorDie: 
-    AnimatorRevive: 
-    AnimatorReload: 
-    AnimatorSwap: 
-    AnimatorWeaponType: 
-  AnimationState: 0
-  IsDead: 0
-  WeaponListEditor: []
-  WeaponListRuntime: []
-  ShowGunDebug: 0
-  InvertHandForward: 0
-  ThumbDirection: {x: 0, y: 0, z: -1}
-  PalmDirection: {x: 0, y: 1, z: 0}
-  DominantHandPosCorrection: {x: 0, y: 0, z: 0}
-  DominantHandRotCorrection: {x: 90, y: -90, z: 0}
-  NonDominantHandPosCorrection: {x: 0, y: 0, z: 0}
-  NonDominantHandRotCorrection: {x: 0, y: 0, z: 0}
-  WeaponPositionInHandCorrection: {x: 0, y: 0, z: 0}
-  RightHandIkLayer: 0
-  LeftHandIkLayer: 1
 --- !u!114 &114617046027651770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2134,6 +2025,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2674afd2e41a0f48aa0f13139f29fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openCloseEvents: 0
+  openCloseWindow: 0
+  selectedToolbar: 0
+  _isDead: 0
+  _currentHealth: 0
+  maxHealth: 100
+  healthRecovery: 0
+  healthRecoveryDelay: 0
+  currentHealthRecoveryDelay: 0
+  onReceiveDamage:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vHealthController+OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vHealthController+OnDead, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  deathBy: 0
+  removeComponentsAfterDie: 0
+  onActiveRagdoll:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActiveRagdoll, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!208 &208276385407325326
 NavMeshObstacle:
   m_ObjectHideFlags: 1

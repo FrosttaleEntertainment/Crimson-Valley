@@ -18,7 +18,7 @@ namespace Invector.vShooter
 
         [vEditorToolbar("Damage Layers")]
         [Tooltip("Layer to aim and apply damage")]
-        public LayerMask damageLayer = 1 << 0;
+        public LayerMask damageLayer = 1 << 9;
         [Tooltip("Tags to ignore (auto add this gameObject tag to avoid damage your self)")]
         public vTagMask ignoreTags = new vTagMask("Player");
         [Tooltip("Layer to block aim")]

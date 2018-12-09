@@ -1,10 +1,11 @@
 ﻿using Base;
+using Invector.vCharacterController;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class TreeOfLife : NetworkBehaviour
+public class TreeOfLife : vCharacter
 {
     [Server]
     private void Start()

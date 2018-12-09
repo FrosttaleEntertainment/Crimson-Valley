@@ -469,13 +469,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletLifeSettings: {fileID: 11400000, guid: 537539c32a6167248b7005fa8612f575, type: 2}
   bulletLife: 100
-  debug: 0
+  debug: 1
   damage:
     damageValue: 0
     staminaBlockCost: 0
     staminaRecoveryDelay: 0
     ignoreDefense: 1
-    activeRagdoll: 0
+    activeRagdoll: 1
     sender: {fileID: 0}
     receiver: {fileID: 0}
     hitPosition: {x: 0, y: 0, z: 0}
@@ -483,7 +483,7 @@ MonoBehaviour:
     recoil_id: 0
     reaction_id: -1
     attackName: projectile
-  forceMultiplier: 3
+  forceMultiplier: 2
   destroyOnCast: 1
   onPassDamage:
     m_PersistentCalls:

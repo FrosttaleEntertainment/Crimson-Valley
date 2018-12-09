@@ -527,14 +527,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletLifeSettings: {fileID: 0}
-  bulletLife: 100
+  bulletLife: 1000
   debug: 0
   damage:
     damageValue: 0
     staminaBlockCost: 0
     staminaRecoveryDelay: 0
     ignoreDefense: 1
-    activeRagdoll: 1
+    activeRagdoll: 0
     sender: {fileID: 0}
     receiver: {fileID: 0}
     hitPosition: {x: 0, y: 0, z: 0}
@@ -621,7 +621,7 @@ MonoBehaviour:
     staminaBlockCost: 0
     staminaRecoveryDelay: 0
     ignoreDefense: 1
-    activeRagdoll: 1
+    activeRagdoll: 0
     sender: {fileID: 0}
     receiver: {fileID: 0}
     hitPosition: {x: 0, y: 0, z: 0}
@@ -629,10 +629,10 @@ MonoBehaviour:
     recoil_id: 0
     reaction_id: 0
     attackName: explosion
-  explosionForce: 150
-  minExplosionRadius: 3
+  explosionForce: 200
+  minExplosionRadius: 1
   maxExplosionRadius: 6
-  upwardsModifier: 1.5
+  upwardsModifier: 1.4
   forceMode: 1
   method: 2
   applyDamageLayer:
@@ -640,7 +640,7 @@ MonoBehaviour:
     m_Bits: 768
   applyForceLayer:
     serializedVersion: 2
-    m_Bits: 33025
+    m_Bits: 34561
   timeToExplode: 2
   showGizmos: 0
   onExplode:

@@ -770,7 +770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 4
   isLeftWeapon: 0
   chargeWeapon: 0
   autoShotOnFinishCharge: 0
@@ -815,8 +815,8 @@ MonoBehaviour:
   damageByDistance: 1
   DropOffStart: 8
   DropOffEnd: 50
-  minDamage: 50
-  maxDamage: 85
+  minDamage: 150
+  maxDamage: 350
   recoilRight: 8
   recoilLeft: -8
   recoilUp: 8

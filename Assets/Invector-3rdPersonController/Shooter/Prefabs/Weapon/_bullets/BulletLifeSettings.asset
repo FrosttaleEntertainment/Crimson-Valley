@@ -14,54 +14,12 @@ MonoBehaviour:
   bulletLostLifeList:
   - layers:
       serializedVersion: 2
-      m_Bits: 1
+      m_Bits: 512
     tags:
-    - Untagged
-    - Metal
-    - Concrete
+    - Enemy
     reduceLife: 90
     ricochet: 0
     maxThicknessToCross: 0.2
     damageReducePercentage: 100
     minChangeTrajectory: 0
     maxChangeTrajectory: 0
-  - layers:
-      serializedVersion: 2
-      m_Bits: 1
-    tags:
-    - Untagged
-    - Dirt
-    - Barrel
-    reduceLife: 50
-    ricochet: 0
-    maxThicknessToCross: 0.2
-    damageReducePercentage: 100
-    minChangeTrajectory: 3.2
-    maxChangeTrajectory: 13.5
-  - layers:
-      serializedVersion: 2
-      m_Bits: 32768
-    tags:
-    - Enemy
-    - Player
-    - Boss
-    - Untagged
-    - CompanionAI
-    reduceLife: 80
-    ricochet: 0
-    maxThicknessToCross: 0.35
-    damageReducePercentage: 50
-    minChangeTrajectory: 1
-    maxChangeTrajectory: 2
-  - layers:
-      serializedVersion: 2
-      m_Bits: 1
-    tags:
-    - Glass
-    - Wood
-    reduceLife: 25
-    ricochet: 0
-    maxThicknessToCross: 0.4
-    damageReducePercentage: 10
-    minChangeTrajectory: 0.5
-    maxChangeTrajectory: 1

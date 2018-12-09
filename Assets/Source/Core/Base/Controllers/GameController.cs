@@ -51,36 +51,36 @@ public class GameController : Singleton<GameController>
     // Update is called once per frame
     void Update()
     {
-        if (m_isPlaying)
-        {
-            if (m_isServer)
-            {
-                if (Time.time >= m_phaseEndTime)
-                {
-                    var nextDuration = GetNextStateDuration();
-
-                    if(IsMultyPlayer())
-                    {
-                        //notify all clients
-                        var msg = new GamePhaseChangedMsg();
-                        msg.m_duration = nextDuration;
-                        msg.m_phase = GetNextState();
-
-                        LobbyManager.s_Singleton.SendGamePhaseChangedMsg(msg);
-                    }
-                    else
-                    {
-                        ChangeState(GetNextState(), nextDuration);
-                    }
-                }
-            }           
-
-            // update hud timers
-            if(onPhaseProgress != null)
-            {
-                onPhaseProgress.Invoke(m_currentPhase, Time.time - m_phaseStartTime);
-            }
-        }
+        //if (m_isPlaying)
+        //{
+        //    if (m_isServer)
+        //    {
+        //        if (Time.time >= m_phaseEndTime)
+        //        {
+        //            var nextDuration = GetNextStateDuration();
+        //
+        //            if(IsMultyPlayer())
+        //            {
+        //                //notify all clients
+        //                var msg = new GamePhaseChangedMsg();
+        //                msg.m_duration = nextDuration;
+        //                msg.m_phase = GetNextState();
+        //
+        //                LobbyManager.s_Singleton.SendGamePhaseChangedMsg(msg);
+        //            }
+        //            else
+        //            {
+        //                ChangeState(GetNextState(), nextDuration);
+        //            }
+        //        }
+        //    }           
+        //
+        //    // update hud timers
+        //    if(onPhaseProgress != null)
+        //    {
+        //        onPhaseProgress.Invoke(m_currentPhase, Time.time - m_phaseStartTime);
+        //    }
+        //}
     }
 
     public void StartPlaying(bool isServer = false)

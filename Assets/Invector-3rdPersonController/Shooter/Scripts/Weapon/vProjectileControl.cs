@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 namespace Invector.vShooter
 {
+    using Base;
     using Invector.EventSystems;
     public class vProjectileControl : MonoBehaviour
     {
@@ -11,7 +12,7 @@ namespace Invector.vShooter
         public int bulletLife = 100;
         public bool debug;
         public vDamage damage;
-        public float forceMultiplier = 1;
+        public float forceMultiplier = 0.1f;
         public bool destroyOnCast = true;
         public ProjectilePassDamage onPassDamage;
         public ProjectileCastColliderEvent onCastCollider;
@@ -54,9 +55,8 @@ namespace Invector.vShooter
         {
             RaycastHit hitInfo;
 
-            if (Physics.Linecast(previousPosition, transform.position + transform.forward * 0.5f, out hitInfo, hitLayer, QueryTriggerInteraction.Ignore))
+            if (Physics.Linecast(previousPosition, transform.position + transform.forward * 0.5f, out hitInfo, 1 << 0 | 1 << 9, QueryTriggerInteraction.Ignore))
             {
-
                 if (!hitInfo.collider)
                     return;
                 var dist = Vector3.Distance(startPosition, transform.position) + castDist;
@@ -85,13 +85,14 @@ namespace Invector.vShooter
                     damage.hitPosition = hitInfo.point;
                     damage.receiver = hitInfo.collider.transform;
 
+
                     if (damage.damageValue > 0)
                     {
-                        onPassDamage.Invoke(damage);
                         hitInfo.collider.gameObject.ApplyDamage(damage, damage.sender.GetComponent<vIMeleeFighter>());
+                        onPassDamage.Invoke(damage);
                     }
 
-                    var rigb = hitInfo.collider.gameObject.GetComponent<Rigidbody>();
+                    var rigb = GetClosestRigidBody(hitInfo.collider.gameObject.GetComponentsInChildren<Rigidbody>());
                     if (rigb && !hitInfo.collider.gameObject.isStatic)
                     {
                         rigb.AddForce(transform.forward * damage.damageValue * forceMultiplier, ForceMode.Impulse);
@@ -104,6 +105,7 @@ namespace Invector.vShooter
 
                     if (destroyOnCast)
                     {
+
                         if (bulletLifeSettings)
                         {
                             var bulletLifeInfo = bulletLifeSettings.GetReduceLife(hitInfo.collider.gameObject.tag, hitInfo.collider.gameObject.layer);
@@ -193,6 +195,26 @@ namespace Invector.vShooter
         {
             other.parent = null;
         }
+
+        private Rigidbody GetClosestRigidBody(Rigidbody[] rigidbodies)
+        {
+            Rigidbody closest = null;
+
+            if (rigidbodies.Length>0)
+            {
+                closest = rigidbodies[0];
+                for (int i = 0; i < rigidbodies.Length; i++)
+                {
+                    if (StaticUtil.FastDistance(closest.transform.position, this.transform.position) > StaticUtil.FastDistance(rigidbodies[i].transform.position, this.transform.position))
+                    {
+                        closest = rigidbodies[i];
+                    }
+                }
+            }
+
+            return closest;
+        }
+
         [System.Serializable]
         public class ProjectileCastColliderEvent : UnityEngine.Events.UnityEvent<RaycastHit> { }
         [System.Serializable]

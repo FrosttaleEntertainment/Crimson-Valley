@@ -7,6 +7,8 @@ using System;
 namespace Invector.vCharacterController
 {
     using EventSystems;
+    using Random = UnityEngine.Random;
+
     [System.Serializable]
     public class OnActiveRagdoll : UnityEvent { }
     [System.Serializable]
@@ -134,7 +136,10 @@ namespace Invector.vCharacterController
                     if (triggerResetStateHash.isValid) animator.SetTrigger(triggerResetStateHash);
                 }
             }
-            if (damage.activeRagdoll) onActiveRagdoll.Invoke();
+            if (damage.activeRagdoll)
+            {
+                onActiveRagdoll.Invoke();
+            }
         }
     }
 }

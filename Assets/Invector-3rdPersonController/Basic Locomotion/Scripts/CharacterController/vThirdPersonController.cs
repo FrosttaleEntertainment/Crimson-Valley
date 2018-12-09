@@ -3,6 +3,7 @@ using System.Collections;
 using Invector.vCamera;
 using Prototype.NetworkLobby;
 using UnityEngine.Networking;
+using Base;
 
 namespace Invector.vCharacterController
 {
@@ -21,6 +22,12 @@ namespace Invector.vCharacterController
         protected virtual void Awake()
         {
             StartCoroutine(UpdateRaycast()); // limit raycasts calls for better performance
+            vThirdPersonControllerRepository.Players.Add(this);
+        }
+       
+        protected virtual void OnDestroy()
+        {
+            vThirdPersonControllerRepository.Players.Remove(this);
         }
 
         public bool HasPartyFrame()

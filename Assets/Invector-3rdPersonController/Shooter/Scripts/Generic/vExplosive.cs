@@ -5,7 +5,10 @@ using System;
 namespace Invector
 {
     using EventSystems;
-    public class vExplosive : MonoBehaviour
+    using Invector.vCharacterController;
+    using UnityEngine.Networking;
+
+    public class vExplosive : NetworkBehaviour
     {
         public vDamage damage;
         public float explosionForce;
@@ -20,6 +23,8 @@ namespace Invector
         public UnityEngine.Events.UnityEvent onExplode;
         private bool inTimer;
         private ArrayList collidersReached;
+        private float m_minValueModifier = 0.75f;
+        private float m_maxValueModifier = 1.25f;
 
         void OnDrawGizmosSelected()
         {
@@ -113,17 +118,19 @@ namespace Invector
 
         protected virtual IEnumerator ApplyExplosionForce()
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.001f);
 
             var colliders = Physics.OverlapSphere(transform.position, maxExplosionRadius, applyForceLayer);
             for (int i = 0; i < colliders.Length; i++)
             {
-                var _rigdbody = colliders[i].GetComponent<Rigidbody>();
+                var _modifier = UnityEngine.Random.Range(m_minValueModifier, m_maxValueModifier);
+                var _rigdbody = colliders[i].GetComponentInChildren<Rigidbody>();
+                var _vChar = colliders[i].GetComponent<vCharacter>();
                 var distance = Vector3.Distance(transform.position, colliders[i].ClosestPointOnBounds(transform.position));
                 var force = distance <= minExplosionRadius ? explosionForce : GetPercentageForce(distance, explosionForce);
                 if (_rigdbody)
                 {
-                    _rigdbody.AddExplosionForce(force, transform.position, maxExplosionRadius, upwardsModifier, forceMode);
+                    _rigdbody.AddExplosionForce(_modifier*force, transform.position, maxExplosionRadius, _modifier*upwardsModifier, forceMode);
                 }
             }
         }

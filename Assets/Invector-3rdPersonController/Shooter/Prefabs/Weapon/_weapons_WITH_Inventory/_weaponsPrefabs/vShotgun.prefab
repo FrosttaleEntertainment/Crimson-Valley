@@ -851,7 +851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 4
   isLeftWeapon: 0
   chargeWeapon: 0
   autoShotOnFinishCharge: 0

@@ -18,6 +18,7 @@ public class EnemyController : NetworkBehaviour
         m_currentEmition = 0;
         m_enemies = new List<GameObject>();
         GameController.Instance.onPhaseChanged += OnPhaseChangedImpl;
+        Invoke("EmitWave", 10);
     }
 
     private void OnDestroy()

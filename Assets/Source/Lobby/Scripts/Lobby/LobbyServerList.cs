@@ -65,6 +65,7 @@ namespace Prototype.NetworkLobby
 				}
 
                 GameObject o = Instantiate(serverEntryPrefab) as GameObject;
+                Debug.Log("?");
 
 				o.GetComponent<LobbyServerEntry>().Populate(matches[i], lobbyManager, (i % 2 == 0) ? OddServerColor : EvenServerColor);
 

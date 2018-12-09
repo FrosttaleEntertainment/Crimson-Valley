@@ -6,6 +6,7 @@ using UnityEngine;
 public class RagdollController : MonoBehaviour {
 
     public Rigidbody[] Rigidbodies;
+    private Collider m_collider;
     private Animator m_animator;
 
     public void Activate()
@@ -16,6 +17,12 @@ public class RagdollController : MonoBehaviour {
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
+        m_collider = GetComponent<Collider>();
+
+        if(!m_animator)
+        {
+            Debug.LogError("NO ANIAMTOR");
+        }
 
         ModifyRigidbodiesState(true);
     }
@@ -25,8 +32,12 @@ public class RagdollController : MonoBehaviour {
         ModifyRigidbodiesState(false, gravityState);
 
         m_animator.enabled = false;
-    }
 
+        if(m_collider)
+        {
+            m_collider.enabled = false;
+        }
+    }
 
     /// <summary>
     /// True disables them, while false enables them

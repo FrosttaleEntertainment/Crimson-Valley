@@ -8,7 +8,6 @@ using UnityEngine.Networking;
 
 namespace Base
 {
-    [RequireComponent(typeof(v_AIController))]
     [RequireComponent(typeof(NavMeshAgent))]
     public class MummyAI : NetworkBehaviour
     {
@@ -30,10 +29,10 @@ namespace Base
         private float m_lastScan;
         private float m_lastWander;
         private Mood m_mood;
-        private v_AIController m_entity;
-        private List<vThirdPersonController> m_threatList = new List<vThirdPersonController>();
+        private vCharacter m_entity;
+        private List<vCharacter> m_threatList = new List<vCharacter>();
 
-        private vThirdPersonController m_target;
+        private vCharacter m_target;
         private TreeOfLife m_treeOfLife;
         private AgentAttackRangeModifier m_attackRangeModifier;
         private Vector3 m_targetColliderLength;
@@ -45,7 +44,8 @@ namespace Base
 
         private float m_startSpeed = 0.1f;
         private float m_stopSpeed = 0.1f;
-        private float m_lastSpeed = 0.1f;
+        private float m_lastSpeed = 0.01f;
+        private float m_moveSpeed = 0f;
 
         private Vector2 m_smoothDeltaPosition = Vector2.zero;
         private Vector2 m_velocity = Vector2.zero;
@@ -60,7 +60,7 @@ namespace Base
             var arguments = parameters.Split('|');
             var emissionPoint = arguments[0];
             var hitRange = float.Parse(arguments[1]);
-            List<vThirdPersonController> targets;
+            List<vCharacter> targets;
 
             switch (emissionPoint)
             {
@@ -71,7 +71,7 @@ namespace Base
                     targets = FindTargetsToHit(RightHand, hitRange);
                     break;
                 default:
-                    targets = new List<vThirdPersonController>();
+                    targets = new List<vCharacter>();
                     break;
             }
 
@@ -82,16 +82,16 @@ namespace Base
         }
 
         [Server] 
-        private List<vThirdPersonController> FindTargetsToHit(Transform emissionPoint, float hitRange)
+        private List<vCharacter> FindTargetsToHit(Transform emissionPoint, float hitRange)
         {
-            List<vThirdPersonController> entities = new List<vThirdPersonController>();
+            List<vCharacter> entities = new List<vCharacter>();
 
             var playerLayerMask = 1 << 8;
             Collider[] hitColliders = Physics.OverlapSphere(emissionPoint.position, hitRange, playerLayerMask);
 
             foreach (var hit in hitColliders)
             {
-                var entity = hit.GetComponent<vThirdPersonController>();
+                var entity = hit.GetComponent<vCharacter>();
                 if(entity)
                 {
                     entities.Add(entity);
@@ -102,7 +102,7 @@ namespace Base
         }
 
         [Server]
-        private void DoDamage(List<vThirdPersonController> targets)
+        private void DoDamage(List<vCharacter> targets)
         {
             for (int i = 0; i < targets.Count; i++)
             {
@@ -120,19 +120,19 @@ namespace Base
             m_lastScan      = Time.time;
             m_lastWander    = Time.time;
             m_startPos      = this.transform.position;
-            m_entity        = GetComponent<v_AIController>();
+            m_entity        = GetComponent<vCharacter>();
             m_agent         = GetComponent<NavMeshAgent>();
             m_animator      = GetComponent<Animator>();
-            
+
             //TODO Fix
             //m_entity.OnAttackedAlert += AlertOnHit;
-            //m_entity.Stats.MoveSpeed = Random.Range(1.3f, 3f);
+            m_moveSpeed = Random.Range(1.3f, 3f);
 
             m_treeOfLife = FindObjectOfType<TreeOfLife>();
 
             if(m_treeOfLife)
             {
-                m_target = m_treeOfLife.GetComponent<vThirdPersonController>();
+                m_target = m_treeOfLife.GetComponent<vCharacter>();
             }
 
             AgentConfigure();
@@ -144,11 +144,10 @@ namespace Base
             if (m_agent && m_entity)
             {
                 m_agent.stoppingDistance    = 0;
-                //m_agent.autoBraking         = false;
+                m_agent.autoBraking         = false;
 
-                //TODO Fix
-                //m_agent.angularSpeed        = 100f * m_entity.Stats.TurnSpeed;
-                //m_agent.speed               = m_entity.Stats.MoveSpeed;
+                m_agent.angularSpeed        = 100f * 3;
+                m_agent.speed               = m_moveSpeed;
                 m_agent.acceleration        = 100f;
                 m_agent.updatePosition = false;
             }
@@ -157,9 +156,10 @@ namespace Base
         [Server]
         void Update()
         {
-            if (m_entity.isDead == true)
+            if (m_entity && m_entity.isDead == true)
             {
                 SetAgentState(false);
+                Destroy(this); //TODO: REWORK THIS
                 return;
             }
 
@@ -167,7 +167,6 @@ namespace Base
             {
                 ScanForThreats();
             }
-
 
             SetupAnimatorSpeed();
             ProcessState();
@@ -287,7 +286,7 @@ namespace Base
         }
 
         [Server]
-        private void StartChase(vThirdPersonController target)
+        private void StartChase(vCharacter target)
         {
             m_target = target;
 
@@ -311,7 +310,7 @@ namespace Base
         }
 
         [Server]
-        private void AlertOnHit(vThirdPersonController attacker)
+        private void AlertOnHit(vCharacter attacker)
         {
             if (attacker)
             {
@@ -363,7 +362,7 @@ namespace Base
         }
 
         [Server]
-        private void DefineAsThreat(vThirdPersonController target)     // add a subject to the threat list
+        private void DefineAsThreat(vCharacter target)     // add a subject to the threat list
         {
             if (m_threatList.Contains(target))
             {
