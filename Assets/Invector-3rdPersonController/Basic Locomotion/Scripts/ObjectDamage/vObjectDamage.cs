@@ -4,7 +4,9 @@ using System.Collections.Generic;
 namespace Invector
 {
     using EventSystems;
-    public class vObjectDamage : MonoBehaviour
+    using UnityEngine.Networking;
+
+    public class vObjectDamage : NetworkBehaviour
     {
         public vDamage damage;
         [Tooltip("List of tags that can be hit")]

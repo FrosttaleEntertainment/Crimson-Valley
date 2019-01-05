@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StateName: AttackPreset
-  PresetCount: 1
+  PresetCount: 14
   ShouldChangePreset: 1
 --- !u!114 &114817511829179616
 MonoBehaviour:
@@ -2565,7 +2565,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: New State
+  m_Name: Attack14
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

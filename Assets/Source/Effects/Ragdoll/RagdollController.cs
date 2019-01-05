@@ -9,7 +9,7 @@ public class RagdollController : MonoBehaviour {
     private Collider m_collider;
     private Animator m_animator;
 
-    public void Activate()
+    public void ActivateRagdoll()
     {
         Enable(true);
     }

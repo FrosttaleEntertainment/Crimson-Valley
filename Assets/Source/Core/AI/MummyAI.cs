@@ -22,10 +22,6 @@ namespace Base
         public LayerMask ThreatMask;
         public float ScanFrequency = 1.0f;
 
-        public Transform LeftHand;
-        public Transform RightHand;
-
-
         private float m_lastScan;
         private float m_lastWander;
         private Mood m_mood;
@@ -54,33 +50,6 @@ namespace Base
         //gizmos
         private static float _editorGizmoSpin;
 
-        [Server]
-        public void HitTarget(string parameters)
-        { 
-            var arguments = parameters.Split('|');
-            var emissionPoint = arguments[0];
-            var hitRange = float.Parse(arguments[1]);
-            List<vCharacter> targets;
-
-            switch (emissionPoint)
-            {
-                case "left":
-                    targets = FindTargetsToHit(LeftHand, hitRange);
-                    break;
-                case "right":
-                    targets = FindTargetsToHit(RightHand, hitRange);
-                    break;
-                default:
-                    targets = new List<vCharacter>();
-                    break;
-            }
-
-           if(targets.Count > 0)
-           {
-                DoDamage(targets);
-           }
-        }
-
         [Server] 
         private List<vCharacter> FindTargetsToHit(Transform emissionPoint, float hitRange)
         {
@@ -100,18 +69,6 @@ namespace Base
 
             return entities;
         }
-
-        [Server]
-        private void DoDamage(List<vCharacter> targets)
-        {
-            for (int i = 0; i < targets.Count; i++)
-            {
-                //targets[i].DoDamage(5, m_entity);
-            }
-        }
-
-
-
 
         [Server]
         private void Awake()
@@ -324,13 +281,14 @@ namespace Base
         {
             float closest = -1;
             var previousTarget = m_target;
+            bool isNewTargetFound = false;
             for (int i = 0; i < m_threatList.Count; i++)
             {
                 float currentDist = StaticUtil.FastDistance(this.transform.position, m_threatList[i].transform.position);
                 if (currentDist > closest)
                 {
                     closest = currentDist;
-                    if(m_target != m_threatList[i])
+                    if(m_target != m_threatList[i] && !m_threatList[i].isDead)
                     {
                         m_target = m_threatList[i];
 
@@ -338,9 +296,15 @@ namespace Base
                         {
                             m_attackRangeModifier = m_target.GetComponent<AgentAttackRangeModifier>();
                         }
-                        break;
+
+                        isNewTargetFound = true;
                     }
                 }
+            }
+
+            if(m_target.isDead && !isNewTargetFound)
+            {
+                m_target = m_treeOfLife;
             }
         }
 
