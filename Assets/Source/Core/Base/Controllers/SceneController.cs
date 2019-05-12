@@ -1,10 +1,5 @@
 ﻿using Prototype.NetworkLobby;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 

@@ -1,13 +1,10 @@
-using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
-	public class UISelectField_Option : Toggle {
+    public class UISelectField_Option : Toggle {
 		
 		[Serializable] public class SelectOptionEvent : UnityEvent<string> { }
 		[Serializable] public class PointerUpEvent : UnityEvent<BaseEventData> { }
@@ -107,7 +104,7 @@ namespace UnityEngine.UI
 		/// <param name="eventData">Event data.</param>
 		new public bool IsHighlighted(BaseEventData eventData)
 		{
-			return base.IsHighlighted(eventData);
+			return base.IsHighlighted();
 		}
 		
 		/// <summary>
