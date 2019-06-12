@@ -12,7 +12,6 @@ namespace Invector.vShooter
         public int bulletLife = 100;
         public bool debug;
         public vDamage damage;
-        public float forceMultiplier = 0.1f;
         public bool destroyOnCast = true;
         public ProjectilePassDamage onPassDamage;
         public ProjectileCastColliderEvent onCastCollider;
@@ -37,6 +36,8 @@ namespace Invector.vShooter
         public List<string> ignoreTags;
         [HideInInspector]
         public Transform shooterTransform;
+        [HideInInspector]
+        public float force = 10f;
 
         protected Vector3 previousPosition;
         protected Rigidbody _rigidBody;
@@ -95,7 +96,7 @@ namespace Invector.vShooter
                     var rigb = GetClosestRigidBody(hitInfo.collider.gameObject.GetComponentsInChildren<Rigidbody>());
                     if (rigb && !hitInfo.collider.gameObject.isStatic)
                     {
-                        rigb.AddForce(transform.forward * damage.damageValue * forceMultiplier, ForceMode.Impulse);
+                        rigb.AddForce(transform.forward * force, ForceMode.Impulse);
                     }
                     transform.position = hitInfo.point + transform.forward * 0.02f;
 

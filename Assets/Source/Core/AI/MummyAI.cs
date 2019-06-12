@@ -17,7 +17,7 @@ namespace Base
         public float WanderTime = 6.5f;
         public float WanderRadius = 5f;
         [Header("Attack options")]
-        public float AttackRange = 1f;
+        public float AttackRange = 0.1f;
         public float SightRange = 12f;
         public LayerMask ThreatMask;
         public float ScanFrequency = 1.0f;
@@ -93,6 +93,7 @@ namespace Base
             }
 
             AgentConfigure();
+            AnimatorConfigure();
         }
 
         [Server]
@@ -100,13 +101,25 @@ namespace Base
         {
             if (m_agent && m_entity)
             {
-                m_agent.stoppingDistance    = 0;
+                m_agent.stoppingDistance    = 0f;
                 m_agent.autoBraking         = false;
 
                 m_agent.angularSpeed        = 100f * 3;
                 m_agent.speed               = m_moveSpeed;
                 m_agent.acceleration        = 100f;
-                m_agent.updatePosition = false;
+                m_agent.updatePosition      = false;
+
+                transform.position = m_agent.nextPosition;
+            }
+        }
+
+        [Server]
+        private void AnimatorConfigure()
+        {
+            if(m_animator)
+            {
+                m_animator.applyRootMotion = true;
+                m_animator.SetFloat("MoveSpeed", m_moveSpeed);
             }
         }
         
@@ -134,7 +147,7 @@ namespace Base
         {
             m_lastSpeed = m_animator.GetFloat("MoveSpeed");
 
-            if(m_lastSpeed > m_agent.velocity.magnitude)
+            if(m_lastSpeed > m_animator.deltaPosition.magnitude)
             {
 
                 m_animator.SetFloat("MoveSpeed", Mathf.Lerp(m_lastSpeed, m_agent.velocity.magnitude, m_stopSpeed));
@@ -144,12 +157,22 @@ namespace Base
 
                 m_animator.SetFloat("MoveSpeed", Mathf.Lerp(m_lastSpeed, m_agent.velocity.magnitude, m_startSpeed));
             }
+
+            var worldDeltaPosition = m_agent.nextPosition - transform.position;
+
+            // Pull agent towards character
+            if (worldDeltaPosition.magnitude > m_agent.radius && m_lastSpeed > 1.1f)
+            {
+                m_agent.nextPosition = transform.position + 0.9f * worldDeltaPosition;
+            }
         }
 
         [Server]
         private void OnAnimatorMove()
         {
-            transform.position = m_agent.nextPosition;
+            var position = m_animator.rootPosition;
+            position.y = m_agent.nextPosition.y;
+            transform.position = position;
         }
 
         [Server]
@@ -196,6 +219,11 @@ namespace Base
                     Attack();
                 }
             }
+
+            if(m_target.isDead)
+            {
+                m_mood = Mood.Wander;
+            }
         }
 
 
@@ -203,9 +231,10 @@ namespace Base
         private void Attack()
         {
             var distance = StaticUtil.FastDistance(m_target.transform.position, this.transform.position);
-            if ((m_attackRangeModifier && distance <= m_attackRangeModifier.AgentAttackRange) || distance < AttackRange)
+            if (!m_target.isDead &&((m_attackRangeModifier && distance <= m_attackRangeModifier.AgentAttackRange) || distance < AttackRange))
             {
                 m_animator.SetTrigger("IsAttacking");
+                m_animator.SetFloat("MoveSpeed", 0);
                 RotateTowardsTarget();
                 m_mood = Mood.Attack;
             } else
@@ -315,7 +344,7 @@ namespace Base
             {
                 if (StaticUtil.FastDistance(this.transform.position, vThirdPersonControllerRepository.Players[i].transform.position) < SightRange )
                 {
-                    if(m_threatList.Contains(vThirdPersonControllerRepository.Players[i]) == false)
+                    if(m_threatList.Contains(vThirdPersonControllerRepository.Players[i]) == false && !vThirdPersonControllerRepository.Players[i].isDead)
                     {
                         m_threatList.Add(vThirdPersonControllerRepository.Players[i]);
                     }

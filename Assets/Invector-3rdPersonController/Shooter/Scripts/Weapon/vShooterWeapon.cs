@@ -123,6 +123,8 @@ namespace Invector.vShooter
         public float recoilLeft = -1;
         [Tooltip("Creates a up recoil on the camera")]
         public float recoilUp = 1;
+        [Tooltip("Force applied to Ragdoll")]
+        public float Force = 10f;
 
         [vEditorToolbar("Audio & VFX")]
         [Header("Audio")]
@@ -433,6 +435,7 @@ namespace Invector.vShooter
                     pCtrl.minDamage = (minDamage / projectilesPerShot)*damageMultiplier;
                     pCtrl.DropOffStart = DropOffStart;
                     pCtrl.DropOffEnd = DropOffEnd;
+                    pCtrl.force = Force;
                     onInstantiateProjectile.Invoke(pCtrl);
                     StartCoroutine(ShootBullet(obj, spreadRotation * Vector3.forward));
                 }
@@ -450,6 +453,7 @@ namespace Invector.vShooter
                 pCtrl.minDamage = (minDamage / projectilesPerShot) * damageMultiplier;
                 pCtrl.DropOffStart = DropOffStart;
                 pCtrl.DropOffEnd = DropOffEnd;
+                pCtrl.force = Force;
                 onInstantiateProjectile.Invoke(pCtrl);
                 StartCoroutine(ShootBullet(obj, dir));
             }

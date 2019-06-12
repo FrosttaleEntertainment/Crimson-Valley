@@ -49,25 +49,25 @@ public class DamageColliderActivator : MonoBehaviour {
 
     public void Deactivate()
     {
-        //if (LeftHand)
-        //{
-        //    LeftHand.enabled = false;
-        //}
-        //if (RightHand)
-        //{
-        //    RightHand.enabled = false;
-        //}
-        //if (Special1)
-        //{
-        //    Special1.enabled = false;
-        //}
-        //if (Special2) 
-        //{
-        //    Special2.enabled = false;
-        //}
-        //if (Special3)
-        //{
-        //    Special3.enabled = false;
-        //} 
+        if (LeftHand)
+        {
+            LeftHand.enabled = false;
+        }
+        if (RightHand)
+        {
+            RightHand.enabled = false;
+        }
+        if (Special1)
+        {
+            Special1.enabled = false;
+        }
+        if (Special2) 
+        {
+            Special2.enabled = false;
+        }
+        if (Special3)
+        {
+            Special3.enabled = false;
+        } 
     }
 }
